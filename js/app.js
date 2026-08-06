@@ -556,7 +556,8 @@
     const cover = hasCover
       ? `<img src="${escapeAttr(item.cover)}" alt="" />`
       : `<div class="work-cover-label">${t(SITE.ui.placeholder)}</div>`;
-    const cta = item.link && !editing ? t(SITE.ui.viewCase) : t(SITE.ui.comingSoon);
+    const ctaLabel = tab === "cases" ? SITE.ui.viewCase : SITE.ui.viewWork;
+    const cta = item.link && !editing ? t(ctaLabel) : t(SITE.ui.comingSoon);
     const tags = (item.tags || [])
       .map((x) => `<span>${escapeHtml(x)}</span>`)
       .join("");

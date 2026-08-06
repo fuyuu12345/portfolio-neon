@@ -7,6 +7,8 @@
  * 默认密码请尽快改掉（只有你知道即可）。
  */
 window.SITE = {
+  draftVersion: "2026-08-06-after-hours-v4",
+
   /**
    * 编辑模式密码 — 公开仓库请留空，在 js/content.local.js 写真实密码（已 gitignore）。
    * 本地可复制 content.local.js.example → content.local.js。
@@ -70,7 +72,7 @@ window.SITE = {
   },
 
   ui: {
-    barName: { zh: "LORDE HALL-A", en: "LORDE HALL-A" },
+    barName: { zh: "AFTER HOURS", en: "AFTER HOURS" },
     statusOpen: { zh: "OPEN · 上海", en: "OPEN · Shanghai" },
     muteOn: { zh: "静音", en: "Mute" },
     muteOff: { zh: "声音", en: "Sound" },
@@ -81,6 +83,7 @@ window.SITE = {
     downloadCv: { zh: "下载简历", en: "Download CV" },
     addWechat: { zh: "加微信", en: "WeChat" },
     viewCase: { zh: "查看策划案 →", en: "Open case →" },
+    viewWork: { zh: "查看作品 →", en: "View work →" },
     comingSoon: { zh: "制作中", en: "Coming soon" },
     placeholder: { zh: "待填充", en: "Placeholder" },
     tapContinue: { zh: "点击继续…", en: "Click to continue…" },
@@ -273,6 +276,7 @@ window.SITE = {
     { id: "cases", label: { zh: "整合营销案", en: "IMC Cases" } },
     { id: "content", label: { zh: "内容与视频", en: "Content & Video" } },
     { id: "photos", label: { zh: "摄影集", en: "Photography" } },
+    { id: "other", label: { zh: "其他作品", en: "Other Works" } },
   ],
 
   /**
@@ -282,36 +286,10 @@ window.SITE = {
   portfolio: {
     cases: [
       {
-        cover: "assets/cases/su-rebellion-cover.png",
-        title: {
-          zh: "素的反叛 · 美妆上市整合案",
-          en: "Bare Rebellion · Beauty Launch IMC",
-        },
-        summary: {
-          zh: "概念案：小红书议题 × 抖音挑战 × B站信任 × 腾讯转化",
-          en: "Concept: XHS · Douyin · Bilibili · Tencent funnel",
-        },
-        link: "cases/su-rebellion/index.html",
-        tags: ["整合营销", "概念案", "美妆", "四平台"],
-      },
-      {
-        cover: "assets/cases/mirror-social-cover.png",
-        title: {
-          zh: "镜面社交 · 时尚整合营销概念案",
-          en: "Mirror Social · Fashion IMC Concept",
-        },
-        summary: {
-          zh: "概念案：试衣间即秀场 · 小红书/抖音/B站/腾讯 + 快闪",
-          en: "Concept: runway fitting room · XHS/Douyin/Bili/Tencent + pop-up",
-        },
-        link: "cases/mirror-social/index.html",
-        tags: ["整合营销", "概念案", "时尚", "四平台"],
-      },
-      {
         cover: "cases/oura-ring/kv-apple-hand-v1.png",
         title: {
-          zh: "真我成色 · Oura 妇女节概念案",
-          en: "True Hue · Oura Women's Day Concept",
+          zh: "营销案 01 · 真我成色 · Oura 妇女节概念案",
+          en: "Case 01 · True Hue · Oura Women's Day Concept",
         },
         summary: {
           zh: "概念案：成色礼盒 · 小红书/抖音/B站/腾讯 · 天猫京东收口（可编辑导出 HTML）",
@@ -319,6 +297,20 @@ window.SITE = {
         },
         link: "cases/oura-ring/index.html",
         tags: ["整合营销", "概念案", "穿戴", "妇女节"],
+      },
+      {
+        cover: "",
+        title: { zh: "营销案 02", en: "Case 02" },
+        summary: { zh: "封面与外链待填充", en: "Cover & link TBD" },
+        link: "",
+        tags: ["Placeholder"],
+      },
+      {
+        cover: "",
+        title: { zh: "营销案 03", en: "Case 03" },
+        summary: { zh: "封面与外链待填充", en: "Cover & link TBD" },
+        link: "",
+        tags: ["Placeholder"],
       },
       {
         cover: "",
@@ -330,7 +322,7 @@ window.SITE = {
     ],
     content: [
       {
-        cover: "",
+        cover: "assets/cases/xhs-ip-cover.png",
         title: {
           zh: "小红书个人 IP · 时尚赛道 0–1",
           en: "Xiaohongshu Fashion IP · 0→1",
@@ -371,6 +363,21 @@ window.SITE = {
       { cover: "", title: { zh: "摄影 04", en: "Photo 04" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
       { cover: "", title: { zh: "摄影 05", en: "Photo 05" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
       { cover: "", title: { zh: "摄影 06", en: "Photo 06" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
+    ],
+    other: [
+      {
+        cover: "assets/cases/family-light-cover.png",
+        title: { zh: "家灯 · 家庭轻社交小程序", en: "Family Light · Mini Program" },
+        summary: {
+          zh: "轻量家庭连接 Demo：家庭码加入、关于我、动态、默契与家庭画像。",
+          en: "A lightweight family social demo with family join codes, profiles, feed, quiz, and portraits.",
+        },
+        link: "products/family-light-social/miniprogram/preview.html",
+        tags: ["微信小程序", "Demo", "产品设计"],
+      },
+      { cover: "", title: { zh: "其他作品 02", en: "Other Work 02" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
+      { cover: "", title: { zh: "其他作品 03", en: "Other Work 03" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
+      { cover: "", title: { zh: "其他作品 04", en: "Other Work 04" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
     ],
   },
 };

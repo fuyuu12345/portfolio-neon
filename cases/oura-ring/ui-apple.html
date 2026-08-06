@@ -505,6 +505,55 @@
     }
     .place-grid .media-shot { margin-top: 0; }
     .place-grid.solo { grid-template-columns: 1fr; }
+    /* 小红书：三图并排 */
+    #ch-xhs .place-grid.xhs-tri {
+      grid-template-columns: 1.4fr 1fr .95fr; gap: 12px; margin-top: 12px; align-items: stretch;
+    }
+    #ch-xhs .place-grid.xhs-tri .media-shot {
+      display: flex; flex-direction: column; min-width: 0; height: 100%;
+    }
+    #ch-xhs .place-grid.xhs-tri .media-shot.portrait { max-width: none; margin: 0; }
+    #ch-xhs .place-grid.xhs-tri .media-shot img {
+      flex: 1; width: 100%; max-height: min(48vh, 460px); object-fit: contain; background: #fff;
+    }
+    #ch-xhs .place-grid.xhs-tri .media-shot.portrait img { object-fit: contain; max-height: min(48vh, 460px); }
+    #ch-xhs > ul { margin: 0; }
+    #ch-xhs .slot-tags { margin: 10px 0 0; }
+    #ch-xhs .seo-pack { margin-top: 12px; padding-top: 12px; }
+    #ch-xhs .seo-pack .chips span { padding: 5px 8px; }
+    /* 封面首页：一页内看完，尺寸加大 */
+    #page-0.is-on {
+      display: flex; flex-direction: column;
+      min-height: calc(100vh - 52px - 72px);
+      max-height: calc(100vh - 52px - 72px);
+      overflow: hidden;
+    }
+    #page-0 .hero {
+      flex: 1; display: grid; grid-template-columns: 1.25fr .75fr; align-items: stretch;
+      margin: 8px 0 0; min-height: 0;
+    }
+    #page-0 .hero__visual {
+      aspect-ratio: auto; min-height: 0; height: 100%;
+    }
+    #page-0 .hero__visual img { object-fit: cover; }
+    #page-0 .hero__copy {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 36px 28px; text-align: left;
+    }
+    #page-0 .hero h1 { font-size: clamp(2rem, 3.6vw, 3rem); margin-bottom: 12px; }
+    #page-0 .hero__lead { margin: 0 0 18px; font-size: 15px; max-width: none; }
+    #page-0 .hero__beats { justify-content: flex-start; }
+    #page-0 .hero__eyebrow { font-size: 13px; margin-bottom: 12px; }
+    @media (max-width: 840px) {
+      #ch-xhs .place-grid.xhs-tri { grid-template-columns: 1fr; }
+      #ch-xhs .place-grid.xhs-tri .media-shot img,
+      #ch-xhs .place-grid.xhs-tri .media-shot.portrait img { max-height: 320px; }
+      #page-0.is-on { max-height: none; overflow: visible; min-height: 0; }
+      #page-0 .hero { grid-template-columns: 1fr; }
+      #page-0 .hero__visual { aspect-ratio: 16/9; height: auto; max-height: 48vh; }
+      #page-0 .hero__copy { text-align: center; padding: 24px 18px 28px; }
+      #page-0 .hero__beats { justify-content: center; }
+    }
     .place-note {
       font-size: 12px; color: var(--mute); margin-top: 10px; line-height: 1.55;
     }
@@ -519,9 +568,23 @@
     .funnel-viz b { display: block; font-size: 11px; opacity: .85; margin-bottom: 4px; }
     .funnel-viz strong { display: block; font-size: 14px; font-weight: 700; }
 
+    @media (max-width: 1100px) {
+      #page-8 .beats { grid-template-columns: repeat(3, 1fr); }
+    }
+    #page-8 .beat { min-height: 0; padding: 14px 12px; }
+    #page-8 .beat p { font-size: 12px; }
+    #page-8 h2 + .section__intro {
+      max-width: none;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+    @media (max-width: 900px) {
+      #page-8 h2 + .section__intro { white-space: normal; }
+    }
     @media (max-width: 840px) {
       .hero__copy { padding: 24px 18px 32px; }
-      .split2, .beats, .product, .aud-overview, .chan-grid, .comp-grid, .tl-rail, .path, .scene-grid, .day-grid, .funnel-viz, .place-grid, .month-board, .peak-board, .playbook, .sub-plays, .insight-grid, .focus-bar, .phase-kpi { grid-template-columns: 1fr; }
+      .split2, .beats, .product, .aud-overview, .chan-grid, .comp-grid, .tl-rail, .path, .scene-grid, .day-grid, .funnel-viz, .place-grid:not(.xhs-tri), .month-board, .peak-board, .playbook, .sub-plays, .insight-grid, .focus-bar, .phase-kpi { grid-template-columns: 1fr; }
+      #page-8 .beats { grid-template-columns: 1fr 1fr; }
       .comp-table td:first-child, .kpi-table td:first-child { white-space: normal; }
       .path div + div::before { display: none; }
       .product__art img { min-height: 180px; }
@@ -670,7 +733,7 @@
     <div class="top__in">
       <div class="top__brand">Oura <span>真我成色 · 妇女节 / 38节</span></div>
       <!-- Ctrl+Shift+E 编辑 · 导出 HTML 后覆盖本文件即可换电脑打开 -->
-      <span class="top__pill" id="pagePill">01 / 08</span>
+      <span class="top__pill" id="pagePill">01 / 09</span>
     </div>
   </header>
 
@@ -685,6 +748,7 @@
       <button type="button" data-page="5"><span class="n">06</span><strong>渠道流量位</strong></button>
       <button type="button" data-page="6"><span class="n">07</span><strong>排期日历</strong></button>
       <button type="button" data-page="7"><span class="n">08</span><strong>目标与监测</strong></button>
+      <button type="button" data-page="8"><span class="n">09</span><strong>总结</strong></button>
     </aside>
 
     <div class="main">
@@ -1103,7 +1167,7 @@
         <div class="slot-tags">
           <span>达人笔记</span><span>大字封面</span><span>搜索 SEO</span><span>信息流</span><span>开屏</span>
         </div>
-        <div class="place-grid">
+        <div class="place-grid xhs-tri">
           <div class="media-shot">
             <img src="media-xhs-kols.png" alt="小红书达人种草笔记封面" />
             <div class="cap">达人笔记 · 种草封面/标题参考（白底信息栏）</div>
@@ -1112,10 +1176,10 @@
             <img src="media-xhs-seo.png" alt="小红书搜索结果位示意" />
             <div class="cap">搜索结果位 · 双列瀑布流（真机示意）</div>
           </div>
-        </div>
-        <div class="media-shot portrait" style="margin-top:12px">
-          <img src="media-splash-xhs.png" alt="小红书开屏" />
-          <div class="cap">小红书开屏 · 手部主视觉（原版）</div>
+          <div class="media-shot portrait">
+            <img src="media-splash-xhs.png" alt="小红书开屏" />
+            <div class="cap">小红书开屏 · 手部主视觉（原版）</div>
+          </div>
         </div>
         <div class="seo-pack">
           <div class="seo-label">词包（写进笔记标题 / 话题，不是搜索栏资源位）</div>
@@ -1614,6 +1678,65 @@
       </div>
     </section>
 
+    <section class="page section" data-page="8" id="page-8">
+      <div class="section__label">09 · 总结</div>
+      <h2>结论</h2>
+      <div class="insight" style="margin-top:0">
+        <p class="insight__quote">妇女节传播不缺情绪与祝福，缺的是可落地的购买理由。本方案以「真我成色 / 真我，戴在手上」为主轴，围绕 Oura Ring 4 Ceramic 成色与节日礼盒，完成从认知、认同到自购与礼赠转化的闭环。</p>
+      </div>
+
+      <div class="split2" style="margin-top:14px">
+        <article class="card good">
+          <h3>主轴要点</h3>
+          <p><strong style="color:var(--ink)">真我成色 · 真我，戴在手上</strong></p>
+          <ul>
+            <li>产品：Ceramic 成色体系 + 妇女节礼盒</li>
+            <li>目标：认知 → 认同 → 转化</li>
+            <li>表达落点：可见、可佩戴、可展示、可自护</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>人群重心</h3>
+          <ul>
+            <li>主攻：入门自购与礼赠决策者（约占内容与达人露出七成）</li>
+            <li>兼顾：换设备人群、熟龄质感向</li>
+            <li>触达：一线及新一线 25–34 岁；成交承接全国线上</li>
+          </ul>
+        </article>
+      </div>
+
+      <h2 style="margin-top:22px;font-size:1.35rem">平台分工</h2>
+      <p class="section__intro">都以「真我成色」为主题，采用不同玩法：站外种草，天猫 / 京东礼盒页 + 微信侧小程序承接转化。</p>
+      <div class="beats" style="grid-template-columns:repeat(5,1fr)">
+        <article class="beat"><div class="dot"></div><b>小红书</b><strong>种草 · 搜索</strong><p>达人露脸封面、词包占位、开屏传递主轴。</p></article>
+        <article class="beat"><div class="dot"></div><b>抖音</b><strong>测款 · 放量</strong><p>信息流短视频；胜出素材回流投放。</p></article>
+        <article class="beat"><div class="dot"></div><b>B站</b><strong>信任 · 深度</strong><p>达人测评与轻种草；播放 / 搜索 / 推荐承接。</p></article>
+        <article class="beat"><div class="dot"></div><b>腾讯</b><strong>社交 · 转化</strong><p>朋友圈九宫格、视频号、搜一搜品专。</p></article>
+        <article class="beat"><div class="dot"></div><b>购物</b><strong>礼盒成交</strong><p>天猫 / 京东礼盒页；开屏仅配置小红书与天猫。</p></article>
+      </div>
+
+      <h2 style="margin-top:22px;font-size:1.35rem">节奏与监测</h2>
+      <div class="path" style="margin-bottom:12px">
+        <div><b>预热</b><strong>2/22 – 3/4</strong><span>达人种草、测款、词包预埋；关注认知与互动</span></div>
+        <div><b>爆发</b><strong>3/5 – 3/9</strong><span>开屏与投放加码；关注 CVR、CPA、ROAS</span></div>
+        <div><b>长尾</b><strong>3/10 – 3/22</strong><span>UGC 与合集续航；仅投放已验证素材</span></div>
+      </div>
+      <div class="phase-kpi">
+        <div><b>观察口径</b><strong>礼盒页 CVR 约 2%–3%</strong><p>CPA 约客单 20%–30%；付费池 ROAS ≥ 3.0（非承诺）</p></div>
+        <div><b>预算结构</b><strong>达人 40% · 投放 60%</strong><p>不含制作；预热偏内容，爆发偏投放与开屏</p></div>
+        <div><b>达人结构</b><strong>头腰搭配</strong><p>头部 1–2 立主轴；腰部 8–12 分场景；补充真实开箱 UGC</p></div>
+      </div>
+
+      <article class="card" style="margin-top:14px">
+        <h3>说明</h3>
+        <ul>
+          <li>本页为作品集概念案，用于策略展示与推演，非官方活动物料</li>
+          <li>健康相关表述仅作状态参考，不承诺疗效</li>
+          <li>站外流量最终导向旗舰店礼盒页；微信侧以小程序为概念承接</li>
+        </ul>
+      </article>
+    </section>
+
     <div class="note">
       <span>刘骅慧作品集 · Oura 妇女节 营销概念案</span>
       <span>概念策划 · 非官方活动</span>
@@ -1634,7 +1757,7 @@
   </div>
 
   <script>
-    const PAGE_TITLES = ["封面主轴","洞察与机会","主轴与样例","卖什么","人群","渠道流量位","排期日历","目标与监测"];
+    const PAGE_TITLES = ["封面主轴","洞察与机会","主轴与样例","卖什么","人群","渠道流量位","排期日历","目标与监测","总结"];
     const pages = [...document.querySelectorAll(".page[data-page]")];
     const sideBtns = [...document.querySelectorAll("#sideNav button")];
     const pill = document.getElementById("pagePill");
@@ -1643,6 +1766,7 @@
     const label = document.getElementById("pagerLabel");
     const dots = document.getElementById("pagerDots");
     let cur = 0;
+    const PAGE_TOTAL = String(PAGE_TITLES.length).padStart(2, "0");
 
     PAGE_TITLES.forEach((_, i) => {
       const d = document.createElement("i");
@@ -1655,7 +1779,7 @@
       pages.forEach((p) => p.classList.toggle("is-on", Number(p.dataset.page) === cur));
       sideBtns.forEach((b) => b.classList.toggle("is-on", Number(b.dataset.page) === cur));
       [...dots.children].forEach((d, i) => d.classList.toggle("is-on", i === cur));
-      pill.textContent = String(cur + 1).padStart(2, "0") + " / 08";
+      pill.textContent = String(cur + 1).padStart(2, "0") + " / " + PAGE_TOTAL;
       label.textContent = PAGE_TITLES[cur];
       prev.disabled = cur === 0;
       next.disabled = cur === PAGE_TITLES.length - 1;

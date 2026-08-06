@@ -31,6 +31,9 @@
       const raw = localStorage.getItem(DRAFT_KEY);
       if (!raw || !window.SITE) return;
       const draft = JSON.parse(raw);
+      const currentDraftVersion = window.SITE.draftVersion || "";
+      const draftVersion = draft?.draftVersion || "";
+      if (currentDraftVersion && draftVersion !== currentDraftVersion) return;
       const filePassword = window.SITE.editorPassword;
       deepMerge(window.SITE, draft);
       // 密码始终以 content.js 为准，避免本机草稿锁死旧密码
@@ -43,6 +46,7 @@
   function getDraftPayload() {
     const s = window.SITE;
     return {
+      draftVersion: s.draftVersion,
       name: s.name,
       nameFull: s.nameFull,
       intent: s.intent,
@@ -138,6 +142,7 @@
           <button type="button" data-etab="cases">营销案</button>
           <button type="button" data-etab="content">内容视频</button>
           <button type="button" data-etab="photos">摄影</button>
+          <button type="button" data-etab="other">其他作品</button>
         </div>
         <div class="editor-body">
           <div class="editor-section is-active" data-esection="text"></div>
@@ -145,6 +150,7 @@
           <div class="editor-section" data-esection="cases"></div>
           <div class="editor-section" data-esection="content"></div>
           <div class="editor-section" data-esection="photos"></div>
+          <div class="editor-section" data-esection="other"></div>
         </div>
         <div class="editor-foot">
           <button type="button" class="primary" id="editorApply">应用预览</button>

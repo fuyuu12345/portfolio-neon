@@ -76,8 +76,10 @@
     tabCases: { zh: "整合营销案", en: "IMC Cases" },
     tabPhotos: { zh: "摄影集", en: "Photos" },
     tabSocial: { zh: "社交媒体作品", en: "Social" },
+    tabOther: { zh: "其他作品", en: "Other Works" },
     comingSoon: { zh: "制作中", en: "Coming soon" },
     viewCase: { zh: "查看策划案 →", en: "Open case →" },
+    viewWork: { zh: "查看作品 →", en: "View work →" },
     panelHintLong: {
       zh: "长内容已在中间弹窗打开。",
       en: "Opened in the center modal.",
@@ -198,8 +200,8 @@
         },
         b2a: {
           text: {
-            zh: "LORDE HALL-A。像一间只在夜里开门的小厅——进门的人，各自找各自的章节。",
-            en: "LORDE HALL-A. A small hall that only opens at night — everyone finds their own chapter.",
+            zh: "AFTER HOURS。外面收工了，这里才刚热场。",
+            en: "AFTER HOURS. Outside's closed for the day — in here, the night's just warming up.",
           },
           end: true,
         },
@@ -602,7 +604,12 @@
   function features() {
     const cases = SITE.portfolio?.cases || [];
     const content = SITE.portfolio?.content || [];
-    return [...cases.slice(0, 2), ...content.slice(0, 2)];
+    const other = SITE.portfolio?.other || [];
+    return [
+      { item: cases[0], key: "cases" },
+      { item: content[0], key: "content" },
+      { item: other[0], key: "other" },
+    ].filter((entry) => entry.item);
   }
 
   function renderFeature() {
@@ -610,11 +617,10 @@
     if (!items.length) return;
     const i = ((state.featureIndex % items.length) + items.length) % items.length;
     state.featureIndex = i;
-    const item = items[i];
-    const isContent = i >= 2;
-    $("#featureCat").textContent = isContent
-      ? t(SITE.portfolioTabs?.[1]?.label) || t(UI.tabSocial)
-      : t(SITE.portfolioTabs?.[0]?.label) || t(UI.tabCases);
+    const entry = items[i];
+    const item = entry.item;
+    const tabDef = SITE.portfolioTabs?.find((tab) => tab.id === entry.key);
+    $("#featureCat").textContent = t(tabDef?.label) || t(UI.tabCases);
     $("#featureTitle").textContent = t(item.title);
     $("#featureSum").textContent = t(item.summary);
     const cover = $("#featureCover");
@@ -870,13 +876,14 @@
   function workListHtml(key) {
     const list = SITE.portfolio?.[key] || [];
     if (!list.length) return `<p>${t(UI.comingSoon)}</p>`;
+    const ctaLabel = key === "cases" ? UI.viewCase : UI.viewWork;
     return list
       .map((item) => {
         const cover = item.cover
           ? `<img src="${asset(item.cover)}" alt="" />`
           : `<span>${t(UI.comingSoon)}</span>`;
         const link = item.link
-          ? `<a class="work-link" href="${asset(item.link)}" target="_blank" rel="noopener">${t(UI.viewCase)}</a>`
+          ? `<a class="work-link" href="${asset(item.link)}" target="_blank" rel="noopener">${t(ctaLabel)}</a>`
           : `<span class="work-link">${t(UI.comingSoon)}</span>`;
         return `<article class="work-card">
           <div class="work-cover">${cover}</div>
@@ -911,6 +918,7 @@
         { id: "cases", label: UI.tabCases },
         { id: "photos", label: UI.tabPhotos },
         { id: "social", label: UI.tabSocial, key: "content" },
+        { id: "other", label: UI.tabOther },
       ];
       tabs.innerHTML = tabDefs
         .map(

@@ -7,41 +7,22 @@
   <title>女性主义文创 · 前期调研</title>
   <link rel="stylesheet" href="css/style.css" />
   <script>
-    (function () {
-      var KEY = "feminist_survey_done_v1";
-      function already() {
-        try {
-          if (localStorage.getItem(KEY) === "1") return true;
-        } catch (e) {}
-        try {
-          if (sessionStorage.getItem(KEY) === "1") return true;
-        } catch (e) {}
-        try {
-          return /(?:^|;\s*)feminist_survey_done_v1=1(?:;|$)/.test(document.cookie);
-        } catch (e) {
-          return false;
-        }
-      }
-      if (already()) {
-        location.replace("thanks.html?done=1");
-      }
-    })();
+    // 作品集 Demo：允许反复打开体验，不跳转「已填写」页
   </script>
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
   <main class="wrap">
     <div class="topbar">
-      <div class="brand">Feminist Cultural Research</div>
+      <div class="brand">Feminist Cultural Research · Demo</div>
       <div class="topbar-links">
-        <a class="ghost" href="edit.html">编辑问卷</a>
-        <a class="ghost" href="results.html">查看统计</a>
+        <span class="ghost" style="opacity:.7;pointer-events:none">作品集展示 Demo</span>
       </div>
     </div>
 
     <header class="hero">
       <h1 id="survey-title">女性主义文创 · 前期调研</h1>
-      <p id="survey-subtitle">这份问卷大约需要 3–5 分钟。你的回答将帮助我们理解真实需求。</p>
+      <p id="survey-subtitle">作品集交互 Demo：可浏览题目与流程；正式收集在腾讯云进行，此处不会真正提交数据。</p>
       <div class="progress-wrap">
         <div class="progress-meta">
           <span>填写进度 <span id="page-text">第 1 / 1 页</span></span>

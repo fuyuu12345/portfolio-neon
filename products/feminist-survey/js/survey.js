@@ -490,15 +490,23 @@
   }
 
   async function submit(answers) {
+    statusEl.className = "status";
+    statusEl.textContent = window.SURVEY_DEMO ? "Demo 预览提交中…" : "提交中…";
+    if (submitBtn) submitBtn.disabled = true;
+    if (nextBtn) nextBtn.disabled = true;
+    if (prevBtn) prevBtn.disabled = true;
+
+    if (window.SURVEY_DEMO) {
+      statusEl.className = "status ok";
+      statusEl.textContent = "Demo 预览完成，正在跳转…";
+      window.location.replace(earlyEnd ? "thanks.html?demo=1&early=1" : "thanks.html?demo=1");
+      return;
+    }
+
     if (hasSubmittedBefore()) {
       window.location.replace("thanks.html?done=1");
       return;
     }
-    statusEl.className = "status";
-    statusEl.textContent = "提交中…";
-    if (submitBtn) submitBtn.disabled = true;
-    if (nextBtn) nextBtn.disabled = true;
-    if (prevBtn) prevBtn.disabled = true;
 
     try {
       const res = await fetch(surveyApi("/api/submit"), {
@@ -516,7 +524,7 @@
       markSubmitted();
       statusEl.className = "status ok";
       statusEl.textContent = "提交成功，正在跳转…";
-      window.location.replace(earlyEnd ? "/thanks.html?early=1" : "/thanks.html");
+      window.location.replace(earlyEnd ? "thanks.html?early=1" : "thanks.html");
     } catch (err) {
       statusEl.className = "status";
       statusEl.textContent = err.message || "网络错误，请稍后重试。";
@@ -590,18 +598,30 @@
   });
 
   statusEl.textContent = "加载问卷中…";
-  if (blockIfAlreadyDone()) return;
+  if (!window.SURVEY_DEMO && blockIfAlreadyDone()) return;
 
   loadSurveyConfig()
     .then(() => {
-      if (blockIfAlreadyDone()) return;
+      if (!window.SURVEY_DEMO && blockIfAlreadyDone()) return;
       questions = window.SURVEY_QUESTIONS || [];
+      const meta = window.SURVEY_META || {};
+      if (meta.title) {
+        const titleEl = document.getElementById("survey-title");
+        if (titleEl) titleEl.textContent = meta.title;
+        document.title = meta.title;
+      }
+      if (meta.subtitle) {
+        const subEl = document.getElementById("survey-subtitle");
+        if (subEl) subEl.textContent = meta.subtitle;
+      }
       statusEl.textContent = "";
       pageIndex = 0;
       render();
       updateProgress();
     })
     .catch(() => {
-      statusEl.textContent = "问卷加载失败，请确认服务已启动后刷新。";
+      statusEl.textContent = window.SURVEY_DEMO
+        ? "Demo 问卷加载失败，请确认 survey-config.json 已上传。"
+        : "问卷加载失败，请确认服务已启动后刷新。";
     });
 })();

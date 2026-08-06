@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="css/style.css" />
   <script>
     (function () {
+      var params = new URLSearchParams(location.search);
+      // Demo 不锁定设备，方便作品集反复演示
+      if (params.get("demo") === "1") return;
       var KEY = "feminist_survey_done_v1";
       try {
         localStorage.setItem(KEY, "1");
@@ -28,11 +31,15 @@
     <div class="card thanks-card">
       <h1>感谢你的回答</h1>
       <p id="thanks-msg">你的反馈已收录。每台设备仅可填写一次，再次感谢你的时间与支持。</p>
+      <p style="margin-top:12px"><a class="btn btn-primary" href="index.html">返回 Demo</a></p>
       <script>
         (function () {
           const params = new URLSearchParams(location.search);
           const msg = document.getElementById("thanks-msg");
-          if (params.get("early") === "1") {
+          if (params.get("demo") === "1") {
+            msg.textContent =
+              "这是作品集 Demo 预览：题目与流程可完整体验，数据不会提交到腾讯云正式问卷。";
+          } else if (params.get("early") === "1") {
             msg.textContent =
               "已记录你的选择。因为暂无兴趣，问卷到此结束。每台设备仅可填写一次，仍然非常感谢你的时间。";
           } else if (params.get("done") === "1") {

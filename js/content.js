@@ -120,8 +120,8 @@ window.SITE = {
         en: ["Funnel Fizz. Few tags — all growth-relevant."],
       },
       work: {
-        zh: ["Growth Highball。两杯整合营销概念案已上桌——美妆与时尚，四平台咬合，点开即是完整方案页。"],
-        en: ["Growth Highball. Two IMC concept decks — beauty + fashion, four-platform mix."],
+        zh: ["Growth Highball。桌上是案例和 Demo，点开就能看。"],
+        en: ["Growth Highball. Cases and demos on the table — open any one."],
       },
       education: {
         zh: ["Campus Cooler。最高学历在这里。"],

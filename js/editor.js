@@ -142,7 +142,7 @@
           <button type="button" data-etab="cases">营销案</button>
           <button type="button" data-etab="content">内容视频</button>
           <button type="button" data-etab="photos">摄影</button>
-          <button type="button" data-etab="other">其他作品</button>
+          <button type="button" data-etab="other">其ta</button>
         </div>
         <div class="editor-body">
           <div class="editor-section is-active" data-esection="text"></div>

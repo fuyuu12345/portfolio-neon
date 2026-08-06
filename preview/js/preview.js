@@ -76,7 +76,7 @@
     tabCases: { zh: "整合营销案", en: "IMC Cases" },
     tabPhotos: { zh: "摄影集", en: "Photos" },
     tabSocial: { zh: "社交媒体作品", en: "Social" },
-    tabOther: { zh: "其他作品", en: "Other Works" },
+    tabOther: { zh: "其ta", en: "Other" },
     comingSoon: { zh: "制作中", en: "Coming soon" },
     viewCase: { zh: "查看策划案 →", en: "Open case →" },
     viewWork: { zh: "查看作品 →", en: "View work →" },

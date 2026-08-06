@@ -7,7 +7,7 @@
  * 默认密码请尽快改掉（只有你知道即可）。
  */
 window.SITE = {
-  draftVersion: "2026-08-06-after-hours-v4",
+  draftVersion: "2026-08-06-feminist-survey-v5",
 
   /**
    * 编辑模式密码 — 公开仓库请留空，在 js/content.local.js 写真实密码（已 gitignore）。
@@ -276,7 +276,7 @@ window.SITE = {
     { id: "cases", label: { zh: "整合营销案", en: "IMC Cases" } },
     { id: "content", label: { zh: "内容与视频", en: "Content & Video" } },
     { id: "photos", label: { zh: "摄影集", en: "Photography" } },
-    { id: "other", label: { zh: "其他作品", en: "Other Works" } },
+    { id: "other", label: { zh: "其ta", en: "Other" } },
   ],
 
   /**
@@ -375,9 +375,18 @@ window.SITE = {
         link: "products/family-light-social/miniprogram/preview.html",
         tags: ["微信小程序", "Demo", "产品设计"],
       },
-      { cover: "", title: { zh: "其他作品 02", en: "Other Work 02" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
-      { cover: "", title: { zh: "其他作品 03", en: "Other Work 03" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
-      { cover: "", title: { zh: "其他作品 04", en: "Other Work 04" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
+      {
+        cover: "products/feminist-survey/images/style-power-type.png",
+        title: { zh: "女性主义文创 · 前期调研问卷", en: "Feminist Cultural Research Survey" },
+        summary: {
+          zh: "可交互问卷 Demo：题型逻辑、进度填写、统计看板与导出。",
+          en: "Interactive survey demo with question logic, progress, stats dashboard, and export.",
+        },
+        link: "products/feminist-survey/index.html",
+        tags: ["调研", "问卷", "Demo"],
+      },
+      { cover: "", title: { zh: "其ta 03", en: "Other 03" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
+      { cover: "", title: { zh: "其ta 04", en: "Other 04" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
     ],
   },
 };

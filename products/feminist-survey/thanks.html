@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+  <title>提交成功 · 感谢参与</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script>
+    (function () {
+      var KEY = "feminist_survey_done_v1";
+      try {
+        localStorage.setItem(KEY, "1");
+      } catch (e) {}
+      try {
+        sessionStorage.setItem(KEY, "1");
+      } catch (e) {}
+      try {
+        document.cookie =
+          KEY + "=1; path=/; max-age=" + 60 * 60 * 24 * 730 + "; SameSite=Lax";
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="wrap">
+    <div class="card thanks-card">
+      <h1>感谢你的回答</h1>
+      <p id="thanks-msg">你的反馈已收录。每台设备仅可填写一次，再次感谢你的时间与支持。</p>
+      <script>
+        (function () {
+          const params = new URLSearchParams(location.search);
+          const msg = document.getElementById("thanks-msg");
+          if (params.get("early") === "1") {
+            msg.textContent =
+              "已记录你的选择。因为暂无兴趣，问卷到此结束。每台设备仅可填写一次，仍然非常感谢你的时间。";
+          } else if (params.get("done") === "1") {
+            msg.textContent = "这台设备已经提交过问卷，无需重复填写。感谢你的参与。";
+          }
+        })();
+      </script>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+  <title>女性主义文创 · 前期调研</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script>
+    (function () {
+      var KEY = "feminist_survey_done_v1";
+      function already() {
+        try {
+          if (localStorage.getItem(KEY) === "1") return true;
+        } catch (e) {}
+        try {
+          if (sessionStorage.getItem(KEY) === "1") return true;
+        } catch (e) {}
+        try {
+          return /(?:^|;\s*)feminist_survey_done_v1=1(?:;|$)/.test(document.cookie);
+        } catch (e) {
+          return false;
+        }
+      }
+      if (already()) {
+        location.replace("thanks.html?done=1");
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="wrap">
+    <div class="topbar">
+      <div class="brand">Feminist Cultural Research</div>
+      <div class="topbar-links">
+        <a class="ghost" href="edit.html">编辑问卷</a>
+        <a class="ghost" href="results.html">查看统计</a>
+      </div>
+    </div>
+
+    <header class="hero">
+      <h1 id="survey-title">女性主义文创 · 前期调研</h1>
+      <p id="survey-subtitle">这份问卷大约需要 3–5 分钟。你的回答将帮助我们理解真实需求。</p>
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span>填写进度 <span id="page-text">第 1 / 1 页</span></span>
+          <span id="progress-text">0%</span>
+        </div>
+        <div class="progress-bar"><span id="progress-bar"></span></div>
+      </div>
+    </header>
+
+    <form class="card" id="survey-form" novalidate>
+      <div id="questions"></div>
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" id="prev-btn" hidden>上一页</button>
+        <button type="button" class="btn btn-primary" id="next-btn">下一页</button>
+        <button type="submit" class="btn btn-primary" id="submit-btn" hidden>提交问卷</button>
+      </div>
+      <div class="status" id="status" role="status"></div>
+    </form>
+  </main>
+
+  <script src="js/api-base.js?v=20260723d"></script>
+  <script src="js/questions.js?v=20260723d"></script>
+  <script src="js/survey.js?v=20260723d"></script>
+</body>
+</html>

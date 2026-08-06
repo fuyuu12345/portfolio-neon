@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>调研统计 · 女性主义文创</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="wrap">
+    <div class="topbar">
+      <div class="brand">Survey Analytics</div>
+      <div class="topbar-links">
+        <a class="ghost" href="edit.html">编辑问卷</a>
+        <a class="ghost" href="index.html">返回问卷</a>
+      </div>
+    </div>
+
+    <section id="login-view" class="card login-box">
+      <h1 style="font-family:var(--font-display);font-size:1.6rem;margin:0 0 8px;">统计看板</h1>
+      <p style="color:var(--ink-soft);margin:0 0 18px;font-size:14px;">输入密码查看回收数据与比例。</p>
+      <label for="password">访问密码</label>
+      <input type="password" id="password" placeholder="请输入统计密码" />
+      <button class="btn btn-primary" id="login-btn" type="button">进入统计</button>
+      <div class="status" id="login-status" role="status"></div>
+    </section>
+
+    <section id="stats-view" hidden>
+      <header class="hero stats-hero">
+        <div>
+          <h1>回收数据与比例</h1>
+          <p>实时汇总单选 / 多选分布；开放题单独列出。</p>
+        </div>
+        <div class="stats-grid" id="summary-cards"></div>
+        <div class="toolbar">
+          <button class="btn btn-secondary" id="refresh-btn" type="button">刷新数据</button>
+          <button class="btn btn-secondary" id="export-btn" type="button">导出 CSV</button>
+          <button class="btn btn-secondary" id="export-json-btn" type="button">导出 JSON</button>
+        </div>
+      </header>
+      <div id="charts"></div>
+    </section>
+  </main>
+
+  <script src="js/questions.js"></script>
+  <script src="js/results.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>编辑问卷 · 女性主义文创调研</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <main class="wrap wrap-wide">
+    <div class="topbar">
+      <div class="brand">Survey Editor</div>
+      <div class="topbar-links">
+        <a class="ghost" href="index.html">预览问卷</a>
+        <a class="ghost" href="results.html">统计看板</a>
+      </div>
+    </div>
+
+    <section id="login-view" class="card login-box">
+      <h1 style="font-family:var(--font-display);font-size:1.6rem;margin:0 0 8px;">编辑问卷</h1>
+      <p style="color:var(--ink-soft);margin:0 0 18px;font-size:14px;">修改标题、题目、选项后保存，填写页会立即生效。</p>
+      <label for="password">访问密码</label>
+      <input type="password" id="password" placeholder="与统计页相同" />
+      <button class="btn btn-primary" id="login-btn" type="button">进入编辑</button>
+      <div class="status" id="login-status" role="status"></div>
+    </section>
+
+    <section id="editor-view" hidden>
+      <header class="hero">
+        <h1>编辑问卷内容</h1>
+        <p>可改标题文案、题目、选项；支持开启「其他」自填。保存后无需改代码。</p>
+      </header>
+
+      <div class="card editor-card">
+        <h2 class="editor-section-title">问卷信息</h2>
+        <label class="field-label" for="meta-title">标题</label>
+        <input type="text" id="meta-title" />
+        <label class="field-label" for="meta-subtitle">副标题说明</label>
+        <textarea id="meta-subtitle" rows="3"></textarea>
+      </div>
+
+      <div id="question-editors"></div>
+
+      <div class="actions sticky-actions">
+        <button class="btn btn-secondary" id="add-question-btn" type="button">新增题目</button>
+        <button class="btn btn-primary" id="save-btn" type="button">保存修改</button>
+      </div>
+      <div class="status" id="save-status" role="status"></div>
+    </section>
+  </main>
+
+  <script src="js/questions.js"></script>
+  <script src="js/edit.js"></script>
+</body>
+</html>

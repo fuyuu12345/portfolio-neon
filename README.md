@@ -10,6 +10,7 @@
 | 主站 | [`index.html`](index.html) |
 | Oura 营销案 | [`cases/oura-ring/index.html`](cases/oura-ring/index.html) |
 | 家灯小程序 Demo | [`products/family-light-social/miniprogram/preview.html`](products/family-light-social/miniprogram/preview.html) |
+| 女性主义问卷 Demo | [`products/feminist-survey/index.html`](products/feminist-survey/index.html) |
 
 本地：克隆后双击对应 HTML，或用任意静态服务器打开。
 
@@ -26,6 +27,7 @@ https://<你的用户名>.github.io/<仓库名>/cases/oura-ring/index.html
 - `preview/` — 最新 HUD 排版作品集（AFTER HOURS）
 - `cases/oura-ring/` — Oura 妇女节整合营销概念案
 - `products/family-light-social/` — 家灯微信小程序源码 + 网页预览
+- `products/feminist-survey/` — 女性主义文创前期调研问卷 Demo
 - `js/content.js` — 站点文案与作品列表（主要改这里）
 
 ## 不上传的内容

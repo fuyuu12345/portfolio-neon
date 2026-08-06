@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>喜茶 × 无畏契约 · 赛季掉落｜概念策划案</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Teko:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #f4f5f7;
+      --white: #fff;
+      --ink: #0f1923;
+      --mute: #5b6a7a;
+      --line: #d5dae2;
+      --val: #ff4655;
+      --rare: #0fbae5;
+      --legend: #eaa54b;
+      --common: #7a8494;
+      --tea: #1a7f5a;
+      --panel: #0f1923;
+      --p1: #2a9d8f;
+      --p2: #ff4655;
+      --p3: #4a5568;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: "Noto Sans SC", sans-serif;
+      background: var(--paper); color: var(--ink); line-height: 1.65;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    /* —— top bar —— */
+    .bar {
+      flex: 0 0 auto; z-index: 40;
+      background: rgba(244,245,247,.96); border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+    .bar__in {
+      max-width: 1280px; margin: 0 auto; padding: 10px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .bar__logo { font-family: Teko, "Noto Sans SC", sans-serif; font-size: 22px; font-weight: 700; letter-spacing: .04em; }
+    .bar__logo span { color: var(--val); }
+    .pill {
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      background: var(--ink); color: #fff; padding: 6px 10px;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 8px 100%);
+    }
+
+    /* —— shell: side nav + stage —— */
+    .shell {
+      flex: 1; min-height: 0; max-width: 1280px; width: 100%; margin: 0 auto;
+      display: grid; grid-template-columns: 200px 1fr; gap: 0;
+    }
+    .side {
+      border-right: 1px solid var(--line); background: #eef1f5;
+      padding: 16px 12px; overflow-y: auto;
+    }
+    .side__label {
+      font-size: 11px; font-weight: 800; letter-spacing: .14em; color: var(--mute);
+      margin: 0 8px 10px; text-transform: uppercase;
+    }
+    .side button {
+      width: 100%; text-align: left; border: 0; background: transparent;
+      padding: 10px 12px; margin-bottom: 4px; cursor: pointer; color: var(--mute);
+      display: grid; grid-template-columns: 28px 1fr; gap: 8px; align-items: center;
+    }
+    .side button strong { display: block; font-size: 13px; color: inherit; font-weight: 700; }
+    .side button span { font-size: 11px; opacity: .85; }
+    .side button .n { font-family: Teko, sans-serif; font-size: 20px; color: var(--val); line-height: 1; }
+    .side button.is-on { background: var(--white); color: var(--ink); box-shadow: 0 1px 0 var(--line); }
+    .side button.is-on .n { color: var(--val); }
+
+    .stage {
+      overflow-y: auto; padding: 20px 24px 48px; min-height: 0;
+    }
+    .view { display: none; animation: in .25s ease; }
+    .view.is-on { display: block; }
+    @keyframes in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+    .view__head { margin-bottom: 18px; border-bottom: 2px solid var(--ink); padding-bottom: 12px; }
+    .view__head .k { font-size: 12px; font-weight: 800; letter-spacing: .14em; color: var(--val); margin-bottom: 4px; }
+    .view__head h2 {
+      font-family: Teko, "Noto Sans SC", sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; letter-spacing: .02em;
+    }
+    .view__head p { color: var(--mute); font-size: 14px; margin-top: 4px; max-width: 46em; }
+
+    /* placeholders */
+    .ph {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      text-align: center; min-height: 140px; padding: 16px;
+      background: repeating-linear-gradient(-45deg, #e8ecf2, #e8ecf2 8px, #eef1f6 8px, #eef1f6 16px);
+      border: 1.5px dashed #9aa6b5; color: #5b6a7a;
+    }
+    .ph__label { font-family: Teko, sans-serif; font-size: 18px; letter-spacing: .08em; color: var(--ink); font-weight: 700; }
+    .ph__hint { font-size: 12px; max-width: 28em; line-height: 1.5; }
+    .ph__size { font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--val); }
+    .ph--hero { min-height: 260px; border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.06); color: #c5ccd6; }
+    .ph--hero .ph__label { color: #fff; }
+    .ph--wide { min-height: 180px; }
+    .ph-grid { display: grid; gap: 12px; }
+    .ph-grid-2 { grid-template-columns: 1fr 1fr; }
+    .ph-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .split-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .box { background: var(--white); border: 1px solid var(--line); padding: 18px; position: relative; }
+    .box::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--ink); }
+    .box.bad::before { background: var(--common); }
+    .box.good::before { background: var(--val); }
+    .box h3 { font-size: 15px; font-weight: 800; margin-bottom: 8px; }
+    .box p, .box li { color: var(--mute); font-size: 13px; }
+    .box ul { padding-left: 1.1em; }
+    .box li + li { margin-top: 5px; }
+
+    /* cover */
+    .cover {
+      display: grid; grid-template-columns: 1.05fr .95fr; min-height: 420px;
+      background: var(--panel); color: #fff;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 24px), calc(100% - 36px) 100%, 0 100%);
+      overflow: hidden;
+    }
+    .cover__copy { padding: 40px 32px 48px; }
+    .cover__tag { font-size: 12px; font-weight: 800; letter-spacing: .14em; color: var(--val); margin-bottom: 10px; }
+    .cover h1 {
+      font-family: Teko, "Noto Sans SC", sans-serif;
+      font-size: clamp(2.6rem, 5vw, 4rem); line-height: .95; margin-bottom: 12px;
+    }
+    .cover h1 em { font-style: normal; color: var(--val); }
+    .cover__lead { color: #c5ccd6; font-size: 14px; max-width: 34em; margin-bottom: 16px; }
+    .cover__lead strong { color: #fff; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .chips i {
+      font-style: normal; font-size: 12px; font-weight: 700;
+      border: 1px solid rgba(255,255,255,.25); padding: 6px 10px; color: #dfe5ee;
+    }
+    .chips i.hot { background: var(--val); border-color: var(--val); color: #fff; }
+    .cover__meta { font-size: 12px; color: #9aa6b5; line-height: 1.6; }
+    .cover__art { padding: 18px; display: flex; }
+
+    .idea {
+      background: var(--ink); color: #fff; padding: 22px;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 20px) 100%, 0 100%);
+    }
+    .idea__k { color: var(--val); font-size: 12px; font-weight: 800; letter-spacing: .14em; margin-bottom: 8px; }
+    .idea h3 { font-family: Teko, "Noto Sans SC", sans-serif; font-size: 2rem; line-height: 1.05; margin-bottom: 8px; }
+    .idea p { color: #c5ccd6; font-size: 14px; }
+    .idea .orb { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+    .idea .orb div { border: 1px solid rgba(255,255,255,.15); padding: 12px; }
+    .idea .orb strong { display: block; color: #fff; font-size: 13px; margin-bottom: 4px; }
+    .idea .orb span { font-size: 12px; color: #9aa6b5; }
+
+    .table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--line); font-size: 13px; }
+    .table th, .table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .table th { background: var(--ink); color: #fff; font-family: Teko, sans-serif; font-size: 17px; letter-spacing: .05em; }
+    .tag { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .08em; padding: 3px 8px; color: #fff; }
+    .tag.c { background: var(--common); }
+    .tag.r { background: var(--rare); }
+    .tag.l { background: var(--legend); color: #1a1200; }
+    .table .ph { min-height: 80px; margin-top: 8px; }
+
+    .matrix { display: grid; grid-template-columns: 88px repeat(5, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .matrix > div { background: var(--white); padding: 10px 8px; min-height: 58px; }
+    .matrix .h { background: var(--ink); color: #fff; font-family: Teko, sans-serif; font-size: 16px; }
+    .matrix .h.main { background: var(--val); }
+    .matrix .label { font-weight: 700; font-size: 12px; background: #e9edf2; }
+    .matrix p { font-size: 11px; color: var(--mute); margin-top: 2px; }
+    .matrix strong { display: block; font-size: 12px; }
+
+    .chan-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 10px; }
+    .chan-tabs button {
+      border: 1px solid var(--line); background: var(--white); color: var(--mute);
+      padding: 8px 12px; font-size: 13px; font-weight: 700; cursor: pointer;
+    }
+    .chan-tabs button.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .chan-panel { display: none; background: var(--white); border: 1px solid var(--line); padding: 16px; }
+    .chan-panel.is-on { display: block; }
+    .chan-panel h4 { margin-bottom: 8px; }
+    .chan-panel li { margin-left: 1.1em; color: var(--mute); font-size: 13px; }
+    .chan-panel li + li { margin-top: 4px; }
+
+    /* ========== TIMELINE (Tencent-style) ========== */
+    .tl-rail {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border: 1px solid var(--line); background: var(--white); margin-bottom: 16px;
+    }
+    .tl-step {
+      border: 0; background: transparent; cursor: pointer; text-align: left;
+      padding: 16px 14px; border-right: 1px solid var(--line); border-top: 4px solid transparent;
+      color: var(--mute);
+    }
+    .tl-step:last-child { border-right: 0; }
+    .tl-step[data-phase="1"].is-on { border-top-color: var(--p1); background: #f0faf8; color: var(--ink); }
+    .tl-step[data-phase="2"].is-on { border-top-color: var(--p2); background: #fff5f6; color: var(--ink); }
+    .tl-step[data-phase="3"].is-on { border-top-color: var(--p3); background: #f3f4f6; color: var(--ink); }
+    .tl-step__n { font-family: Teko, sans-serif; font-size: 28px; line-height: 1; font-weight: 700; }
+    .tl-step[data-phase="1"] .tl-step__n { color: var(--p1); }
+    .tl-step[data-phase="2"] .tl-step__n { color: var(--p2); }
+    .tl-step[data-phase="3"] .tl-step__n { color: var(--p3); }
+    .tl-step strong { display: block; font-size: 15px; margin: 4px 0 2px; }
+    .tl-step span { font-size: 12px; }
+
+    .tl-bar {
+      height: 8px; border-radius: 99px; background: #e2e6ec; margin: 0 0 18px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+    }
+    .tl-bar i { display: block; height: 100%; opacity: .25; }
+    .tl-bar i:nth-child(1) { background: var(--p1); }
+    .tl-bar i:nth-child(2) { background: var(--p2); }
+    .tl-bar i:nth-child(3) { background: var(--p3); }
+    .tl-bar.is-1 i:nth-child(1),
+    .tl-bar.is-2 i:nth-child(1),
+    .tl-bar.is-2 i:nth-child(2),
+    .tl-bar.is-3 i:nth-child(1),
+    .tl-bar.is-3 i:nth-child(2),
+    .tl-bar.is-3 i:nth-child(3) { opacity: 1; }
+
+    .phase { display: none; }
+    .phase.is-on { display: block; animation: in .25s ease; }
+    .phase__banner {
+      padding: 18px 20px; color: #fff; margin-bottom: 14px;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 18px) 100%, 0 100%);
+    }
+    .phase[data-phase="1"] .phase__banner { background: var(--p1); }
+    .phase[data-phase="2"] .phase__banner { background: var(--p2); }
+    .phase[data-phase="3"] .phase__banner { background: var(--p3); }
+    .phase__banner .when { font-size: 12px; font-weight: 800; letter-spacing: .1em; opacity: .9; margin-bottom: 4px; }
+    .phase__banner h3 { font-family: Teko, "Noto Sans SC", sans-serif; font-size: 1.8rem; line-height: 1.05; margin-bottom: 6px; }
+    .phase__banner p { font-size: 14px; opacity: .95; max-width: 44em; }
+
+    .daygrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
+    .day {
+      background: var(--white); border: 1px solid var(--line); padding: 14px;
+    }
+    .day b { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .08em; color: var(--val); margin-bottom: 6px; }
+    .day h4 { font-size: 14px; margin-bottom: 6px; }
+    .day ul { padding-left: 1.1em; }
+    .day li { font-size: 12px; color: var(--mute); }
+    .day li + li { margin-top: 3px; }
+
+    .subtabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 10px; }
+    .subtabs button {
+      border: 1px solid var(--line); background: #fff; padding: 6px 10px;
+      font-size: 12px; font-weight: 700; color: var(--mute); cursor: pointer;
+    }
+    .subtabs button.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .subpanel { display: none; }
+    .subpanel.is-on { display: block; }
+
+    .funnel { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line); }
+    .funnel div { background: #fff; padding: 14px; border-right: 1px solid var(--line); }
+    .funnel div:last-child { border-right: 0; }
+    .funnel b { font-family: Teko, sans-serif; font-size: 24px; color: var(--val); display: block; line-height: 1; }
+    .funnel strong { display: block; margin: 4px 0; font-size: 13px; }
+    .funnel span { font-size: 12px; color: var(--mute); }
+    .kpi { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 12px; }
+    .kpi div { background: #fff; border: 1px solid var(--line); padding: 12px; }
+    .kpi b { font-family: Teko, sans-serif; font-size: 20px; color: var(--val); display: block; }
+    .kpi span { font-size: 12px; color: var(--mute); }
+
+    .note { margin-top: 14px; padding: 12px 14px; background: #fff; border: 1px dashed var(--line); font-size: 12px; color: var(--mute); }
+    .note strong { color: var(--ink); }
+    .foot {
+      margin-top: 20px; padding-top: 12px; border-top: 2px solid var(--ink);
+      display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+      font-size: 12px; color: var(--mute);
+    }
+
+    @media (max-width: 900px) {
+      body { overflow: auto; }
+      .shell { grid-template-columns: 1fr; height: auto; }
+      .side {
+        display: flex; gap: 6px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line);
+        padding: 10px;
+      }
+      .side__label { display: none; }
+      .side button { min-width: 120px; margin: 0; }
+      .stage { overflow: visible; }
+      .cover, .split, .split-3, .ph-grid-2, .ph-grid-3, .daygrid, .funnel, .kpi, .idea .orb, .tl-rail, .matrix { grid-template-columns: 1fr; }
+      .cover { clip-path: none; }
+      .tl-step { border-right: 0; border-bottom: 1px solid var(--line); }
+    }
+  </style>
+</head>
+<body>
+  <header class="bar">
+    <div class="bar__in">
+      <div class="bar__logo">HEYTEA <span>×</span> 无畏契约 · 赛季掉落</div>
+      <span class="pill">概念策划案</span>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="side" aria-label="章节">
+      <div class="side__label">Chapters</div>
+      <button type="button" class="is-on" data-view="cover"><i class="n">00</i><span><strong>封面</strong><span>Brief 总览</span></span></button>
+      <button type="button" data-view="insight"><i class="n">01</i><span><strong>洞察</strong><span>为何做掉落</span></span></button>
+      <button type="button" data-view="idea"><i class="n">02</i><span><strong>主轴</strong><span>杯中出装</span></span></button>
+      <button type="button" data-view="drop"><i class="n">03</i><span><strong>掉落表</strong><span>稀有度体系</span></span></button>
+      <button type="button" data-view="asset"><i class="n">04</i><span><strong>物料</strong><span>门店收口</span></span></button>
+      <button type="button" data-view="channel"><i class="n">05</i><span><strong>渠道</strong><span>五端咬合</span></span></button>
+      <button type="button" data-view="timeline"><i class="n">06</i><span><strong>Timeline</strong><span>点选三阶段</span></span></button>
+      <button type="button" data-view="path"><i class="n">07</i><span><strong>链路</strong><span>KPI 收口</span></span></button>
+    </aside>
+
+    <main class="stage">
+      <!-- 00 COVER -->
+      <section class="view is-on" id="view-cover">
+        <div class="cover">
+          <div class="cover__copy">
+            <div class="cover__tag">SEASON DROP COLLAB · CONCEPT</div>
+            <h1>喜茶 × 无畏契约<br /><em>赛季掉落</em></h1>
+            <p class="cover__lead">把茶饮联名写成玩家赛季语言：<strong>预告泄露 → 掉落公开 → 开箱传播 → 门店兑现</strong>。杯与周边按普通/稀有/传说分层；无独立快闪，门店杯墙收口。</p>
+            <div class="chips">
+              <i class="hot">主战场 B站</i><i class="hot">主战场 抖音</i>
+              <i>小红书</i><i>腾讯</i><i>微博</i>
+            </div>
+            <p class="cover__meta">周期示意：T-14 预告 → T0 掉落日 → T+14 长尾｜左侧切章节，Timeline 内可点三阶段（对标腾讯话题案交互）</p>
+          </div>
+          <div class="cover__art">
+            <div class="ph ph--hero" style="width:100%">
+              <div class="ph__label">IMG · 主 KV</div>
+              <div class="ph__size">1920×1080</div>
+              <div class="ph__hint">联名杯 + 稀有度色条 +「赛季掉落」字标</div>
+            </div>
+          </div>
+        </div>
+        <p class="note" style="margin-top:14px"><strong>阅读方式：</strong>左侧切换章节，不必一拉到底。重点看 <strong>06 Timeline</strong>——点阶段看该周动作/内容/物料。</p>
+      </section>
+
+      <!-- 01 INSIGHT -->
+      <section class="view" id="view-insight">
+        <div class="view__head">
+          <div class="k">01 · INSIGHT</div>
+          <h2>玩家要掉落，不要贴皮</h2>
+          <p>联名成败取决于是否进入「赛季心智」，而不只是出一杯印 Logo 的茶。</p>
+        </div>
+        <div class="split">
+          <article class="box bad">
+            <h3>失败路径</h3>
+            <ul>
+              <li>KV + 杯身 Logo，缺少「为什么现在买」</li>
+              <li>无稀有度 → 无可晒差异</li>
+              <li>开箱时长不够，内容只能拍「我买了一杯」</li>
+              <li>玩家判定：品牌借流量</li>
+            </ul>
+            <div class="ph" style="margin-top:12px"><div class="ph__label">IMG · 反例</div><div class="ph__size">失败杯示意</div></div>
+          </article>
+          <article class="box good">
+            <h3>机会路径</h3>
+            <ul>
+              <li>玩家熟悉：预告→预览→掉落→晒单</li>
+              <li>喜茶有门店与杯身，适合「到店开箱」</li>
+              <li>普通铺量、稀有催店、传说冲话题</li>
+              <li>B站/抖音需要可拍 15–60s 的物件剧情</li>
+            </ul>
+            <div class="ph" style="margin-top:12px"><div class="ph__label">IMG · 心智四步</div><div class="ph__size">信息图</div></div>
+          </article>
+        </div>
+        <div class="split-3" style="margin-top:12px">
+          <article class="box"><h3>受众 A 核心玩家</h3><p>18–28，在意编号与稀有度，愿为「能晒」到店。</p></article>
+          <article class="box"><h3>受众 B 观赛党</h3><p>看比赛刷剪辑；被开箱种草后用「喜提掉落」入场。</p></article>
+          <article class="box"><h3>受众 C 喜茶原客</h3><p>本就到店；联名提供打卡理由，扩大破圈。</p></article>
+        </div>
+      </section>
+
+      <!-- 02 IDEA -->
+      <section class="view" id="view-idea">
+        <div class="view__head">
+          <div class="k">02 · BIG IDEA</div>
+          <h2>赛季掉落 · 杯中出装</h2>
+          <p>一句话贯穿物料、脚本、门店话术与投放。</p>
+        </div>
+        <div class="idea">
+          <div class="idea__k">CORE IDEA</div>
+          <h3>这季不上新海报，上新「可喝的掉落」</h3>
+          <p>把喜茶联名运营成一赛季实体 Store：有掉落表、稀有度、编号、开箱内容。传播在五端，兑现回门店与小程序。</p>
+          <div class="orb">
+            <div><strong>Owned</strong><span>杯墙 · 小程序抽选 · 品牌号</span></div>
+            <div><strong>Rented</strong><span>B站 · 抖音 · 小红书 · 视频号</span></div>
+            <div><strong>Borrowed</strong><span>UP/主播 · 微博电竞博主</span></div>
+          </div>
+        </div>
+        <div class="box" style="margin-top:12px">
+          <h3>短句库（示意）</h3>
+          <ul>
+            <li>赛季掉落已刷新 —— 预告片头</li>
+            <li>普通铺场，稀有催店，传说看脸 —— 掉落表钩子</li>
+            <li>你的编号，只有一杯 —— 传说徽章</li>
+            <li>开黑续杯，先看掉落 —— 杯墙/桌贴</li>
+          </ul>
+        </div>
+        <div class="ph ph--wide" style="margin-top:12px">
+          <div class="ph__label">IMG · Big Idea 主画面</div>
+          <div class="ph__size">1600×900</div>
+          <div class="ph__hint">杯透视/切开，内见稀有度色块与编号</div>
+        </div>
+      </section>
+
+      <!-- 03 DROP -->
+      <section class="view" id="view-drop">
+        <div class="view__head">
+          <div class="k">03 · DROP TABLE</div>
+          <h2>三层稀有度</h2>
+          <p>对应三种行为：铺量出片、催到店、冲话题。</p>
+        </div>
+        <table class="table">
+          <thead><tr><th>稀有度</th><th>掉落物</th><th>获取</th><th>内容用途</th><th>图</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="tag c">普通</span></td>
+              <td><strong>标准联名杯</strong><br />主视觉杯身 + 当日流水编号贴</td>
+              <td>购指定特调即获，不限量</td>
+              <td>KV 同款、杯墙背景、信息流底图</td>
+              <td><div class="ph"><div class="ph__label">IMG</div><div class="ph__size">产品图</div></div></td>
+            </tr>
+            <tr>
+              <td><span class="tag r">稀有</span></td>
+              <td><strong>特工色吸管套 / 杯垫</strong><br />2–3 色，可撕开拍色</td>
+              <td>门店日限量；加价或满额赠</td>
+              <td>抖音开箱主素材、余量话题</td>
+              <td><div class="ph"><div class="ph__label">IMG</div><div class="ph__size">套装</div></div></td>
+            </tr>
+            <tr>
+              <td><span class="tag l">传说</span></td>
+              <td><strong>金属徽章 + 打卡码</strong><br />全网唯一编号</td>
+              <td>小程序抽选，到店 72h 核销</td>
+              <td>话题天花板、长尾晒单</td>
+              <td><div class="ph"><div class="ph__label">IMG</div><div class="ph__size">开箱四格</div></div></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ph-grid ph-grid-2" style="margin-top:12px">
+          <div class="ph"><div class="ph__label">IMG · 特调 A</div><div class="ph__size">杯装</div></div>
+          <div class="ph"><div class="ph__label">IMG · 特调 B</div><div class="ph__size">杯装</div></div>
+        </div>
+      </section>
+
+      <!-- 04 ASSET -->
+      <section class="view" id="view-asset">
+        <div class="view__head">
+          <div class="k">04 · STORE ASSETS</div>
+          <h2>物料与门店收口</h2>
+          <p>无独立快闪；杯墙 + 柜台立牌 + 小程序 = 实体 Store。</p>
+        </div>
+        <div class="ph-grid ph-grid-3">
+          <div class="ph" style="min-height:200px"><div class="ph__label">IMG · 杯墙</div><div class="ph__size">全景</div><div class="ph__hint">编号位 + 余量板</div></div>
+          <div class="ph" style="min-height:200px"><div class="ph__label">IMG · 掉落表立牌</div><div class="ph__size">柜台</div></div>
+          <div class="ph" style="min-height:200px"><div class="ph__label">IMG · 小程序</div><div class="ph__size">三态 UI</div></div>
+        </div>
+        <div class="split" style="margin-top:12px">
+          <article class="box">
+            <h3>门店 SOP</h3>
+            <ul>
+              <li>开店：上架稀有配额，更新余量</li>
+              <li>点单：引导特调 → 说明普通/稀有资格</li>
+              <li>传说：核销 → 发徽章 → 杯墙打卡</li>
+              <li>闭店：未发稀有回库，数据回传</li>
+            </ul>
+          </article>
+          <article class="box">
+            <h3>防黄牛</h3>
+            <ul>
+              <li>稀有：单人单日 1 套，会员绑定</li>
+              <li>传说：实名抽选 + 72h 核销窗</li>
+              <li>杯墙：同编号仅点亮一次</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- 05 CHANNEL -->
+      <section class="view" id="view-channel">
+        <div class="view__head">
+          <div class="k">05 · CHANNEL MIX</div>
+          <h2>五端咬合</h2>
+          <p>主战场打开放；承接打到店；微博扩话题。</p>
+        </div>
+        <div class="matrix">
+          <div class="h">模块</div>
+          <div class="h main">B站</div><div class="h main">抖音</div>
+          <div class="h">小红书</div><div class="h">腾讯</div><div class="h">微博</div>
+          <div class="label">角色</div>
+          <div><strong>主战场</strong><p>深度</p></div>
+          <div><strong>主战场</strong><p>爆发</p></div>
+          <div><strong>承接</strong><p>种草</p></div>
+          <div><strong>承接</strong><p>转化</p></div>
+          <div><strong>扩声</strong><p>话题</p></div>
+        </div>
+        <div class="chan-tabs">
+          <button type="button" class="is-on" data-ch="bili">B站</button>
+          <button type="button" data-ch="dy">抖音</button>
+          <button type="button" data-ch="xhs">小红书</button>
+          <button type="button" data-ch="tx">腾讯</button>
+          <button type="button" data-ch="wb">微博</button>
+        </div>
+        <div class="chan-panel is-on" id="ch-bili">
+          <h4>B站</h4>
+          <ul>
+            <li>60–90s 预告片：掉落表泄露叙事</li>
+            <li>UP 共创：掉落表解读 + 开箱（示意 3–5 位）</li>
+            <li>长尾：编号图鉴征集周更</li>
+          </ul>
+          <div class="ph-grid ph-grid-2" style="margin-top:10px">
+            <div class="ph"><div class="ph__label">IMG · 封面</div><div class="ph__size">16:9</div></div>
+            <div class="ph"><div class="ph__label">IMG · 分镜</div><div class="ph__size">6 格</div></div>
+          </div>
+        </div>
+        <div class="chan-panel" id="ch-dy">
+          <h4>抖音</h4>
+          <ul>
+            <li>15s：撕封签 → 亮稀有度 → 杯墙打卡</li>
+            <li>达人分层：头 1–2 / 腰 8–12 / 探店 10+</li>
+            <li>投放只放大已验证钩子</li>
+          </ul>
+          <div class="ph-grid ph-grid-3" style="margin-top:10px">
+            <div class="ph"><div class="ph__label">帧1</div><div class="ph__size">9:16</div></div>
+            <div class="ph"><div class="ph__label">帧2</div><div class="ph__size">9:16</div></div>
+            <div class="ph"><div class="ph__label">帧3</div><div class="ph__size">9:16</div></div>
+          </div>
+        </div>
+        <div class="chan-panel" id="ch-xhs">
+          <h4>小红书</h4>
+          <ul>
+            <li>杯墙出片、探店路线、搜索占位</li>
+            <li>CTA：预约传说 / 查今日稀有门店</li>
+          </ul>
+          <div class="ph-grid ph-grid-2" style="margin-top:10px">
+            <div class="ph"><div class="ph__label">封面 A</div><div class="ph__size">3:4</div></div>
+            <div class="ph"><div class="ph__label">封面 B</div><div class="ph__size">3:4</div></div>
+          </div>
+        </div>
+        <div class="chan-panel" id="ch-tx">
+          <h4>腾讯</h4>
+          <ul>
+            <li>视频号精华 + 上新日直播</li>
+            <li>朋友圈定向游戏兴趣 / 到店半径</li>
+            <li>搜一搜词包；小程序预约核销</li>
+          </ul>
+          <div class="ph-grid ph-grid-2" style="margin-top:10px">
+            <div class="ph"><div class="ph__label">朋友圈</div><div class="ph__size">1:1</div></div>
+            <div class="ph"><div class="ph__label">小程序</div><div class="ph__size">手机框</div></div>
+          </div>
+        </div>
+        <div class="chan-panel" id="ch-wb">
+          <h4>微博</h4>
+          <ul>
+            <li>主话题 + 倒计时</li>
+            <li>电竞博主/超话转发开箱</li>
+            <li>投票：「抽传说还是蹲稀有？」</li>
+          </ul>
+          <div class="ph" style="margin-top:10px"><div class="ph__label">话题头图</div><div class="ph__size">横版</div></div>
+        </div>
+      </section>
+
+      <!-- 06 TIMELINE — core optimization -->
+      <section class="view" id="view-timeline">
+        <div class="view__head">
+          <div class="k">06 · TIMELINE（对标腾讯话题案）</div>
+          <h2>点选三阶段，看该周完整作战</h2>
+          <p>不是三列摘要并排——点上方阶段，下方展开：目标 / 日程 / 五端动作 / 物料图位。结构对齐「蓄热—爆发—余热」。</p>
+        </div>
+
+        <div class="tl-bar is-1" id="tlBar" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="tl-rail" role="tablist" aria-label="活动阶段">
+          <button type="button" class="tl-step is-on" data-phase="1" role="tab" aria-selected="true">
+            <div class="tl-step__n">01</div>
+            <strong>预告 · 掉落表泄露</strong>
+            <span>T-14 → T-1 · 蓄热</span>
+          </button>
+          <button type="button" class="tl-step" data-phase="2" role="tab" aria-selected="false">
+            <div class="tl-step__n">02</div>
+            <strong>掉落日 · 赛季上新</strong>
+            <span>T0 → T+3 · 爆发</span>
+          </button>
+          <button type="button" class="tl-step" data-phase="3" role="tab" aria-selected="false">
+            <div class="tl-step__n">03</div>
+            <strong>长尾 · 编号图鉴</strong>
+            <span>T+4 → T+14 · 余热</span>
+          </button>
+        </div>
+
+        <!-- Phase 1 -->
+        <div class="phase is-on" data-phase="1">
+          <div class="phase__banner">
+            <div class="when">PHASE 01 · 蓄热 · T-14 → T-1</div>
+            <h3>先让玩家「知道有掉落表」</h3>
+            <p>目标：预约量与话题认知。不卖货催单，先泄露稀有度规则，把「传说要抽选、稀有要蹲店」讲清。</p>
+          </div>
+          <div class="subtabs" data-group="p1">
+            <button type="button" class="is-on" data-sub="p1a">周目标</button>
+            <button type="button" data-sub="p1b">日程拆解</button>
+            <button type="button" data-sub="p1c">五端动作</button>
+            <button type="button" data-sub="p1d">物料图位</button>
+          </div>
+          <div class="subpanel is-on" id="p1a">
+            <div class="split">
+              <article class="box good">
+                <h3>阶段 KPI</h3>
+                <ul>
+                  <li>小程序预约 UV / 传说抽选报名</li>
+                  <li>B站预告片播放与完播</li>
+                  <li>微博话题阅读与互动</li>
+                  <li>抖音开箱钩子 A/B 胜出 1 版</li>
+                </ul>
+              </article>
+              <article class="box">
+                <h3>用户心智</h3>
+                <ul>
+                  <li>知道：有三层掉落</li>
+                  <li>想要：传说要报名，稀有要记门店</li>
+                  <li>等待：掉落日倒计时</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+          <div class="subpanel" id="p1b">
+            <div class="daygrid">
+              <div class="day">
+                <b>T-14 ~ T-10</b>
+                <h4>掉落表首爆</h4>
+                <ul>
+                  <li>B站预告片上线</li>
+                  <li>微博主话题开启</li>
+                  <li>品牌号发「掉落表」长图</li>
+                </ul>
+              </div>
+              <div class="day">
+                <b>T-9 ~ T-5</b>
+                <h4>钩子测试</h4>
+                <ul>
+                  <li>抖音 2–3 版开箱脚本测试</li>
+                  <li>小红书种草预热笔记</li>
+                  <li>门店物料进店、人员培训</li>
+                </ul>
+              </div>
+              <div class="day">
+                <b>T-4 ~ T-2</b>
+                <h4>预约加压</h4>
+                <ul>
+                  <li>小程序传说抽选截止提醒</li>
+                  <li>UP/达人预告接力</li>
+                  <li>朋友圈种子素材就绪</li>
+                </ul>
+              </div>
+              <div class="day">
+                <b>T-1</b>
+                <h4>开箱夜前夜</h4>
+                <ul>
+                  <li>全端倒计时统一视觉</li>
+                  <li>确认稀有首日配额</li>
+                  <li>客服 FAQ 上线</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="subpanel" id="p1c">
+            <div class="box">
+              <h3>五端 · 预告期动作</h3>
+              <ul>
+                <li><strong>B站</strong>：预告片 + UP「掉落表解读」</li>
+                <li><strong>抖音</strong>：测钩子，不放大未验证素材</li>
+                <li><strong>小红书</strong>：规则图文、预约引导</li>
+                <li><strong>腾讯</strong>：搜一搜词包上线；小程序预约页</li>
+                <li><strong>微博</strong>：话题 + 倒计时微博</li>
+              </ul>
+            </div>
+          </div>
+          <div class="subpanel" id="p1d">
+            <div class="ph-grid ph-grid-2">
+              <div class="ph ph--wide"><div class="ph__label">IMG · 预告 KV / 倒计时海报</div><div class="ph__size">横+竖各一</div></div>
+              <div class="ph ph--wide"><div class="ph__label">IMG · 掉落表长图</div><div class="ph__size">适合微博/小红书</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="phase" data-phase="2">
+          <div class="phase__banner">
+            <div class="when">PHASE 02 · 爆发 · T0 → T+3</div>
+            <h3>掉落日：开箱刷屏，到店兑现</h3>
+            <p>目标：开箱声量 + 稀有售罄感 + 传说核销。五端同步，门店杯墙成为内容发生器。</p>
+          </div>
+          <div class="subtabs" data-group="p2">
+            <button type="button" class="is-on" data-sub="p2a">日目标</button>
+            <button type="button" data-sub="p2b">T0 当日流程</button>
+            <button type="button" data-sub="p2c">五端动作</button>
+            <button type="button" data-sub="p2d">物料图位</button>
+          </div>
+          <div class="subpanel is-on" id="p2a">
+            <div class="split">
+              <article class="box good">
+                <h3>阶段 KPI</h3>
+                <ul>
+                  <li>开箱视频播放 / 跟拍量</li>
+                  <li>稀有售罄时速（分城市）</li>
+                  <li>传说核销率（72h 内）</li>
+                  <li>特调杯量 vs 日常基线</li>
+                </ul>
+              </article>
+              <article class="box">
+                <h3>风险预案</h3>
+                <ul>
+                  <li>黄牛：核销窗 + 会员限购</li>
+                  <li>排队舆情：余量透明播报</li>
+                  <li>素材翻车：只用预审模板</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+          <div class="subpanel" id="p2b">
+            <div class="daygrid">
+              <div class="day"><b>T0 上午</b><h4>亮灯</h4><ul><li>杯墙启用</li><li>稀有开售</li><li>全端「掉落已刷新」</li></ul></div>
+              <div class="day"><b>T0 午后</b><h4>开箱峰值</h4><ul><li>达人/UP 集中发布</li><li>视频号短直播</li><li>余量播报</li></ul></div>
+              <div class="day"><b>T0 晚间</b><h4>传说开奖</h4><ul><li>抽选结果推送</li><li>核销指引</li><li>微博热议承接</li></ul></div>
+              <div class="day"><b>T+1~3</b><h4>补货与核销</h4><ul><li>稀有补货节奏</li><li>传说到店高峰</li><li>胜出素材放量</li></ul></div>
+            </div>
+          </div>
+          <div class="subpanel" id="p2c">
+            <div class="box">
+              <h3>五端 · 掉落日动作</h3>
+              <ul>
+                <li><strong>B站</strong>：开箱长视频 + 实时弹幕互动</li>
+                <li><strong>抖音</strong>：模板挑战冲顶；DOU+ 放大胜出版</li>
+                <li><strong>小红书</strong>：杯墙/探店笔记矩阵</li>
+                <li><strong>腾讯</strong>：朋友圈加压；小程序核销高峰保障</li>
+                <li><strong>微博</strong>：话题主持 + 售罄店实时转</li>
+              </ul>
+            </div>
+          </div>
+          <div class="subpanel" id="p2d">
+            <div class="ph-grid ph-grid-2">
+              <div class="ph ph--wide"><div class="ph__label">IMG · 掉落日现场 / 杯墙人流</div><div class="ph__size">实拍位</div></div>
+              <div class="ph ph--wide"><div class="ph__label">IMG · 开箱挑战封面组</div><div class="ph__size">9:16 ×3</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="phase" data-phase="3">
+          <div class="phase__banner">
+            <div class="when">PHASE 03 · 余热 · T+4 → T+14</div>
+            <h3>编号图鉴：把声量沉淀成资产</h3>
+            <p>目标：UGC 图鉴、内容回流广告、预埋下赛季。情绪从「抢」转向「晒与收藏」。</p>
+          </div>
+          <div class="subtabs" data-group="p3">
+            <button type="button" class="is-on" data-sub="p3a">阶段目标</button>
+            <button type="button" data-sub="p3b">动作清单</button>
+            <button type="button" data-sub="p3c">五端动作</button>
+            <button type="button" data-sub="p3d">物料图位</button>
+          </div>
+          <div class="subpanel is-on" id="p3a">
+            <div class="split">
+              <article class="box good">
+                <h3>阶段 KPI</h3>
+                <ul>
+                  <li>杯墙打卡 / 编号晒单条数</li>
+                  <li>图鉴征集投稿量</li>
+                  <li>UGC 回流广告 CPA</li>
+                  <li>下赛季预约意向（彩蛋页）</li>
+                </ul>
+              </article>
+              <article class="box">
+                <h3>资产沉淀</h3>
+                <ul>
+                  <li>开箱胜出素材入库</li>
+                  <li>编号故事精选成片</li>
+                  <li>门店杯墙可常驻到档期结束</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+          <div class="subpanel" id="p3b">
+            <div class="daygrid">
+              <div class="day"><b>T+4 ~ T+7</b><h4>图鉴征集</h4><ul><li>发起编号图鉴</li><li>精选转发</li><li>传说故事访谈（示意）</li></ul></div>
+              <div class="day"><b>T+8 ~ T+11</b><h4>内容回流</h4><ul><li>胜出 UGC 进信息流</li><li>小红书合集</li><li>B站周更合集</li></ul></div>
+              <div class="day"><b>T+12 ~ T+13</b><h4>复盘</h4><ul><li>稀有/传说数据复盘</li><li>门店反馈回收</li></ul></div>
+              <div class="day"><b>T+14</b><h4>彩蛋</h4><ul><li>「下赛季掉落」预告</li><li>预约名单沉淀</li></ul></div>
+            </div>
+          </div>
+          <div class="subpanel" id="p3c">
+            <div class="box">
+              <h3>五端 · 长尾动作</h3>
+              <ul>
+                <li><strong>B站</strong>：图鉴合集 / 故事向中长视频</li>
+                <li><strong>抖音</strong>：长尾挑战曲复用，降制作成本</li>
+                <li><strong>小红书</strong>：搜索长尾占位、合集页</li>
+                <li><strong>腾讯</strong>：私域复购券（示意）、素材再投</li>
+                <li><strong>微博</strong>：复盘话题 + 彩蛋预告</li>
+              </ul>
+            </div>
+          </div>
+          <div class="subpanel" id="p3d">
+            <div class="ph-grid ph-grid-2">
+              <div class="ph ph--wide"><div class="ph__label">IMG · UGC 图鉴墙拼贴</div><div class="ph__size">横版</div></div>
+              <div class="ph ph--wide"><div class="ph__label">IMG · 下赛季彩蛋海报</div><div class="ph__size">倒计时/预告</div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 PATH -->
+      <section class="view" id="view-path">
+        <div class="view__head">
+          <div class="k">07 · PATH & KPI</div>
+          <h2>链路收口</h2>
+          <p>认知 → 欲望 → 行动 → 复利；每步有动作与指标。</p>
+        </div>
+        <div class="funnel">
+          <div><b>01</b><strong>认知</strong><span>B站预告 · 微博</span></div>
+          <div><b>02</b><strong>欲望</strong><span>抖音开箱 · 稀有度</span></div>
+          <div><b>03</b><strong>行动</strong><span>抽选 · 门店核销</span></div>
+          <div><b>04</b><strong>复利</strong><span>晒编号 · 回流</span></div>
+        </div>
+        <div class="kpi">
+          <div><b>声量</b><span>播放 · 话题 · 互动</span></div>
+          <div><b>意向</b><span>预约 UV · 抽选率</span></div>
+          <div><b>转化</b><span>特调杯量 · 核销率</span></div>
+          <div><b>资产</b><span>打卡 · 素材池</span></div>
+        </div>
+        <div class="split" style="margin-top:12px">
+          <article class="box good">
+            <h3>3 分钟讲述</h3>
+            <ul>
+              <li>洞察：贴皮 vs 掉落心智</li>
+              <li>主轴：杯中出装 + 三层稀有度</li>
+              <li>Timeline：蓄热 / 爆发 / 余热点选讲清</li>
+              <li>收口：门店 + 小程序，声量可变现</li>
+            </ul>
+          </article>
+          <article class="box">
+            <h3>待补图清单</h3>
+            <ul>
+              <li>主 KV、Big Idea 概念图</li>
+              <li>三层产品精修、杯墙/立牌/小程序</li>
+              <li>五端封面与开箱分镜</li>
+              <li>Timeline 三阶段海报/现场</li>
+            </ul>
+          </article>
+        </div>
+        <div class="note">
+          <strong>声明：</strong>作品集概念案，非官方联名。Timeline 交互对标腾讯话题营销方案「分阶段点选展开」；虚线框为图片占位。
+        </div>
+        <div class="foot">
+          <span>作品集霓虹 · 刘骅慧 / Lorde</span>
+          <span>喜茶 × 无畏契约 · 赛季掉落</span>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const sideBtns = document.querySelectorAll(".side button");
+    const views = document.querySelectorAll(".view");
+    function showView(id) {
+      views.forEach((v) => v.classList.toggle("is-on", v.id === "view-" + id));
+      sideBtns.forEach((b) => b.classList.toggle("is-on", b.dataset.view === id));
+      document.querySelector(".stage").scrollTop = 0;
+    }
+    sideBtns.forEach((b) => b.addEventListener("click", () => showView(b.dataset.view)));
+
+    /* channel tabs */
+    const chanBtns = document.querySelectorAll(".chan-tabs button");
+    const chanPanels = {
+      bili: document.getElementById("ch-bili"),
+      dy: document.getElementById("ch-dy"),
+      xhs: document.getElementById("ch-xhs"),
+      tx: document.getElementById("ch-tx"),
+      wb: document.getElementById("ch-wb"),
+    };
+    chanBtns.forEach((b) => {
+      b.addEventListener("click", () => {
+        chanBtns.forEach((x) => x.classList.remove("is-on"));
+        b.classList.add("is-on");
+        Object.entries(chanPanels).forEach(([k, el]) => el.classList.toggle("is-on", k === b.dataset.ch));
+      });
+    });
+
+    /* timeline phases */
+    const tlSteps = document.querySelectorAll(".tl-step");
+    const phases = document.querySelectorAll(".phase");
+    const tlBar = document.getElementById("tlBar");
+    function showPhase(n) {
+      tlSteps.forEach((s) => {
+        const on = s.dataset.phase === n;
+        s.classList.toggle("is-on", on);
+        s.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      phases.forEach((p) => p.classList.toggle("is-on", p.dataset.phase === n));
+      tlBar.className = "tl-bar is-" + n;
+    }
+    tlSteps.forEach((s) => s.addEventListener("click", () => showPhase(s.dataset.phase)));
+
+    /* phase subtabs */
+    document.querySelectorAll(".subtabs").forEach((group) => {
+      const btns = group.querySelectorAll("button");
+      btns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          btns.forEach((b) => b.classList.remove("is-on"));
+          btn.classList.add("is-on");
+          const phase = group.closest(".phase");
+          phase.querySelectorAll(".subpanel").forEach((p) => {
+            p.classList.toggle("is-on", p.id === btn.dataset.sub);
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

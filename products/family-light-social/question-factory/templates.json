@@ -1,0 +1,1081 @@
+[
+  {
+    "id": "L1-01",
+    "layer": "L1",
+    "tags": ["睡觉", "习惯"],
+    "question": "当我「{{s}}」时，我最希望你们怎么做？",
+    "slots": { "s": "situations_sleep" },
+    "optionsPool": "care_reactions",
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-02",
+    "layer": "L1",
+    "tags": ["吃饭", "习惯"],
+    "question": "关于「{{s}}」，更接近我真实想法的是？",
+    "slots": { "s": "situations_eat" },
+    "options": [
+      { "text": "这是我自己的节奏，别太焦虑", "axis": "autonomy" },
+      { "text": "偶尔这样没关系，不是常态", "axis": "balance" },
+      { "text": "我其实也想调整，需要温和提醒", "axis": "support" },
+      { "text": "我想先被理解，再谈改不改", "axis": "understand" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-03",
+    "layer": "L1",
+    "tags": ["习惯", "误解"],
+    "question": "我「{{topic}}」，通常不是因为「{{wrong}}」，更可能是？",
+    "slots": { "topic": "topics_habit", "wrong": "misunderstandings" },
+    "optionsPool": "true_reasons_as_options",
+    "expandMode": "pairSample",
+    "maxExpand": 80,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-04",
+    "layer": "L1",
+    "tags": ["作息"],
+    "question": "我「{{s}}」时，你们怎样做会让我舒服一点？",
+    "slots": { "s": "situations_daily" },
+    "optionsPool": "care_reactions_alt",
+    "maxExpand": 50,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-05",
+    "layer": "L1",
+    "tags": ["消费", "习惯"],
+    "question": "如果我「{{m}}」，我更希望你们的第一反应是？",
+    "slots": { "m": "money_topics" },
+    "options": [
+      { "text": "先问问我为什么喜欢", "axis": "curious" },
+      { "text": "相信我有预算概念", "axis": "trust" },
+      { "text": "提醒即可，别否定", "axis": "soft" },
+      { "text": "一起看看值不值得", "axis": "discuss" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-06",
+    "layer": "L1",
+    "tags": ["健康"],
+    "question": "我身体「{{s}}」时，最需要的是？",
+    "slots": { "s": ["不太舒服", "有点感冒", "肠胃不适", "生理期难受", "头痛乏力", "过敏或皮肤不适", "运动拉伤", "睡眠严重不足"] },
+    "options": [
+      { "text": "关心但不夸大病情", "axis": "calm" },
+      { "text": "给我实用建议就好", "axis": "practical" },
+      { "text": "让我自己判断要不要去医院", "axis": "autonomy" },
+      { "text": "陪我，但别一直追问难受等级", "axis": "company" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-07",
+    "layer": "L1",
+    "tags": ["家务", "空间"],
+    "question": "关于「{{h}}」，我更认同哪种说法？",
+    "slots": { "h": "home_topics" },
+    "options": [
+      { "text": "我想有更多自主权", "axis": "autonomy" },
+      { "text": "可以商量，但别单方面规定", "axis": "negotiate" },
+      { "text": "有底线就好，细节我自己定", "axis": "boundary" },
+      { "text": "希望你们先问我的想法", "axis": "ask" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-08",
+    "layer": "L1",
+    "tags": ["出行"],
+    "question": "我「{{s}}」时，报平安的方式我更偏好？",
+    "slots": { "s": ["晚归", "出城玩", "一个人过夜行程", "临时改变路线", "飞机高铁途中", "和朋友过夜", "加班到很晚", "下雨夜路回家"] },
+    "optionsPool": "communication_prefs",
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-09",
+    "layer": "L1",
+    "tags": ["穿衣", "外观"],
+    "question": "如果我「{{a}}」，我希望你们先看到的是？",
+    "slots": { "a": "appearance_topics" },
+    "options": [
+      { "text": "我开心和自信", "axis": "joy" },
+      { "text": "这是我的自我表达", "axis": "identity" },
+      { "text": "我做过考虑，不是冲动", "axis": "thoughtful" },
+      { "text": "可以担心，但请先别否定", "axis": "soft_worry" }
+    ],
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L1-10",
+    "layer": "L1",
+    "tags": ["习惯", "提醒"],
+    "question": "关于「{{topic}}」，什么样的提醒我比较能接受？",
+    "slots": { "topic": "topics_habit" },
+    "options": [
+      { "text": "点到为止的一句", "axis": "short" },
+      { "text": "用关心口吻，别用命令", "axis": "tone" },
+      { "text": "写在消息里，别反复电话", "axis": "channel" },
+      { "text": "先问我是否需要提醒", "axis": "ask" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-11",
+    "layer": "L1",
+    "tags": ["饮食"],
+    "question": "家里聊到「{{s}}」时，我更希望？",
+    "slots": { "s": "situations_eat" },
+    "options": [
+      { "text": "别上升到身体健康焦虑", "axis": "deescalate" },
+      { "text": "尊重我的口味变化", "axis": "respect" },
+      { "text": "给我选项，别替我点餐决定", "axis": "choice" },
+      { "text": "当作小事，别反复提", "axis": "light" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-12",
+    "layer": "L1",
+    "tags": ["作息"],
+    "question": "我「{{s}}」，你们怎样解读更贴近我？",
+    "slots": { "s": "situations_sleep" },
+    "options": [
+      { "text": "我在用自己的方式恢复", "axis": "recover" },
+      { "text": "阶段性状态，不代表堕落", "axis": "phase" },
+      { "text": "我需要边界，不是故意对抗", "axis": "boundary" },
+      { "text": "我知道利害，请少一点压力", "axis": "pressure" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-13",
+    "layer": "L1",
+    "tags": ["消费"],
+    "question": "「{{m}}」这件事，我更看重？",
+    "slots": { "m": "money_topics" },
+    "options": [
+      { "text": "情绪价值和愉悦感", "axis": "joy" },
+      { "text": "长期是否真的有用", "axis": "utility" },
+      { "text": "是否在预算内可控", "axis": "budget" },
+      { "text": "这是对自己的小小奖励", "axis": "reward" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-14",
+    "layer": "L1",
+    "tags": ["运动", "健康"],
+    "question": "谈到运动或作息「{{s}}」时，我希望你们？",
+    "slots": { "s": ["最近变少", "突然练得很猛", "只想散步放松", "因工作暂停", "和朋友一起玩球", "靠兴趣维持而不是打卡"] },
+    "options": [
+      { "text": "别用结果评判我", "axis": "nonjudge" },
+      { "text": "陪我找可持续的方式", "axis": "sustain" },
+      { "text": "关心身体感受即可", "axis": "body" },
+      { "text": "让我自己安排节奏", "axis": "autonomy" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-15",
+    "layer": "L1",
+    "tags": ["手机", "习惯"],
+    "question": "我「玩手机时间变长」常发生在「{{s}}」之后，这时我需要？",
+    "slots": { "s": "situations_daily" },
+    "optionsPool": "care_reactions",
+    "maxExpand": 45,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-16",
+    "layer": "L1",
+    "tags": ["报备"],
+    "question": "关于「自己做决定不先报备」，在「{{s}}」场景里我更希望？",
+    "slots": { "s": ["换发型外观", "买非大额物品", "周末行程", "交新朋友", "接一个业余项目", "调整作息"] },
+    "options": [
+      { "text": "事后分享即可", "axis": "after" },
+      { "text": "重要事项才提前说", "axis": "important" },
+      { "text": "想听建议时会主动问", "axis": "ask_when_need" },
+      { "text": "报备不等于征求批准", "axis": "inform" }
+    ],
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L1-17",
+    "layer": "L1",
+    "tags": ["天气", "日常"],
+    "question": "「{{s}}」这种日子，我更想被怎样对待？",
+    "slots": { "s": ["下雨不想出门", "换季容易不舒服", "连续上班很累", "周末想宅在家", "熬夜赶东西后的第二天"] },
+    "optionsPool": "care_reactions_alt",
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-18",
+    "layer": "L1",
+    "tags": ["聚餐"],
+    "question": "家里聚餐遇到「{{s}}」时，我更希望你们站在哪边？",
+    "slots": { "s": ["被劝酒或劝菜", "被问私生活", "被比较工作", "被安排相亲话题", "被要求多吃", "被要求表演或说话"] },
+    "options": [
+      { "text": "帮我圆场挡一下", "axis": "protect" },
+      { "text": "尊重我的拒绝", "axis": "respect" },
+      { "text": "别当着大家训我", "axis": "face" },
+      { "text": "事后私下说就好", "axis": "private" }
+    ],
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L1-19",
+    "layer": "L1",
+    "tags": ["收拾", "空间"],
+    "question": "说到房间「有点乱」或个人空间，我更认同？",
+    "slots": {},
+    "options": [
+      { "text": "乱不代表我过得不好", "axis": "nonjudge" },
+      { "text": "我有自己的整理节奏", "axis": "pace" },
+      { "text": "请先敲门再进我房间", "axis": "privacy" },
+      { "text": "帮忙可以，别擅自丢东西", "axis": "consent" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L1-20",
+    "layer": "L1",
+    "tags": ["习惯总览"],
+    "question": "总体而言，我对「生活习惯被讨论」的态度是？",
+    "slots": {},
+    "options": [
+      { "text": "可以聊，但要平等", "axis": "equal" },
+      { "text": "小事请少管，大事再介入", "axis": "scale" },
+      { "text": "我需要被信任多过被纠正", "axis": "trust" },
+      { "text": "用问题卡了解我，比当面说教好", "axis": "channel" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+
+  {
+    "id": "L2-01",
+    "layer": "L2",
+    "tags": ["情绪", "需要"],
+    "question": "「{{need}}」，我最希望你们怎么做？",
+    "slots": { "need": "topics_daily_need" },
+    "optionsPool": "care_reactions",
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-02",
+    "layer": "L2",
+    "tags": ["情绪"],
+    "question": "当我「{{s}}」时，怎样的关心是加分的？",
+    "slots": { "s": "situations_daily" },
+    "optionsPool": "care_reactions_alt",
+    "maxExpand": 50,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-03",
+    "layer": "L2",
+    "tags": ["压力"],
+    "question": "我压力大时，最不希望听到的是？",
+    "slots": {},
+    "options": [
+      { "text": "别人家孩子怎样", "axis": "compare" },
+      { "text": "你怎么又这样", "axis": "blame" },
+      { "text": "想开点就没事了", "axis": "dismiss" },
+      { "text": "赶紧给我一个解决方案", "axis": "fix" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-04",
+    "layer": "L2",
+    "tags": ["冲突"],
+    "question": "「{{c}}」时，我更希望当下怎么处理？",
+    "slots": { "c": "situations_conflict" },
+    "optionsPool": "boundary_responses",
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L2-05",
+    "layer": "L2",
+    "tags": ["陪伴"],
+    "question": "「{{need}}」，什么样的陪伴最对味？",
+    "slots": { "need": "topics_daily_need" },
+    "options": [
+      { "text": "人在就好，不必多话", "axis": "presence" },
+      { "text": "认真听我说完", "axis": "listen" },
+      { "text": "一起做点轻松的事", "axis": "activity" },
+      { "text": "给我空间，稍后联系", "axis": "space" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-06",
+    "layer": "L2",
+    "tags": ["担心"],
+    "question": "你们担心我时，我「{{s}}」的情况下更希望？",
+    "slots": { "s": "situations_daily" },
+    "optionsPool": "worry_responses",
+    "maxExpand": 45,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-07",
+    "layer": "L2",
+    "tags": ["开心"],
+    "question": "我分享开心事时，最希望你们的反应是？",
+    "slots": {},
+    "options": [
+      { "text": "先替我开心，别先泼冷水", "axis": "joy" },
+      { "text": "问我细节，表示真的感兴趣", "axis": "curious" },
+      { "text": "简单祝贺就很好", "axis": "simple" },
+      { "text": "把骄傲放心里，别过度宣传", "axis": "private" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-08",
+    "layer": "L2",
+    "tags": ["沟通渠道"],
+    "question": "「{{s}}」时，我更想用哪种方式和家里联系？",
+    "slots": { "s": "situations_daily" },
+    "optionsPool": "communication_prefs",
+    "maxExpand": 45,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-09",
+    "layer": "L2",
+    "tags": ["被夸奖"],
+    "question": "当我被夸奖「{{s}}」相关的事时，我更吃哪一套？",
+    "slots": { "s": ["工作学习", "外表变化", "生活自理", "性格成熟", "照顾家人", "坚持爱好"] },
+    "optionsPool": "praise_prefs",
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-10",
+    "layer": "L2",
+    "tags": ["低落"],
+    "question": "我心情低落是因为「{{s}}」时，怎样帮助最有效？",
+    "slots": { "s": ["被批评后心情低落", "刚吵完架还在余怒", "考试或汇报前紧张", "突然很想家", "连续上班很累", "看完一部很触动的片子"] },
+    "optionsPool": "care_reactions",
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-11",
+    "layer": "L2",
+    "tags": ["电话"],
+    "question": "电话里谈到「{{c}}」时，我更希望？",
+    "slots": { "c": "situations_conflict" },
+    "options": [
+      { "text": "先挂断冷静，文字继续", "axis": "pause" },
+      { "text": "缩短通话，别反复绕", "axis": "short" },
+      { "text": "先确认感受，再讲道理", "axis": "feel" },
+      { "text": "改日再谈这个话题", "axis": "later" }
+    ],
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L2-12",
+    "layer": "L2",
+    "tags": ["想家"],
+    "question": "我「突然很想家」时，最想收到的是？",
+    "slots": {},
+    "options": [
+      { "text": "一句「我们也想你」", "axis": "miss" },
+      { "text": "一张家里的照片", "axis": "photo" },
+      { "text": "短语音就好", "axis": "voice" },
+      { "text": "别过度解读成我过得不好", "axis": "light" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-13",
+    "layer": "L2",
+    "tags": ["忙碌"],
+    "question": "我「{{s}}」时，你们怎样做不会增加我负担？",
+    "slots": { "s": ["加班很晚回家", "连续上班很累", "熬夜赶东西", "旅行在路上", "搬家或换环境"] },
+    "options": [
+      { "text": "消息短、可迟回", "axis": "async" },
+      { "text": "不问一长串细节", "axis": "simple" },
+      { "text": "先报「看到了」就好", "axis": "ack" },
+      { "text": "把关心变成具体帮助", "axis": "practical" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-14",
+    "layer": "L2",
+    "tags": ["节日情绪"],
+    "question": "「{{f}}」，我更需要什么样的互动？",
+    "slots": { "f": "festival_moments" },
+    "options": [
+      { "text": "一张轻祝福卡就很暖", "axis": "card" },
+      { "text": "回顾往年照片", "axis": "album" },
+      { "text": "短语音，不强制视频", "axis": "voice" },
+      { "text": "日常状态同步，别仪式感太重", "axis": "light" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-15",
+    "layer": "L2",
+    "tags": ["被比较"],
+    "question": "当我「被拿来和别人比较」时，我真实感受更接近？",
+    "slots": {},
+    "options": [
+      { "text": "委屈，觉得不被看见", "axis": "unseen" },
+      { "text": "烦躁，想结束话题", "axis": "stop" },
+      { "text": "受伤，信任会下降", "axis": "hurt" },
+      { "text": "想解释，但常解释不动", "axis": "explain" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L2-16",
+    "layer": "L2",
+    "tags": ["求助"],
+    "question": "我「{{need}}」如果向你们求助，我希望你们？",
+    "slots": { "need": "topics_daily_need" },
+    "options": [
+      { "text": "先问我需要听还是需要建议", "axis": "ask_mode" },
+      { "text": "别扩散给亲戚朋友", "axis": "privacy" },
+      { "text": "支持我的决定权", "axis": "agency" },
+      { "text": "给我时间，不催结论", "axis": "time" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-17",
+    "layer": "L2",
+    "tags": ["道歉"],
+    "question": "吵完后，话题还停在「{{c}}」时，我更容易接受的修复是？",
+    "slots": { "c": "situations_conflict" },
+    "options": [
+      { "text": "一句真诚的「刚才太急了」", "axis": "sorry" },
+      { "text": "用行动表示在意", "axis": "action" },
+      { "text": "下次换种说法", "axis": "change" },
+      { "text": "先恢复日常互动，不硬和解谈", "axis": "normal" }
+    ],
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L2-18",
+    "layer": "L2",
+    "tags": ["社交后"],
+    "question": "我「约会或社交后回来」，通常需要？",
+    "slots": {},
+    "options": [
+      { "text": "一点独处充电", "axis": "space" },
+      { "text": "随便聊聊今天见闻", "axis": "chat" },
+      { "text": "别审问我和谁、去哪", "axis": "privacy" },
+      { "text": "吃点东西休息就好", "axis": "practical" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-19",
+    "layer": "L2",
+    "tags": ["安全感"],
+    "question": "什么会让我在家里更有安全感？",
+    "slots": {},
+    "options": [
+      { "text": "被信任，少被怀疑动机", "axis": "trust" },
+      { "text": "冲突时仍被尊重", "axis": "respect" },
+      { "text": "我的选择被认真听完", "axis": "listen" },
+      { "text": "隐私边界被遵守", "axis": "privacy" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L2-20",
+    "layer": "L2",
+    "tags": ["日常总览"],
+    "question": "总的来说，我理想中的「轻度联系」是？",
+    "slots": {},
+    "options": [
+      { "text": "每天一个状态信号就够", "axis": "signal" },
+      { "text": "有照片动态比纯文字轻松", "axis": "photo" },
+      { "text": "重要事说清，琐事少追问", "axis": "priority" },
+      { "text": "节日用心，平时轻松", "axis": "festival" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+
+  {
+    "id": "L3-01",
+    "layer": "L3",
+    "tags": ["兴趣"],
+    "question": "我对「{{topic}}」投入时间，更真实的原因是？",
+    "slots": { "topic": "topics_interest" },
+    "optionsPool": "true_reasons_as_options",
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-02",
+    "layer": "L3",
+    "tags": ["兴趣", "误解"],
+    "question": "我喜欢「{{topic}}」，最不想被理解成「{{wrong}}」。更贴近的是？",
+    "slots": { "topic": "topics_interest", "wrong": "misunderstandings" },
+    "optionsPool": "true_reasons_as_options",
+    "expandMode": "pairSample",
+    "maxExpand": 80,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-03",
+    "layer": "L3",
+    "tags": ["外观"],
+    "question": "关于「{{a}}」，我更希望你们怎么看？",
+    "slots": { "a": "appearance_topics" },
+    "options": [
+      { "text": "这是审美，不是态度问题", "axis": "aesthetic" },
+      { "text": "请先问我为什么喜欢", "axis": "curious" },
+      { "text": "可以不欣赏，但请尊重", "axis": "respect" },
+      { "text": "外表变化不代表人生失控", "axis": "stable" }
+    ],
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L3-04",
+    "layer": "L3",
+    "tags": ["爱好分享"],
+    "question": "我跟你们聊「{{topic}}」时，最希望的反应是？",
+    "slots": { "topic": "topics_interest" },
+    "options": [
+      { "text": "表现出兴趣，哪怕不懂", "axis": "interest" },
+      { "text": "别急着评价好不好", "axis": "nonjudge" },
+      { "text": "问我喜欢它哪一点", "axis": "curious" },
+      { "text": "允许我自言自语式分享", "axis": "share" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-05",
+    "layer": "L3",
+    "tags": ["穿搭"],
+    "question": "我坚持某种穿搭风格，对你们而言最该理解的一点是？",
+    "slots": {},
+    "options": [
+      { "text": "这让我更像自己", "axis": "identity" },
+      { "text": "舒适和表达可以并存", "axis": "comfort" },
+      { "text": "不是为了引起争论", "axis": "not_fight" },
+      { "text": "场合我会自己把握分寸", "axis": "context" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L3-06",
+    "layer": "L3",
+    "tags": ["音乐影视"],
+    "question": "一部作品或一类音乐打动我时，我希望你们知道？",
+    "slots": {},
+    "options": [
+      { "text": "那是我情绪的出口", "axis": "outlet" },
+      { "text": "喜欢不等于消极避世", "axis": "not_escape" },
+      { "text": "我想被问问感受，不是被分析", "axis": "feel" },
+      { "text": "这是我的精神零食", "axis": "joy" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-07",
+    "layer": "L3",
+    "tags": ["旅行"],
+    "question": "说到旅行偏好，我更看重？",
+    "slots": {},
+    "options": [
+      { "text": "放松和新鲜感", "axis": "relax" },
+      { "text": "安全和预算可控", "axis": "safe" },
+      { "text": "自己做主的行程", "axis": "agency" },
+      { "text": "偶尔暴走，偶尔躺平", "axis": "mix" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-08",
+    "layer": "L3",
+    "tags": ["游戏追番"],
+    "question": "我花时间在游戏或追番上，更希望被看成？",
+    "slots": {},
+    "options": [
+      { "text": "正当休闲，不是堕落", "axis": "leisure" },
+      { "text": "社交和归属的一部分", "axis": "social" },
+      { "text": "压力调节工具", "axis": "regulate" },
+      { "text": "有边界的兴趣投入", "axis": "bounded" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-09",
+    "layer": "L3",
+    "tags": ["创作"],
+    "question": "如果我做拍照、写作或手作，我最需要的支持是？",
+    "slots": {},
+    "options": [
+      { "text": "鼓励我持续，别问变现", "axis": "encourage" },
+      { "text": "认真看看我的成品", "axis": "see" },
+      { "text": "给我时间和空间", "axis": "space" },
+      { "text": "别用「有没有用」衡量", "axis": "nonutil" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-10",
+    "layer": "L3",
+    "tags": ["兴趣花钱"],
+    "question": "为「{{topic}}」花钱时，我希望你们优先看到？",
+    "slots": { "topic": "topics_interest" },
+    "options": [
+      { "text": "这对我情绪有帮助", "axis": "emotion" },
+      { "text": "我有在控制频率和金额", "axis": "control" },
+      { "text": "这是学习或技能投入", "axis": "skill" },
+      { "text": "请先理解意义，再谈钱", "axis": "meaning" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-11",
+    "layer": "L3",
+    "tags": ["外观冲突"],
+    "question": "如果因「{{a}}」差点吵架，我更希望进程是？",
+    "slots": { "a": "appearance_topics" },
+    "optionsPool": "boundary_responses",
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L3-12",
+    "layer": "L3",
+    "tags": ["兴趣边界"],
+    "question": "关于「{{topic}}」，我划定的边界更接近？",
+    "slots": { "topic": "topics_interest" },
+    "options": [
+      { "text": "可以问，但别否定", "axis": "ask_ok" },
+      { "text": "我分享时再讨论", "axis": "when_share" },
+      { "text": "这是我的私人领域", "axis": "private" },
+      { "text": "欢迎一起体验一次", "axis": "invite" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-13",
+    "layer": "L3",
+    "tags": ["美食"],
+    "question": "我对探店或美食的热情，更像是？",
+    "slots": {},
+    "options": [
+      { "text": "生活仪式感", "axis": "ritual" },
+      { "text": "和朋友连结的方式", "axis": "social" },
+      { "text": "对自己的犒劳", "axis": "reward" },
+      { "text": "城市探索的一部分", "axis": "explore" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-14",
+    "layer": "L3",
+    "tags": ["运动爱好"],
+    "question": "一项运动成为我的爱好时，我希望你们？",
+    "slots": {},
+    "options": [
+      { "text": "关心安全，但别吓退我", "axis": "safe_soft" },
+      { "text": "为我的坚持点赞", "axis": "cheer" },
+      { "text": "理解这是我的社交圈", "axis": "social" },
+      { "text": "别把它变成考核指标", "axis": "nonjudge" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-15",
+    "layer": "L3",
+    "tags": ["小众爱好"],
+    "question": "我的爱好比较小众时，最怕你们？",
+    "slots": {},
+    "options": [
+      { "text": "笑话或觉得幼稚", "axis": "mock" },
+      { "text": "追问有没有前途", "axis": "future" },
+      { "text": "要求我改成「正经爱好」", "axis": "replace" },
+      { "text": "对外乱讲让我尴尬", "axis": "privacy" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-16",
+    "layer": "L3",
+    "tags": ["兴趣与工作"],
+    "question": "兴趣占用我下班时间时，我希望被理解成？",
+    "slots": {},
+    "options": [
+      { "text": "恢复精力的必要投入", "axis": "recover" },
+      { "text": "生活不只工作", "axis": "life" },
+      { "text": "我在建立自己的世界", "axis": "world" },
+      { "text": "有安排，不是无规划浪费", "axis": "planned" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-17",
+    "layer": "L3",
+    "tags": ["分享照片"],
+    "question": "我发「{{topic}}」相关照片到家庭动态，更想得到？",
+    "slots": { "topic": "topics_interest" },
+    "options": [
+      { "text": "一句「好看/有意思」", "axis": "ack" },
+      { "text": "真诚的小问题", "axis": "ask" },
+      { "text": "表情就够，不必长评", "axis": "emoji" },
+      { "text": "别引申到人生规划", "axis": "no_lecture" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-18",
+    "layer": "L3",
+    "tags": ["审美分歧"],
+    "question": "我们审美不一致时，我更能接受的说法是？",
+    "slots": {},
+    "options": [
+      { "text": "「我不懂，但尊重你」", "axis": "respect" },
+      { "text": "「你开心就好」", "axis": "joy" },
+      { "text": "「能说说你喜欢什么吗」", "axis": "curious" },
+      { "text": "「我怕别人闲话，但我先听你」", "axis": "honest_worry" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L3-19",
+    "layer": "L3",
+    "tags": ["兴趣暂停"],
+    "question": "我暂时放下某个爱好时，希望你们？",
+    "slots": {},
+    "options": [
+      { "text": "别解读成半途而废", "axis": "phase" },
+      { "text": "允许兴趣有季节性", "axis": "season" },
+      { "text": "关心我是否太累", "axis": "care" },
+      { "text": "等我自己想捡起来", "axis": "wait" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L3-20",
+    "layer": "L3",
+    "tags": ["兴趣总览"],
+    "question": "总体而言，兴趣在我生活里的位置是？",
+    "slots": {},
+    "options": [
+      { "text": "让我保持活力的来源", "axis": "vital" },
+      { "text": "身份表达的一部分", "axis": "identity" },
+      { "text": "压力的减压阀", "axis": "valve" },
+      { "text": "和重要的人连结的桥梁", "axis": "bond" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+
+  {
+    "id": "L4-01",
+    "layer": "L4",
+    "tags": ["精神", "理解"],
+    "question": "谈到「{{topic}}」，我最希望你们明白的是？",
+    "slots": { "topic": "topics_spirit" },
+    "optionsPool": "true_reasons_as_options",
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-02",
+    "layer": "L4",
+    "tags": ["被理解"],
+    "question": "什么时刻我会觉得「被真正理解」？",
+    "slots": {},
+    "options": [
+      { "text": "你们复述出我的感受，而不急着纠正", "axis": "reflect" },
+      { "text": "即使不同意，也尊重我的选择权", "axis": "respect" },
+      { "text": "记得我说过的小事和偏好", "axis": "remember" },
+      { "text": "冲突后仍对我温柔", "axis": "gentle" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-03",
+    "layer": "L4",
+    "tags": ["边界"],
+    "question": "关于「{{topic}}」，我的边界底线更接近？",
+    "slots": { "topic": "topics_spirit" },
+    "options": [
+      { "text": "可以关心，不能替我决定", "axis": "agency" },
+      { "text": "可以担心，不能否定人格", "axis": "dignity" },
+      { "text": "可以建议，不能反复施压", "axis": "pressure" },
+      { "text": "可以提问，不能翻旧账", "axis": "history" }
+    ],
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-04",
+    "layer": "L4",
+    "tags": ["未来"],
+    "question": "聊到「{{f}}」时，我更需要？",
+    "slots": { "f": "future_topics" },
+    "options": [
+      { "text": "先听我怎么想", "axis": "listen" },
+      { "text": "一起列风险，但不恐吓", "axis": "risk" },
+      { "text": "给我探索的时间窗口", "axis": "time" },
+      { "text": "把「担心」说成「关心」", "axis": "tone" }
+    ],
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-05",
+    "layer": "L4",
+    "tags": ["独立"],
+    "question": "「想被当成成年人看待」对我意味着？",
+    "slots": {},
+    "options": [
+      { "text": "信息同步，不是请示批准", "axis": "inform" },
+      { "text": "信任我的判断力", "axis": "trust" },
+      { "text": "允许我承担结果", "axis": "own" },
+      { "text": "冲突时仍保留尊重", "axis": "respect" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-06",
+    "layer": "L4",
+    "tags": ["失败"],
+    "question": "我失败或受挫时，最需要的精神支持是？",
+    "slots": {},
+    "options": [
+      { "text": "陪我就好，别急着总结教训", "axis": "company" },
+      { "text": "肯定我的努力过程", "axis": "effort" },
+      { "text": "相信我还能站起来", "axis": "belief" },
+      { "text": "给我独处消化的权利", "axis": "space" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-07",
+    "layer": "L4",
+    "tags": ["价值"],
+    "question": "在「乖」和「做真实的自己」之间，我目前更倾向？",
+    "slots": {},
+    "options": [
+      { "text": "真实优先，但仍顾及你们感受", "axis": "true_care" },
+      { "text": "关键处坚持，小事可协调", "axis": "pick" },
+      { "text": "想找到两全的表达方式", "axis": "both" },
+      { "text": "阶段性更需要做自己", "axis": "phase" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-08",
+    "layer": "L4",
+    "tags": ["亲密"],
+    "question": "亲子亲密对我来说，更像是？",
+    "slots": {},
+    "options": [
+      { "text": "稳定的看见与支持", "axis": "see" },
+      { "text": "有边界的靠近", "axis": "boundary" },
+      { "text": "日常轻连接，而非深度审讯", "axis": "light" },
+      { "text": "互相成长，不是单向管教", "axis": "mutual" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-09",
+    "layer": "L4",
+    "tags": ["独处"],
+    "question": "我需要独处时，希望你们如何理解？",
+    "slots": {},
+    "options": [
+      { "text": "不是冷淡你们", "axis": "not_cold" },
+      { "text": "我在给自己充电", "axis": "charge" },
+      { "text": "稍后我会回来连接", "axis": "return" },
+      { "text": "请用信任代替猜测", "axis": "trust" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L4-10",
+    "layer": "L4",
+    "tags": ["定义"],
+    "question": "我「不想被定义」时，最反感的是？",
+    "slots": {},
+    "options": [
+      { "text": "被贴上固定标签", "axis": "label" },
+      { "text": "用过去推断现在", "axis": "past" },
+      { "text": "用别人标准衡量我", "axis": "other" },
+      { "text": "否定我正在变化", "axis": "change" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-11",
+    "layer": "L4",
+    "tags": ["未来节奏"],
+    "question": "关于人生节奏，我更认同？",
+    "slots": {},
+    "options": [
+      { "text": "允许非直线前进", "axis": "nonlinear" },
+      { "text": "稳定重要，但不要窒息", "axis": "stable_soft" },
+      { "text": "探索期也是一种负责", "axis": "explore" },
+      { "text": "我的时间表可以和你们不同", "axis": "tempo" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-12",
+    "layer": "L4",
+    "tags": ["花钱价值"],
+    "question": "我的花钱方式背后，更核心的价值是？",
+    "slots": {},
+    "options": [
+      { "text": "体验与感受", "axis": "experience" },
+      { "text": "自主与尊严", "axis": "dignity" },
+      { "text": "长期能力投资", "axis": "invest" },
+      { "text": "生活品质的底线", "axis": "quality" }
+    ],
+    "fixed": true,
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L4-13",
+    "layer": "L4",
+    "tags": ["冲突后精神"],
+    "question": "「{{c}}」之后，我精神上最需要的是？",
+    "slots": { "c": "situations_conflict" },
+    "options": [
+      { "text": "被看见情绪", "axis": "feel" },
+      { "text": "恢复平等对话", "axis": "equal" },
+      { "text": "确认关系还在", "axis": "bond" },
+      { "text": "时间与空间", "axis": "space" }
+    ],
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-14",
+    "layer": "L4",
+    "tags": ["担心翻译"],
+    "question": "当你们用担心表达爱时，我更容易接收的版本是？",
+    "slots": {},
+    "options": [
+      { "text": "「我关心你，也相信你」", "axis": "care_trust" },
+      { "text": "「我有点怕，但想听你的计划」", "axis": "fear_listen" },
+      { "text": "「我不同意，但我尊重」", "axis": "disagree_respect" },
+      { "text": "「我需要什么信息才会安心」", "axis": "need_info" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-15",
+    "layer": "L4",
+    "tags": ["自我"],
+    "question": "「想成为什么样的人」这件事，我希望家里？",
+    "slots": {},
+    "options": [
+      { "text": "当见证人，不当裁判", "axis": "witness" },
+      { "text": "提供支持，不预设答案", "axis": "support" },
+      { "text": "允许版本迭代", "axis": "iterate" },
+      { "text": "把我的向往当认真的事", "axis": "serious" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-16",
+    "layer": "L4",
+    "tags": ["稳定冒险"],
+    "question": "在稳定与冒险之间，我当前更需要你们？",
+    "slots": {},
+    "options": [
+      { "text": "做安全网，不是缰绳", "axis": "net" },
+      { "text": "帮我看风险，但决策归我", "axis": "risk_own" },
+      { "text": "承认稳定也有多种形态", "axis": "forms" },
+      { "text": "别把冒险等同于不负责任", "axis": "reframe" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-17",
+    "layer": "L4",
+    "tags": ["精神误解"],
+    "question": "提到「{{topic}}」，我最不想被误会成「{{wrong}}」。更真实的是？",
+    "slots": { "topic": "topics_spirit", "wrong": "misunderstandings" },
+    "optionsPool": "true_reasons_as_options",
+    "expandMode": "pairSample",
+    "maxExpand": 80,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-18",
+    "layer": "L4",
+    "tags": ["节日精神"],
+    "question": "「{{f}}」这类节点，对我精神层面更重要的是？",
+    "slots": { "f": "festival_moments" },
+    "options": [
+      { "text": "被记得，而不是被安排", "axis": "remember" },
+      { "text": "轻松的连结，而非任务", "axis": "light" },
+      { "text": "真实情绪可以被容纳", "axis": "emotion" },
+      { "text": "关系比仪式形式更重要", "axis": "relation" }
+    ],
+    "sensitivity": "normal"
+  },
+  {
+    "id": "L4-19",
+    "layer": "L4",
+    "tags": ["深层需要"],
+    "question": "长期来看，我最想从父母这里得到的是？",
+    "slots": {},
+    "options": [
+      { "text": "无条件的基本信任", "axis": "trust" },
+      { "text": "被当作完整的人尊重", "axis": "respect" },
+      { "text": "可求助的后盾", "axis": "backup" },
+      { "text": "一起更新关系的模式", "axis": "update" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  },
+  {
+    "id": "L4-20",
+    "layer": "L4",
+    "tags": ["精神总览"],
+    "question": "如果我们只能做好一件事来改善关系，我选？",
+    "slots": {},
+    "options": [
+      { "text": "少一点评判，多一点提问", "axis": "ask" },
+      { "text": "把担心说成关心", "axis": "tone" },
+      { "text": "尊重边界，保留连结", "axis": "boundary" },
+      { "text": "用轻互动代替高压长谈", "axis": "light" }
+    ],
+    "fixed": true,
+    "sensitivity": "sensitive"
+  }
+]

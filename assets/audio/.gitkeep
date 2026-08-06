@@ -1,0 +1,2 @@
+# 可选氛围音：放入 ambient.mp3
+# 然后在 index.html 取消 ambientAudio 的注释

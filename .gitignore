@@ -1,0 +1,26 @@
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+.cursor/
+node_modules/
+*.local
+.env
+.env.*
+assets/art/_*.png
+
+# 本地版本 zip，勿上传（体积大）
+snapshots/
+
+# 案例制作临时文件
+cases/**/_tmp/
+cases/oura-ring/_tmp/
+**/_tmp/
+
+# 本地工具二进制
+**/.tools/
+*.exe
+
+# 编辑台密码等本地覆盖（勿提交）
+js/content.local.js

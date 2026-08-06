@@ -1,0 +1,79 @@
+.wrap {
+  padding-bottom: 64rpx;
+}
+
+.picker-like {
+  line-height: 1.4;
+}
+
+.age-sub {
+  margin-top: 20rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--soft);
+}
+
+.age-locked {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.linkish {
+  margin-top: 12rpx;
+  color: var(--blush-deep);
+  text-decoration: underline;
+}
+
+.chip.rec {
+  box-shadow: inset 0 0 0 2rpx var(--blush-deep);
+}
+
+.picked {
+  margin: 12rpx 0 8rpx;
+  padding: 12rpx 16rpx;
+  background: rgba(233, 183, 178, 0.18);
+  border-radius: 16rpx;
+}
+
+.picked-title {
+  font-size: 22rpx;
+  color: var(--soft);
+  font-weight: 600;
+  margin: 12rpx 0 8rpx;
+}
+
+.picked-chip {
+  background: rgba(233, 183, 178, 0.55) !important;
+  font-weight: 600;
+  padding-right: 10rpx;
+}
+
+.x {
+  margin-left: 10rpx;
+  font-size: 28rpx;
+  color: var(--blush-deep);
+  font-weight: 700;
+}
+
+.shuffle {
+  margin: 16rpx 0 0 !important;
+  background: var(--sand) !important;
+}
+
+.add-row {
+  display: flex;
+  gap: 12rpx;
+  align-items: center;
+  margin-top: 16rpx;
+}
+
+.add-row .grow {
+  flex: 1;
+  margin-top: 0;
+}
+
+.add-btn {
+  background: rgba(233, 183, 178, 0.7) !important;
+  color: var(--ink) !important;
+  flex-shrink: 0;
+}

@@ -1,0 +1,26 @@
+<view class="wrap">
+  <view class="hero card">
+    <view class="label">家灯</view>
+    <view class="title">低负担的家庭连接</view>
+    <view class="hint">父母愿意打开；子女大约一分钟搞定。先建或加入一个家。</view>
+  </view>
+
+  <view class="card" wx:if="{{mode === 'create'}}">
+    <view class="label">创建家庭</view>
+    <input class="input" placeholder="你的称呼，如：小刘" value="{{name}}" bindinput="onName" />
+    <button class="btn-primary" bindtap="create">生成家庭码</button>
+    <button class="btn-ghost" bindtap="switchMode" data-mode="join">我有家庭码</button>
+  </view>
+
+  <view class="card" wx:else>
+    <view class="label">加入家庭</view>
+    <input class="input" placeholder="六位家庭码" value="{{code}}" bindinput="onCode" maxlength="6" />
+    <input class="input" placeholder="你的称呼，如：妈妈" value="{{name}}" bindinput="onName" />
+    <button class="btn-primary" bindtap="join">加入</button>
+    <button class="btn-ghost" bindtap="switchMode" data-mode="create">改为创建家庭</button>
+  </view>
+
+  <view class="card tip">
+    <view class="hint">跨手机给朋友用：需在微信开发者工具开通「云开发」，见项目 README。本地模式仅同机可测。</view>
+  </view>
+</view>

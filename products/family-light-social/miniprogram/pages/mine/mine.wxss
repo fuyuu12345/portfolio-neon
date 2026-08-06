@@ -1,0 +1,49 @@
+.title {
+  font-size: 40rpx;
+  font-weight: 700;
+  margin-top: 8rpx;
+}
+
+.mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(47, 42, 40, 0.35);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sheet {
+  width: 100%;
+  background: #fff;
+  border-radius: 28rpx 28rpx 0 0;
+  padding: 28rpx 28rpx 48rpx;
+  box-shadow: 0 -8rpx 30rpx rgba(47, 42, 40, 0.12);
+}
+
+.sheet .input {
+  margin-top: 16rpx;
+}
+
+.sheet-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.sheet-actions .ghost {
+  background: var(--sand) !important;
+  color: var(--ink) !important;
+  margin: 0 !important;
+}
+
+.sheet-actions .primary {
+  background: rgba(233, 183, 178, 0.85) !important;
+  color: var(--ink) !important;
+  margin: 0 !important;
+}

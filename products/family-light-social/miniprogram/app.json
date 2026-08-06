@@ -1,0 +1,58 @@
+{
+  "pages": [
+    "pages/join/join",
+    "pages/home/home",
+    "pages/feed/feed",
+    "pages/quiz/quiz",
+    "pages/about/about",
+    "pages/mine/mine",
+    "pages/portrait/portrait"
+  ],
+  "window": {
+    "navigationBarTitleText": "家灯",
+    "navigationBarBackgroundColor": "#FBF9F7",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#EFEAE4",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#8A817C",
+    "selectedColor": "#D4928C",
+    "backgroundColor": "#FBF9F7",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "家",
+        "iconPath": "assets/tab/home.png",
+        "selectedIconPath": "assets/tab/home-on.png"
+      },
+      {
+        "pagePath": "pages/feed/feed",
+        "text": "动态",
+        "iconPath": "assets/tab/feed.png",
+        "selectedIconPath": "assets/tab/feed-on.png"
+      },
+      {
+        "pagePath": "pages/quiz/quiz",
+        "text": "默契",
+        "iconPath": "assets/tab/quiz.png",
+        "selectedIconPath": "assets/tab/quiz-on.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "assets/tab/mine.png",
+        "selectedIconPath": "assets/tab/mine-on.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "permission": {
+    "scope.camera": {
+      "desc": "用于拍摄每日一更的照片"
+    }
+  }
+}

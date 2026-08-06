@@ -1,0 +1,174 @@
+<view class="wrap">
+  <view class="back-bar" bindtap="goBack">‹ 返回</view>
+  <view class="card">
+    <view class="label">关于我</view>
+    <view class="hint" wx:if="{{role==='elder'}}">写一点你想让家人慢慢认识的自己。</view>
+    <view class="hint" wx:else>词包可换一换；换满 {{shuffleNeed}} 次可手加。</view>
+  </view>
+
+  <view class="card">
+    <view class="label">角色</view>
+    <view class="chips">
+      <view class="chip {{role==='child'?'on':''}}" data-role="child" bindtap="setRole">子女 / 晚辈</view>
+      <view class="chip {{role==='elder'?'on':''}}" data-role="elder" bindtap="setRole">父母 / 长辈</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="label">现居住地</view>
+    <picker
+      mode="multiSelector"
+      range="{{[placeRegions, placeSubs, placeCities]}}"
+      value="{{placeIndex}}"
+      bindchange="onPlacePick"
+      bindcolumnchange="onPlaceColumn"
+    >
+      <view class="input picker-like">{{residenceLabel || '点此选择居住地 ›'}}</view>
+    </picker>
+    <view class="hint linkish" wx:if="{{residence}}" bindtap="clearResidence">清除居住地</view>
+  </view>
+
+  <view class="card">
+    <view class="label">生日与年龄</view>
+    <view class="hint">选填；年龄家人看不到。带年份的生日会自动生成年龄，只能改年份来调整。</view>
+    <view class="chips">
+      <view class="chip {{bdayCalendar==='solar'?'on':''}}" data-c="solar" bindtap="setBdayCal">阳历</view>
+      <view class="chip {{bdayCalendar==='lunar'?'on':''}}" data-c="lunar" bindtap="setBdayCal">阴历</view>
+    </view>
+    <picker
+      mode="multiSelector"
+      range="{{[bdayYears, bdayMonths, bdayDays]}}"
+      value="{{bdayIndex}}"
+      bindchange="onBdayPick"
+      bindcolumnchange="onBdayColumn"
+    >
+      <view class="input picker-like">{{bdayLabel || '点此选择生日 ›'}}</view>
+    </picker>
+    <view class="hint" wx:if="{{bdaySet && bdayPairLabel}}">{{bdayPairLabel}}</view>
+    <view class="sub age-sub">年龄</view>
+    <view class="input picker-like age-locked" wx:if="{{age}}">{{age}} 岁</view>
+    <view class="hint" wx:else>选生日年份后自动生成。</view>
+    <view class="hint linkish" bindtap="clearBirthday">清除生日</view>
+  </view>
+
+  <view class="card" wx:if="{{role==='child'}}">
+    <view class="label">家的名字</view>
+    <input class="input" placeholder="比如：刘家小窝 / 灯火人家" value="{{familyName}}" bindinput="onFamilyName" maxlength="12" />
+  </view>
+
+  <view class="card">
+    <view class="label">阶段（可多选）</view>
+    <view class="hint">{{stageHint}}</view>
+    <view class="chips">
+      <block wx:for="{{stages}}" wx:key="key">
+        <view
+          class="chip {{item.on?'on':''}} {{item.rec?'rec':''}}"
+          data-key="{{item.key}}"
+          bindtap="setStage"
+        >{{item.label}}{{item.rec?' · 推荐':''}}</view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 在意的事 -->
+  <view class="card">
+    <view class="label">{{role==='elder'?'最近放在心上的事':'最近在意的事'}}（最多 {{limits.concerns}} 个）</view>
+    <view class="hint" wx:if="{{role==='elder'}}">偏「想被懂」，少管教口吻。</view>
+    <view class="picked" wx:if="{{concerns.length}}">
+      <view class="picked-title">已选</view>
+      <view class="chips">
+        <view class="chip picked-chip" wx:for="{{concerns}}" wx:key="*this">
+          {{item}}
+          <text class="x" data-kind="concern" data-item="{{item}}" catchtap="removeSelected">×</text>
+        </view>
+      </view>
+    </view>
+    <view class="picked-title">换一批选</view>
+    <view class="chips">
+      <view class="chip" wx:for="{{concernPool}}" wx:key="*this" data-kind="concern" data-item="{{item}}" bindtap="pickFromPool">{{item}}</view>
+    </view>
+    <button class="btn-ghost shuffle" size="mini" data-kind="concern" bindtap="shufflePool">换一换（{{concernShuffles}}/{{shuffleNeed}}）</button>
+    <view class="add-row" wx:if="{{concernCanAdd}}">
+      <input class="input grow" placeholder="词包没有？自己加" value="{{customConcern}}" data-kind="concern" bindinput="onCustomInput" maxlength="12" />
+      <button size="mini" class="add-btn" data-kind="concern" bindtap="addCustom">添加</button>
+    </view>
+  </view>
+
+  <!-- 小世界：子女 + 父母都有，词包不同 -->
+  <view class="card">
+    <view class="label">{{role==='elder'?'我的生活小趣味':'我的小世界'}}（最多 {{limits.worlds}} 个）</view>
+    <view class="hint" wx:if="{{role==='elder'}}">爱好与日常。</view>
+    <view class="picked" wx:if="{{worlds.length}}">
+      <view class="picked-title">已选</view>
+      <view class="chips">
+        <view class="chip picked-chip" wx:for="{{worlds}}" wx:key="*this">
+          {{item}}
+          <text class="x" data-kind="world" data-item="{{item}}" catchtap="removeSelected">×</text>
+        </view>
+      </view>
+    </view>
+    <view class="picked-title">换一批选</view>
+    <view class="chips">
+      <view class="chip" wx:for="{{worldPool}}" wx:key="*this" data-kind="world" data-item="{{item}}" bindtap="pickFromPool">{{item}}</view>
+    </view>
+    <button class="btn-ghost shuffle" size="mini" data-kind="world" bindtap="shufflePool">换一换（{{worldShuffles}}/{{shuffleNeed}}）</button>
+    <view class="add-row" wx:if="{{worldCanAdd}}">
+      <input class="input grow" placeholder="{{role==='elder'?'没有？如：听戏':'没有？如：独立乐队'}}" value="{{customWorld}}" data-kind="world" bindinput="onCustomInput" maxlength="12" />
+      <button size="mini" class="add-btn" data-kind="world" bindtap="addCustom">添加</button>
+    </view>
+  </view>
+
+  <!-- 想被理解 -->
+  <view class="card">
+    <view class="label">{{role==='elder'?'最想被家人理解的':'最想被爸妈理解的'}}（最多 {{limits.wantUnderstood}} 个）</view>
+    <view class="hint" wx:if="{{role==='elder'}}">用「我其实…」，少「你应该…」。</view>
+    <view class="picked" wx:if="{{wantUnderstood.length}}">
+      <view class="picked-title">已选</view>
+      <view class="chips">
+        <view class="chip picked-chip" wx:for="{{wantUnderstood}}" wx:key="*this">
+          {{item}}
+          <text class="x" data-kind="understood" data-item="{{item}}" catchtap="removeSelected">×</text>
+        </view>
+      </view>
+    </view>
+    <view class="picked-title">换一批选</view>
+    <view class="chips">
+      <view class="chip" wx:for="{{understandPool}}" wx:key="*this" data-kind="understood" data-item="{{item}}" bindtap="pickFromPool">{{item}}</view>
+    </view>
+    <button class="btn-ghost shuffle" size="mini" data-kind="understood" bindtap="shufflePool">换一换（{{understandShuffles}}/{{shuffleNeed}}）</button>
+    <view class="add-row" wx:if="{{understandCanAdd}}">
+      <input class="input grow" placeholder="没有？自己加一句" value="{{customUnderstood}}" data-kind="understood" bindinput="onCustomInput" maxlength="24" />
+      <button size="mini" class="add-btn" data-kind="understood" bindtap="addCustom">添加</button>
+    </view>
+  </view>
+
+  <!-- 想一起做 -->
+  <view class="card">
+    <view class="label">{{role==='elder'?'最想和家人一起做的':'最想和爸妈一起做的'}}（最多 {{limits.wantTogether}} 个）</view>
+    <view class="picked" wx:if="{{wantTogether.length}}">
+      <view class="picked-title">已选</view>
+      <view class="chips">
+        <view class="chip picked-chip" wx:for="{{wantTogether}}" wx:key="*this">
+          {{item}}
+          <text class="x" data-kind="together" data-item="{{item}}" catchtap="removeSelected">×</text>
+        </view>
+      </view>
+    </view>
+    <view class="picked-title">换一批选</view>
+    <view class="chips">
+      <view class="chip" wx:for="{{togetherPool}}" wx:key="*this" data-kind="together" data-item="{{item}}" bindtap="pickFromPool">{{item}}</view>
+    </view>
+    <button class="btn-ghost shuffle" size="mini" data-kind="together" bindtap="shufflePool">换一换（{{togetherShuffles}}/{{shuffleNeed}}）</button>
+    <view class="add-row" wx:if="{{togetherCanAdd}}">
+      <input class="input grow" placeholder="没有？自己加一项" value="{{customTogether}}" data-kind="together" bindinput="onCustomInput" maxlength="24" />
+      <button size="mini" class="add-btn" data-kind="together" bindtap="addCustom">添加</button>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="label">一句更具体的话</view>
+    <input class="input" placeholder="{{role==='elder'?'比如：最近在学用手机看视频；想听听你近况':'比如：最近在追某部番；喜欢独立乐队'}}" value="{{note}}" bindinput="onNote" />
+  </view>
+
+  <button class="btn-primary" bindtap="save">保存并进入家</button>
+</view>

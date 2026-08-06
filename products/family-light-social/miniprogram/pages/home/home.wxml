@@ -1,0 +1,150 @@
+<view class="wrap" wx:if="{{ready}}">
+  <view class="card nudge-card" wx:if="{{myNudges.length}}">
+    <view class="label">家人提醒</view>
+    <block wx:for="{{myNudges}}" wx:key="id">
+      <view class="nudge-row">
+        <view class="cele-main">
+          <view class="cele-title" style="font-size:28rpx">{{item.text}}</view>
+        </view>
+        <button class="btn-mini" size="mini" bindtap="goFeedFromNudge">去动态</button>
+        <text class="nudge-ok" data-id="{{item.id}}" bindtap="dismissNudge">知道了</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="card tip-card" wx:if="{{portraitTips.length}}">
+    <view class="label">近期画像提示</view>
+    <block wx:for="{{portraitTips}}" wx:key="id">
+      <view class="nudge-row">
+        <view class="cele-main">
+          <view class="cele-title" style="font-size:28rpx">{{item.text}}</view>
+        </view>
+        <button class="btn-mini" size="mini" data-id="{{item.subjectUserId}}" bindtap="goPortraitFromTip">去看看</button>
+        <text class="nudge-ok" data-id="{{item.id}}" bindtap="dismissPortraitTip">知道了</text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 生日 / 节日祝福 -->
+  <view class="card celebrate" wx:if="{{occasions.length}}">
+    <view class="label">今日祝福</view>
+    <block wx:for="{{occasions}}" wx:key="title" wx:for-index="idx">
+      <view class="cele-row">
+        <view class="cele-main">
+          <view class="cele-title">{{item.title}}</view>
+          <view class="muted cele-sub">{{item.subtitle}}</view>
+        </view>
+        <button class="btn-mini" size="mini" data-idx="{{idx}}" bindtap="openWish">送祝福</button>
+      </view>
+    </block>
+    <view class="wish-list" wx:if="{{wishesToday.length}}">
+      <view class="picked-title">今日已送出</view>
+      <block wx:for="{{wishesToday}}" wx:key="id">
+        <view class="wish-item">
+          <text class="wish-from">{{item.fromName}}</text>
+          <text class="muted"> → {{item.toName}} · </text>
+          <text>{{item.message}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 祝福编辑 -->
+  <view class="mask" wx:if="{{wishTarget}}" catchtouchmove="true">
+    <view class="sheet">
+      <view class="label">送祝福给 {{wishTarget.toName}}</view>
+      <view class="hint">{{wishTarget.occasion}}</view>
+      <view class="chips">
+        <view class="chip tpl" wx:for="{{wishTarget.templates}}" wx:key="*this" data-t="{{item}}" bindtap="pickTemplate">{{item}}</view>
+      </view>
+      <textarea class="area" maxlength="80" value="{{wishDraft}}" bindinput="onWishDraft" placeholder="写一句想说的话" />
+      <view class="sheet-actions">
+        <button class="btn-ghost" size="mini" bindtap="closeWish">取消</button>
+        <button class="btn-primary" size="mini" bindtap="sendWish">送出</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 今日日期 / 时间 -->
+  <view class="card today-card">
+    <view class="label">今日</view>
+    <view class="today-row">
+      <view>
+        <view class="today-date">{{todayLabel}}</view>
+        <view class="today-week muted">{{todayWeek}}</view>
+      </view>
+      <view class="today-time">{{nowTime}}</view>
+    </view>
+  </view>
+
+  <!-- 全家今日灯 + 心情 + 细节 -->
+  <view class="card board">
+    <view class="board-head">
+      <view>
+        <view class="family-title">{{familyName}}</view>
+        <view class="label">今日家灯</view>
+      </view>
+      <view class="code muted">{{familyId}}</view>
+    </view>
+    <view class="board-list">
+      <block wx:for="{{members}}" wx:key="userId">
+        <view class="board-item">
+          <view class="dot {{item.status}}"></view>
+          <view class="board-body">
+            <view class="name-row">
+              <text class="name">{{item.name}}</text>
+              <text class="bday-tag" wx:if="{{item.isBirthday}}">生日</text>
+              <text class="muted">{{item.role==='elder'?'长辈':'晚辈'}}</text>
+            </view>
+            <view class="weather-line" wx:if="{{item.residence}}">
+              <text class="muted">{{item.residence}}</text>
+              <text class="weather-pill" wx:if="{{item.weatherLabel}}">{{item.weatherLabel}}</text>
+              <text class="muted" wx:else>天气加载中…</text>
+            </view>
+            <view class="pair">
+              <text class="pill light-{{item.status}}">{{item.lightLabel}}</text>
+              <text class="pill mood">{{item.moodLabel}}</text>
+            </view>
+            <view class="call-line muted">{{item.callDisplay}}</view>
+            <view class="outing muted" wx:if="{{item.detailLine}}">{{item.detailLine}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="label">我的今日</view>
+
+    <view class="sub">状态灯</view>
+    <view class="chips">
+      <view class="chip light green {{status==='green'?'on':''}}" data-s="green" bindtap="setStatus">绿 · 空闲</view>
+      <view class="chip light yellow {{status==='yellow'?'on':''}}" data-s="yellow" bindtap="setStatus">黄 · 空闲但不想被打扰</view>
+      <view class="chip light red {{status==='red'?'on':''}}" data-s="red" bindtap="setStatus">红 · 有点忙，别打扰</view>
+    </view>
+
+    <view class="sub">今日心情</view>
+    <view class="chips">
+      <block wx:for="{{moodOptions}}" wx:key="key">
+        <view class="chip {{mood===item.key?'on':''}}" data-m="{{item.key}}" bindtap="setMood">{{item.emoji}} {{item.text}}</view>
+      </block>
+    </view>
+    <input class="input" placeholder="一句短状态" value="{{statusText}}" bindinput="onStatusText" bindblur="saveStatusText" />
+
+    <view class="sub">细节</view>
+    <input class="input" placeholder="时间，如：晚饭前 / 晚上 9 点" value="{{outReturn}}" bindinput="onOutReturn" bindblur="saveOuting" />
+    <input class="input" placeholder="地点，如：在家 / 公司附近" value="{{outPlace}}" bindinput="onOutPlace" bindblur="saveOuting" />
+    <input class="input" placeholder="和谁 / 做什么" value="{{outWho}}" bindinput="onOutWho" bindblur="saveOuting" />
+  </view>
+
+  <view class="card">
+    <view class="label">通话 / 视频意愿</view>
+    <view class="chips">
+      <view class="chip green {{callVoice?'on':''}}" bindtap="toggleVoice">通话</view>
+      <view class="chip green {{callVideo?'on':''}}" bindtap="toggleVideo">视频</view>
+    </view>
+    <view class="hint" wx:if="{{status==='green'}}">现在展示：{{myCallDisplay}}</view>
+    <view class="hint" wx:elif="{{status==='red'}}">现在展示：暂时不通话</view>
+    <view class="hint" wx:else>现在展示：通话需要提前文字沟通</view>
+  </view>
+</view>

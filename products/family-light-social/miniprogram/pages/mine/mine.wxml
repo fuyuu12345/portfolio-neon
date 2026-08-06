@@ -1,0 +1,57 @@
+<view class="wrap" wx:if="{{ready}}">
+  <view class="card">
+    <view class="label">我的</view>
+    <view class="title">{{name}}</view>
+    <view class="hint">{{roleLabel}} · {{familyName}}</view>
+    <view class="hint">家庭码 {{familyId}}</view>
+  </view>
+
+  <view class="card">
+    <view class="row" bindtap="goAbout">
+      <text>关于我</text>
+      <text class="muted">年龄与档案 ›</text>
+    </view>
+    <view class="row" bindtap="openFamilyName" wx:if="{{isChild}}">
+      <text>家的名字</text>
+      <text class="muted">{{familyName}} ›</text>
+    </view>
+    <view class="row" wx:else>
+      <text>家的名字</text>
+      <text class="muted">由晚辈修改</text>
+    </view>
+    <view class="row" bindtap="goPortrait">
+      <text>查看家庭成员画像</text>
+      <text class="muted">点击查看 ›</text>
+    </view>
+    <view class="row" bindtap="copyCode">
+      <text>复制家庭码</text>
+      <text class="muted">{{familyId}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+  </view>
+
+  <button class="btn-ghost" bindtap="leave">退出当前家庭</button>
+</view>
+
+<view class="mask" wx:if="{{nameSheet}}" catchtouchmove="noop">
+  <view class="sheet" catchtap="noop">
+    <view class="label">家的名字</view>
+    <view class="hint">最多 12 个字。</view>
+    <input
+      class="input"
+      focus="{{nameSheet}}"
+      maxlength="12"
+      value="{{nameDraft}}"
+      placeholder="比如：刘家小窝 / 灯火人家"
+      bindinput="onNameDraft"
+      confirm-type="done"
+      bindconfirm="saveFamilyName"
+    />
+    <view class="sheet-actions">
+      <button size="mini" class="ghost" bindtap="closeFamilyName">取消</button>
+      <button size="mini" class="primary" bindtap="saveFamilyName">保存</button>
+    </view>
+  </view>
+</view>

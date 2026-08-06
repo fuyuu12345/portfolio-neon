@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oura · 真我成色｜妇女节 / 38节策划案</title>
+  <!--
+    概念案：直白、好懂；少抒情；不交代部门分工
+    Token: canvas #F5F5F7 · white #FFF · ink #1D1D1F · mute #86868B · accent #2F4A73
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --canvas: #f5f5f7; --white: #ffffff; --ink: #1d1d1f; --mute: #86868b;
+      --line: #d2d2d7; --accent: #2f4a73; --blush: #e8c4c4; --teal: #5b6550;
+      --radius: 18px; --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Noto Sans SC", sans-serif;
+      background: var(--canvas); color: var(--ink); line-height: 1.5;
+      letter-spacing: -0.01em; -webkit-font-smoothing: antialiased;
+    }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+    .top {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: saturate(180%) blur(20px);
+      background: rgba(245,245,247,.78); border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .top__in {
+      max-width: 980px; margin: 0 auto; padding: 12px 22px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .top__brand { font-size: 13px; font-weight: 600; }
+    .top__brand span { color: var(--mute); font-weight: 400; margin-left: 8px; }
+    .top__pill {
+      font-size: 11px; font-weight: 500; color: var(--mute);
+      border: 1px solid var(--line); border-radius: 999px; padding: 5px 10px;
+    }
+    .wrap { max-width: none; margin: 0; padding: 0; }
+    .hero {
+      margin: 12px 0 0; background: var(--white); border-radius: 28px;
+      overflow: hidden; box-shadow: 0 2px 24px rgba(0,0,0,.04);
+    }
+    .hero__visual { aspect-ratio: 16/9; background: #f5f5f7; }
+    .hero__visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero__copy { padding: 36px 32px 44px; text-align: center; }
+    .hero__eyebrow {
+      font-size: 12px; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 600;
+      letter-spacing: -.035em; line-height: 1.05; margin-bottom: 12px;
+    }
+    .hero__lead { max-width: 36em; margin: 0 auto 20px; font-size: 16px; color: var(--mute); }
+    .hero__beats { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .hero__beats i {
+      font-style: normal; font-size: 12px; font-weight: 600;
+      background: var(--canvas); border-radius: 999px; padding: 7px 12px;
+    }
+    .section { margin: 12px 0 0; }
+    .section__label {
+      font-size: 12px; font-weight: 600; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+    }
+    .section h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600;
+      letter-spacing: -.03em; line-height: 1.2; margin-bottom: 8px;
+    }
+    .section__intro { font-size: 15px; color: var(--mute); max-width: 40em; margin-bottom: 18px; }
+    .split2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card { background: var(--white); border-radius: var(--radius); padding: 22px 20px; }
+    .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .card p, .card li { font-size: 13px; color: var(--mute); }
+    .card ul { padding-left: 1.1em; margin-top: 6px; }
+    .card li + li { margin-top: 4px; }
+    .card.bad { border-top: 3px solid #b0b0b5; }
+    .card.good { border-top: 3px solid var(--accent); }
+    .insight {
+      background: var(--white); border-radius: var(--radius); padding: 20px 22px; margin-top: 12px;
+    }
+    .insight__quote { font-size: 15px; font-weight: 600; line-height: 1.5; }
+    .src {
+      display: block; font-size: 11px; font-weight: 500; color: var(--mute);
+      margin-top: 8px; line-height: 1.45; word-break: break-all;
+    }
+    .src a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(47,74,115,.25); }
+    .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+    .insight-card {
+      background: var(--white); border-radius: var(--radius); padding: 18px 16px;
+    }
+    .insight-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+    .insight-card .fact {
+      font-size: 18px; font-weight: 700; letter-spacing: -.02em; color: var(--accent); margin: 8px 0 6px;
+    }
+    .insight-card p { font-size: 13px; color: var(--mute); line-height: 1.55; }
+    .sample-block {
+      background: var(--white); border-radius: var(--radius); padding: 18px 16px; margin-top: 12px;
+    }
+    .sample-block h3 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+    .sample-row { display: grid; grid-template-columns: 72px 1fr; gap: 10px; margin-top: 8px; align-items: start; }
+    .sample-row b {
+      font-size: 11px; font-weight: 700; color: var(--accent); padding-top: 2px;
+    }
+    .sample-row p, .sample-row li { font-size: 13px; color: var(--mute); }
+    .sample-row ul { margin: 0; padding-left: 1.1em; }
+    .sample-row li + li { margin-top: 4px; }
+    .title-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .title-chips span {
+      font-size: 12px; font-weight: 600; color: var(--ink);
+      background: var(--canvas); border-radius: 8px; padding: 7px 10px;
+    }
+    .beats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .beat { background: var(--white); border-radius: var(--radius); padding: 18px 14px; min-height: 140px; }
+    .beat .dot { width: 8px; height: 8px; border-radius: 50%; margin-bottom: 10px; background: var(--blush); }
+    .beat:nth-child(2) .dot { background: var(--accent); }
+    .beat:nth-child(3) .dot { background: #c4a574; }
+    .beat:nth-child(4) .dot { background: var(--teal); }
+    .beat b { display: block; font-size: 11px; font-weight: 700; color: var(--mute); margin-bottom: 4px; }
+    .beat strong { display: block; font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .beat p { font-size: 12px; color: var(--mute); }
+    .product { display: grid; grid-template-columns: 1.05fr .95fr; gap: 12px; }
+    .product__art { background: var(--white); border-radius: var(--radius); overflow: hidden; }
+    .product__art img { width: 100%; height: 100%; object-fit: cover; min-height: 240px; display: block; }
+    .offer-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .offer-tags span {
+      font-size: 12px; font-weight: 600; background: var(--canvas);
+      border-radius: 999px; padding: 6px 11px;
+    }
+    .aud-overview { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+    .aud-overview button {
+      text-align: left; background: var(--white); border-radius: 14px; padding: 14px 12px;
+      border: 1.5px solid transparent;
+    }
+    .aud-overview button.is-on { border-color: var(--accent); }
+    .aud-overview .num { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    .aud-overview strong { display: block; font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+    .aud-overview span { font-size: 11px; color: var(--mute); }
+    .panel { display: none; background: var(--white); border-radius: var(--radius); padding: 22px; animation: fade .3s var(--ease); }
+    .panel.is-on { display: block; }
+    @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+    .panel h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+    .panel .desc { font-size: 13px; color: var(--mute); margin-bottom: 14px; }
+    .scene-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .scene {
+      background: var(--canvas); border-radius: 12px; padding: 12px 14px;
+      border-left: 3px solid var(--blush);
+    }
+    .scene:nth-child(2) { border-left-color: var(--accent); }
+    .scene:nth-child(3) { border-left-color: #c4a574; }
+    .scene:nth-child(4) { border-left-color: var(--teal); }
+    .scene em {
+      display: inline-block; font-style: normal; font-size: 11px; font-weight: 700;
+      color: var(--accent); margin-bottom: 5px;
+    }
+    .scene p { font-size: 13px; color: var(--ink); }
+    .playbook {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px;
+    }
+    .play {
+      background: var(--canvas); border-radius: 14px; padding: 14px 14px 12px;
+    }
+    .play b {
+      display: block; font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+    }
+    .play strong { display: block; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .play p, .play li { font-size: 12px; color: var(--mute); line-height: 1.5; }
+    .play ul { margin: 4px 0 0; padding-left: 1.05em; }
+    .play li + li { margin-top: 3px; }
+    .play.wide { grid-column: 1 / -1; }
+    .sub-plays {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px;
+    }
+    .sub-plays div {
+      background: var(--white); border-radius: 12px; padding: 12px;
+    }
+    .sub-plays em {
+      display: block; font-style: normal; font-size: 11px; font-weight: 700; color: var(--ink); margin-bottom: 4px;
+    }
+    .sub-plays p { font-size: 12px; color: var(--mute); }
+    .focus-bar {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+      margin-bottom: 14px;
+    }
+    .focus-bar div {
+      background: var(--white); border-radius: 14px; padding: 14px 14px 12px;
+    }
+    .focus-bar b {
+      display: block; font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 6px;
+    }
+    .focus-bar strong { display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .focus-bar p { font-size: 12px; color: var(--mute); line-height: 1.45; }
+    .comp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+    .comp-grid button {
+      text-align: left; background: var(--white); border-radius: 14px; padding: 14px;
+      border: 1.5px solid transparent;
+    }
+    .comp-grid button.is-on { border-color: var(--accent); }
+    .comp-grid strong { display: block; font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+    .comp-grid span { font-size: 11px; color: var(--mute); }
+    .comp-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    .comp-table th, .comp-table td {
+      border-bottom: 1px solid var(--line); padding: 9px 8px; text-align: left;
+      vertical-align: top; font-size: 12px; color: var(--mute); line-height: 1.45;
+    }
+    .comp-table th { font-size: 11px; font-weight: 700; color: var(--ink); }
+    .comp-table td:first-child { font-weight: 600; color: var(--ink); white-space: nowrap; }
+    .case-card {
+      background: var(--canvas); border-radius: 12px; padding: 14px; margin-top: 10px;
+    }
+    .case-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+    .case-card dl {
+      display: grid; grid-template-columns: 52px 1fr; gap: 5px 8px; font-size: 12px;
+    }
+    .case-card dt { font-weight: 700; color: var(--accent); }
+    .case-card dd { color: var(--mute); line-height: 1.45; }
+    .seo-pack { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+    .seo-pack .seo-label { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+    .seo-pack .seo-land { font-size: 12px; color: var(--mute); margin: 8px 0 0; line-height: 1.5; }
+    .seo-pack .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .seo-pack .chips span {
+      font-size: 11px; font-weight: 600; background: var(--canvas);
+      border-radius: 8px; padding: 6px 9px; color: var(--ink);
+    }
+    .seo-pack details { margin-top: 10px; font-size: 12px; color: var(--mute); }
+    .seo-pack summary { cursor: pointer; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+    .seo-pack .long-tail { line-height: 1.65; }
+    .kpi-table {
+      width: 100%; border-collapse: collapse; margin-top: 12px;
+      background: var(--white); border-radius: var(--radius); overflow: hidden;
+    }
+    .kpi-table th, .kpi-table td {
+      padding: 10px 12px; border-bottom: 1px solid var(--line);
+      text-align: left; vertical-align: top; font-size: 12px;
+    }
+    .kpi-table th { font-size: 11px; font-weight: 700; background: var(--canvas); color: var(--ink); }
+    .kpi-table td { color: var(--mute); line-height: 1.45; }
+    .kpi-table td:first-child { font-weight: 700; color: var(--ink); white-space: nowrap; }
+    .phase-kpi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+    .phase-kpi div { background: var(--white); border-radius: 14px; padding: 14px; }
+    .phase-kpi b { display: block; font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+    .phase-kpi strong { display: block; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .phase-kpi p { font-size: 12px; color: var(--mute); line-height: 1.45; }
+    .chan-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 12px; }
+    .chan-grid button {
+      text-align: left; background: var(--white); border-radius: 14px; padding: 14px;
+      border: 1.5px solid transparent;
+    }
+    .chan-grid button.is-on { border-color: var(--accent); }
+    .chan-grid strong { display: block; font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+    .chan-grid span { font-size: 11px; color: var(--mute); }
+    .chan-body ul { padding-left: 1.1em; }
+    .chan-body li { font-size: 13px; color: var(--mute); }
+    .chan-body li + li { margin-top: 5px; }
+    .chan-body li strong { color: var(--ink); }
+    .tl-bar {
+      height: 6px; border-radius: 99px; background: #e5e5ea; margin-bottom: 12px;
+      display: grid; grid-template-columns: 1.2fr .9fr 1.1fr; overflow: hidden;
+    }
+    .tl-bar i { display: block; height: 100%; opacity: .25; }
+    .tl-bar i:nth-child(1) { background: var(--accent); }
+    .tl-bar i:nth-child(2) { background: var(--blush); }
+    .tl-bar i:nth-child(3) { background: var(--teal); }
+    .tl-bar.is-1 i:nth-child(1),
+    .tl-bar.is-2 i:nth-child(1), .tl-bar.is-2 i:nth-child(2),
+    .tl-bar.is-3 i:nth-child(1), .tl-bar.is-3 i:nth-child(2), .tl-bar.is-3 i:nth-child(3) { opacity: 1; }
+    .tl-rail { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+    .tl-rail button {
+      text-align: left; background: var(--white); border-radius: var(--radius); padding: 16px;
+      border: 1.5px solid transparent;
+    }
+    .tl-rail button.is-on { border-color: var(--accent); }
+    .tl-rail .n { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 5px; }
+    .tl-rail strong { display: block; font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .tl-rail span { font-size: 12px; color: var(--mute); }
+    .phase-body .mind {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      background: var(--canvas); border-radius: 999px; padding: 7px 12px; margin-bottom: 14px;
+    }
+    .day-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .day { background: var(--canvas); border-radius: 12px; padding: 12px 14px; }
+    .day b { display: block; font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 5px; }
+    .day h4 { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+    .day ul { padding-left: 1.05em; }
+    .day li { font-size: 12px; color: var(--mute); }
+    .day li + li { margin-top: 3px; }
+    .path { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .path div { background: var(--white); border-radius: var(--radius); padding: 20px 16px; position: relative; }
+    .path div + div::before {
+      content: "→"; position: absolute; left: -14px; top: 50%; transform: translateY(-50%);
+      color: var(--mute); font-size: 14px;
+    }
+    .path b { display: block; font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+    .path strong { display: block; font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+    .path span { font-size: 12px; color: var(--mute); }
+    .note {
+      margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--line);
+      font-size: 12px; color: var(--mute);
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+    .cloud {
+      background: var(--canvas); border-radius: var(--radius);
+      padding: 22px 18px; min-height: 148px; margin: 0 0 14px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+      gap: 10px 14px; text-align: center;
+    }
+    .cloud span { display: inline-block; color: var(--ink); line-height: 1.2; }
+    .cloud span.w1 { font-size: 26px; font-weight: 700; color: var(--accent); }
+    .cloud span.w2 { font-size: 19px; font-weight: 600; color: #3d5a80; }
+    .cloud span.w3 { font-size: 15px; font-weight: 600; color: #5a6f8a; }
+    .cloud span.w4 { font-size: 13px; font-weight: 500; color: var(--mute); }
+    .cloud span.w5 { font-size: 12px; font-weight: 500; color: #a8aeb8; }
+    .chart-card {
+      background: var(--white); border-radius: var(--radius); padding: 20px 18px; margin-bottom: 14px;
+    }
+    .chart-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+    .gantt { display: grid; gap: 10px; }
+    .gantt-row { display: grid; grid-template-columns: 72px 1fr; gap: 10px; align-items: center; }
+    .gantt-row b { font-size: 12px; font-weight: 600; color: var(--mute); }
+    .gantt-track {
+      position: relative; height: 28px; background: var(--canvas); border-radius: 8px; overflow: hidden;
+    }
+    .gantt-track i {
+      position: absolute; top: 4px; bottom: 4px; border-radius: 6px;
+      display: flex; align-items: center; padding: 0 8px;
+      font-style: normal; font-size: 11px; font-weight: 600; color: #fff; white-space: nowrap;
+    }
+    .gantt-track .p1 { left: 0%; width: 41.4%; background: var(--accent); }
+    .gantt-track .p2 { left: 41.4%; width: 13.8%; background: #c4a0a0; }
+    .gantt-track .p3 { left: 55.2%; width: 44.8%; background: var(--teal); }
+    .gantt-axis {
+      display: grid; grid-template-columns: 72px 1fr; gap: 10px; margin-top: 8px;
+      font-size: 11px; color: var(--mute);
+    }
+    .gantt-axis div { display: flex; justify-content: space-between; padding: 0 4px; }
+    .cal-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 12px; }
+    .cal-table {
+      width: 100%; min-width: 720px; border-collapse: collapse;
+      font-size: 12px; background: var(--white); border-radius: 12px; overflow: hidden;
+    }
+    .cal-table th, .cal-table td {
+      border: 1px solid var(--line); padding: 10px 8px; vertical-align: top; text-align: left;
+    }
+    .cal-table th {
+      background: var(--canvas); font-size: 11px; font-weight: 700; color: var(--mute);
+      white-space: nowrap;
+    }
+    .cal-table th.peak { color: var(--accent); }
+    .cal-table td.date {
+      width: 88px; font-weight: 700; color: var(--ink); white-space: nowrap;
+      background: #fafafa;
+    }
+    .cal-table td.date em {
+      display: block; font-style: normal; font-size: 10px; font-weight: 500; color: var(--mute); margin-top: 2px;
+    }
+    .cal-table td.peak-cell { background: rgba(47,74,115,.06); }
+    .cal-table ul { margin: 0; padding-left: 1em; }
+    .cal-table li { color: var(--mute); margin-top: 3px; }
+    .cal-table li:first-child { margin-top: 0; }
+    .viz-stack { display: grid; gap: 14px; margin-bottom: 14px; }
+    .month-board {
+      display: grid; grid-template-columns: 1fr 1.35fr; gap: 12px;
+    }
+    .month {
+      background: var(--white); border-radius: var(--radius); padding: 16px 14px;
+    }
+    .month h4 {
+      font-size: 13px; font-weight: 700; margin-bottom: 12px;
+      display: flex; justify-content: space-between; align-items: baseline;
+    }
+    .month h4 span { font-size: 11px; font-weight: 500; color: var(--mute); }
+    .month-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+      text-align: center;
+    }
+    .month-grid .wd {
+      font-size: 10px; font-weight: 600; color: var(--mute); padding: 4px 0;
+    }
+    .month-grid .d {
+      aspect-ratio: 1; border-radius: 10px; font-size: 11px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--mute); background: transparent;
+    }
+    .month-grid .d.empty { visibility: hidden; }
+    .month-grid .d.warm { background: rgba(47,74,115,.12); color: var(--accent); }
+    .month-grid .d.hot { background: #c4a0a0; color: #fff; }
+    .month-grid .d.tail { background: rgba(91,101,80,.18); color: var(--teal); }
+    .month-grid .d.peak {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--accent);
+      font-weight: 700;
+    }
+    .viz-legend {
+      display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: 10px;
+      font-size: 11px; color: var(--mute);
+    }
+    .viz-legend i {
+      display: inline-block; width: 10px; height: 10px; border-radius: 3px;
+      margin-right: 5px; vertical-align: -1px;
+    }
+    .viz-legend .l1 { background: rgba(47,74,115,.35); }
+    .viz-legend .l2 { background: #c4a0a0; }
+    .viz-legend .l3 { background: rgba(91,101,80,.45); }
+    .swim-card { background: var(--white); border-radius: var(--radius); padding: 18px 16px; overflow-x: auto; }
+    .swim-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+    .swim {
+      min-width: 680px; display: grid; gap: 8px;
+      --cols: 29;
+    }
+    .swim-head, .swim-row {
+      display: grid;
+      grid-template-columns: 56px repeat(var(--cols), minmax(0, 1fr));
+      gap: 2px; align-items: stretch;
+    }
+    .swim-head span {
+      font-size: 9px; color: var(--mute); text-align: center; padding: 2px 0;
+    }
+    .swim-head span.mk { color: var(--accent); font-weight: 700; }
+    .swim-row b {
+      font-size: 11px; font-weight: 700; display: flex; align-items: center;
+      color: var(--ink);
+    }
+    .swim-track {
+      grid-column: 2 / -1;
+      position: relative; height: 34px;
+      background: var(--canvas); border-radius: 8px;
+    }
+    .swim-track i {
+      position: absolute; top: 5px; bottom: 5px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-style: normal; font-size: 10px; font-weight: 600; color: #fff;
+      padding: 0 6px; white-space: nowrap; overflow: hidden;
+    }
+    .swim-track .xhs { background: #2f4a73; }
+    .swim-track .dy { background: #c4a0a0; }
+    .swim-track .bili { background: #7a8fa6; }
+    .swim-track .tx { background: #5b6550; }
+    .swim-track .shop { background: #8a7a5b; }
+    .swim-peak-line {
+      position: absolute; top: -4px; bottom: -4px; width: 2px;
+      background: var(--accent); left: calc((14.5 / 29) * 100%);
+      opacity: .55; pointer-events: none;
+    }
+    .peak-board {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+    }
+    .peak-day {
+      background: var(--white); border-radius: 16px; padding: 16px 14px;
+      border: 1.5px solid transparent; min-height: 140px;
+    }
+    .peak-day.is-peak {
+      border-color: var(--accent);
+      background: linear-gradient(180deg, #fff 60%, rgba(47,74,115,.06));
+    }
+    .peak-day .when {
+      font-size: 11px; font-weight: 600; color: var(--mute); margin-bottom: 4px;
+    }
+    .peak-day strong {
+      display: block; font-size: 20px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 8px;
+    }
+    .peak-day.is-peak strong { color: var(--accent); }
+    .peak-day .acts { display: grid; gap: 5px; }
+    .peak-day .acts span {
+      font-size: 11px; color: var(--mute); padding: 5px 8px;
+      background: var(--canvas); border-radius: 8px;
+    }
+    .peak-day.is-peak .acts span { background: rgba(47,74,115,.08); color: #3d5a80; }
+    .detail-label {
+      font-size: 12px; font-weight: 600; color: var(--mute);
+      margin: 16px 0 8px;
+    }
+    .bars { display: grid; gap: 10px; }
+    .bar-row { display: grid; grid-template-columns: 56px 1fr 36px; gap: 8px; align-items: center; }
+    .bar-row span { font-size: 12px; font-weight: 600; }
+    .bar-row em { font-style: normal; font-size: 11px; color: var(--mute); text-align: right; }
+    .bar-track { height: 10px; background: var(--canvas); border-radius: 99px; overflow: hidden; }
+    .bar-track i { display: block; height: 100%; border-radius: 99px; background: var(--accent); }
+    .bar-track i.dy { background: #c4a0a0; }
+    .bar-track i.bili { background: #7a8fa6; }
+    .bar-track i.tx { background: var(--teal); }
+    .media-shot {
+      margin-top: 14px; border-radius: 14px; overflow: hidden; background: var(--canvas);
+      border: 1px solid var(--line);
+    }
+    .media-shot img { width: 100%; display: block; max-height: 420px; object-fit: contain; background: #fff; }
+    .place-grid.solo .media-shot img { max-height: 560px; }
+    .media-shot.portrait { max-width: 280px; margin-left: auto; margin-right: auto; }
+    .media-shot.portrait img { max-height: 480px; object-fit: cover; }
+    .media-shot .cap {
+      font-size: 11px; font-weight: 600; color: var(--mute);
+      padding: 8px 12px; background: var(--white);
+    }
+    .slot-tags {
+      display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 4px;
+    }
+    .slot-tags span {
+      font-size: 11px; font-weight: 600; color: var(--accent);
+      background: rgba(47,74,115,.08); border-radius: 8px; padding: 5px 9px;
+    }
+    .place-grid {
+      display: grid; grid-template-columns: 1.2fr .8fr; gap: 12px; margin-top: 12px;
+    }
+    .place-grid .media-shot { margin-top: 0; }
+    .place-grid.solo { grid-template-columns: 1fr; }
+    .place-note {
+      font-size: 12px; color: var(--mute); margin-top: 10px; line-height: 1.55;
+    }
+    .funnel-viz {
+      display: grid; grid-template-columns: 1.2fr .9fr .7fr; gap: 8px; margin-top: 12px;
+    }
+    .funnel-viz div {
+      background: var(--accent); color: #fff; border-radius: 12px; padding: 16px 12px; text-align: center;
+    }
+    .funnel-viz div:nth-child(2) { background: #4a658a; }
+    .funnel-viz div:nth-child(3) { background: var(--teal); }
+    .funnel-viz b { display: block; font-size: 11px; opacity: .85; margin-bottom: 4px; }
+    .funnel-viz strong { display: block; font-size: 14px; font-weight: 700; }
+
+    @media (max-width: 840px) {
+      .hero__copy { padding: 24px 18px 32px; }
+      .split2, .beats, .product, .aud-overview, .chan-grid, .comp-grid, .tl-rail, .path, .scene-grid, .day-grid, .funnel-viz, .place-grid, .month-board, .peak-board, .playbook, .sub-plays, .insight-grid, .focus-bar, .phase-kpi { grid-template-columns: 1fr; }
+      .comp-table td:first-child, .kpi-table td:first-child { white-space: normal; }
+      .path div + div::before { display: none; }
+      .product__art img { min-height: 180px; }
+      .cloud span.w1 { font-size: 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .panel { animation: none; } .page.is-on { animation: none; } }
+
+    /* —— 分页壳 —— */
+    .shell {
+      display: grid; grid-template-columns: 220px 1fr;
+      max-width: 1180px; margin: 0 auto; min-height: calc(100vh - 52px);
+    }
+    .side {
+      position: sticky; top: 52px; align-self: start;
+      padding: 20px 12px 28px 22px; max-height: calc(100vh - 52px); overflow-y: auto;
+    }
+    .side__label {
+      font-size: 10px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--mute); margin: 0 8px 10px;
+    }
+    .side button {
+      display: block; width: 100%; text-align: left;
+      padding: 10px 12px; border-radius: 12px; margin-bottom: 4px;
+      border: 1.5px solid transparent; transition: background .2s var(--ease);
+    }
+    .side button:hover { background: rgba(0,0,0,.03); }
+    .side button.is-on {
+      background: var(--white); border-color: var(--accent);
+      box-shadow: 0 1px 8px rgba(0,0,0,.04);
+    }
+    .side .n {
+      display: block; font-size: 10px; font-weight: 700; color: var(--accent); margin-bottom: 2px;
+    }
+    .side strong { display: block; font-size: 13px; font-weight: 600; }
+    .main {
+      display: flex; flex-direction: column; min-width: 0;
+      padding: 0 22px 0 8px;
+    }
+    .wrap {
+      max-width: none; margin: 0; padding: 12px 0 20px; flex: 1;
+    }
+    .page { display: none; }
+    .page.is-on {
+      display: block;
+      animation: fade .28s var(--ease);
+    }
+    .page > .section__label { margin-top: 8px; }
+    .hero { margin: 12px 0 0; }
+    .section { margin: 12px 0 0; padding: 0; }
+    .pager {
+      position: sticky; bottom: 0; z-index: 30;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 4px 18px;
+      background: linear-gradient(180deg, rgba(245,245,247,0), var(--canvas) 28%);
+    }
+    .pager__btns { display: flex; gap: 8px; }
+    .pager button.nav {
+      font-size: 13px; font-weight: 600; padding: 10px 16px;
+      border-radius: 999px; border: 1px solid var(--line); background: var(--white);
+    }
+    .pager button.nav:disabled { opacity: .35; cursor: default; }
+    .pager button.nav.primary {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+    .pager__meta {
+      font-size: 12px; color: var(--mute); font-weight: 500;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pager__dots { display: flex; gap: 5px; }
+    .pager__dots i {
+      width: 6px; height: 6px; border-radius: 99px; background: #d2d2d7;
+      font-style: normal;
+    }
+    .pager__dots i.is-on { background: var(--accent); width: 16px; }
+    .note { margin-top: 8px; padding-top: 12px; }
+
+    @media (max-width: 900px) {
+      .shell { grid-template-columns: 1fr; }
+      .side {
+        position: static; max-height: none; padding: 12px 0 0;
+        display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+      }
+      .side__label { display: none; }
+      .side button {
+        flex: 0 0 auto; width: auto; min-width: 108px; margin: 0;
+        padding: 8px 12px;
+      }
+      .side .n { font-size: 9px; }
+      .side strong { font-size: 12px; }
+      .main { padding: 0 0 0; }
+      .wrap { padding: 8px 0 12px; }
+    }
+    .case-edit-gate {
+      position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.35);
+      display: grid; place-items: center; padding: 20px;
+    }
+    .case-edit-gate[hidden] { display: none !important; }
+    .case-edit-gate__card {
+      width: min(400px, 100%); background: #fff; border-radius: 18px; padding: 22px 20px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.12);
+    }
+    .case-edit-gate__card h2 { font-size: 18px; margin-bottom: 8px; }
+    .case-edit-gate__card p { font-size: 13px; color: var(--mute); margin-bottom: 14px; line-height: 1.5; }
+    .case-edit-gate__err { font-size: 12px; color: #b42318; margin-bottom: 8px; }
+    .case-edit-gate input {
+      width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px;
+      font: inherit; margin-bottom: 12px;
+    }
+    .case-edit-gate__row { display: flex; gap: 8px; justify-content: flex-end; }
+    .case-edit-gate button, .case-edit-bar button {
+      font: inherit; border: 1px solid var(--line); background: #fff; border-radius: 10px;
+      padding: 8px 12px; cursor: pointer;
+    }
+    .case-edit-gate button.is-primary, .case-edit-bar button.is-primary {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+    }
+    .case-edit-bar {
+      position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%);
+      z-index: 190; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      max-width: min(960px, calc(100% - 24px)); padding: 10px 12px;
+      background: rgba(255,255,255,.96); border: 1px solid var(--line); border-radius: 14px;
+      box-shadow: 0 8px 28px rgba(0,0,0,.1);
+    }
+    .case-edit-bar[hidden] { display: none !important; }
+    .case-edit-bar__badge {
+      font-size: 11px; font-weight: 700; color: var(--accent);
+      background: var(--canvas); border-radius: 999px; padding: 5px 10px;
+    }
+    .case-edit-toast {
+      position: fixed; top: 18px; left: 50%; transform: translateX(-50%) translateY(-8px);
+      z-index: 210; background: #1d1d1f; color: #fff; font-size: 12px;
+      padding: 8px 14px; border-radius: 999px; opacity: 0; pointer-events: none;
+      transition: .2s ease;
+    }
+    .case-edit-toast.is-show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    body.is-case-editing [data-case-edit]:hover {
+      outline: 1px dashed rgba(47,74,115,.45); outline-offset: 2px;
+    }
+    body.is-case-editing [data-case-edit]:focus {
+      outline: 2px solid rgba(47,74,115,.55); outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top__in">
+      <div class="top__brand">Oura <span>真我成色 · 妇女节 / 38节</span></div>
+      <!-- Ctrl+Shift+E 编辑 · 导出 HTML 后覆盖本文件即可换电脑打开 -->
+      <span class="top__pill" id="pagePill">01 / 08</span>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="side" id="sideNav" aria-label="方案分页">
+      <div class="side__label">目录</div>
+      <button type="button" class="is-on" data-page="0"><span class="n">01</span><strong>封面主轴</strong></button>
+      <button type="button" data-page="1"><span class="n">02</span><strong>洞察与机会</strong></button>
+      <button type="button" data-page="2"><span class="n">03</span><strong>主轴与样例</strong></button>
+      <button type="button" data-page="3"><span class="n">04</span><strong>卖什么</strong></button>
+      <button type="button" data-page="4"><span class="n">05</span><strong>人群</strong></button>
+      <button type="button" data-page="5"><span class="n">06</span><strong>渠道流量位</strong></button>
+      <button type="button" data-page="6"><span class="n">07</span><strong>排期日历</strong></button>
+      <button type="button" data-page="7"><span class="n">08</span><strong>目标与监测</strong></button>
+    </aside>
+
+    <div class="main">
+  <div class="wrap">
+    <section class="page is-on" data-page="0" id="page-0">
+    <section class="hero">
+      <div class="hero__visual">
+        <img src="kv-apple-hand-v1.png" alt="真我，戴在手上" />
+      </div>
+      <div class="hero__copy">
+        <div class="hero__eyebrow">Oura · 妇女节 / 38节</div>
+        <h1>真我，戴在手上</h1>
+        <p class="hero__lead">妇女节 / 38节单品牌传播与转化方案。产品为现有 Oura Ring 4 Ceramic 成色及节日礼盒，目标为提升认知、形成认同并完成自购与礼赠转化。</p>
+        <div class="hero__beats">
+          <i>可见</i><i>可佩戴</i><i>可展示</i><i>可自护</i>
+        </div>
+      </div>
+    </section>
+    </section>
+
+        <section class="page section" data-page="1" id="page-1">
+      <div class="section__label">02 · 洞察与机会</div>
+      <h2>问题、机会与依据</h2>
+      <div class="split2">
+        <article class="card bad">
+          <h3>问题</h3>
+          <ul>
+            <li>妇女节期间内容供给同质化，多见折扣与节庆符号堆叠</li>
+            <li>智能穿戴沟通偏功能参数，较难进入节日选礼决策清单</li>
+            <li>「悦己」意愿存在，但缺少可长期佩戴、可展示的具体商品承接</li>
+          </ul>
+        </article>
+        <article class="card good">
+          <h3>机会</h3>
+          <ul>
+            <li>节日消费中自购与实用礼赠并行，健康与科技向商品具备进场空间</li>
+            <li>Oura 兼具配饰外观与睡眠、恢复相关状态参考，适合成色展示与日常佩戴</li>
+            <li>节日礼盒可同时服务自购与礼赠；站外以天猫 / 京东承接，微信侧以小程序承接（概念案）</li>
+          </ul>
+        </article>
+      </div>
+      <div class="insight">
+        <p class="insight__quote">核心判断：节日期间用户并不缺少祝福信息，而缺少一个能够代表自身、并可每日佩戴的购买理由。</p>
+      </div>
+
+      <h2 style="margin-top:28px;font-size:1.35rem">商业洞察</h2>
+      <p class="section__intro">以下为平台研究院与行业报告公开信息，对应妇女节节点与礼盒购买。</p>
+      <div class="insight-grid">
+        <article class="insight-card">
+          <h3>节日自购意愿较高</h3>
+          <div class="fact">72.6%</div>
+          <p>京东消费及产业发展研究院联合京洞察调研显示，72.6% 的女性会在 3.8 节为自己选购礼物，其中「00后」为 89%。自购与礼赠宜并列作为主转化路径。</p>
+          <span class="src">来源：京东消费及产业发展研究院、京洞察；转引 199IT / 品玩<br /><a href="https://www.199it.com/archives/1744523.html" target="_blank" rel="noopener">https://www.199it.com/archives/1744523.html</a><br /><a href="https://www.pingwest.com/a/302854" target="_blank" rel="noopener">https://www.pingwest.com/a/302854</a></span>
+        </article>
+        <article class="insight-card">
+          <h3>节日消费关键词包含科技与健康</h3>
+          <div class="fact">科技 · 健康 · 悦己</div>
+          <p>京东调研与快手电商联合秒针系统《2025年38购物节电商消费洞察报告：预售篇》均指出，健康健身、科技智能、自我提升与情绪疗愈为重要消费方向。智能戒指礼盒可作为「实用 + 悦己」的商品承接。</p>
+          <span class="src">来源：京东研究院（同上）；快手电商 × 秒针报告要点见公开复盘<br /><a href="https://news.qq.com/rain/a/20250317A083AA00" target="_blank" rel="noopener">https://news.qq.com/rain/a/20250317A083AA00</a></span>
+        </article>
+        <article class="insight-card">
+          <h3>38 节点需求与悦己、养生绑定</h3>
+          <div class="fact">场景化消费</div>
+          <p>阿里妈妈与 CBNData《节促趋势发现——二月刊（春上新&amp;38）》指出，38 节女性消费与爱美、出游、悦己、养生等场景关联紧密，可佩戴礼盒具备承接空间。</p>
+          <span class="src">来源：阿里妈妈 × 第一财经商业数据中心（CBNData）<br /><a href="https://m.cbndata.com/report/3276/detail" target="_blank" rel="noopener">https://m.cbndata.com/report/3276/detail</a></span>
+        </article>
+        <article class="insight-card">
+          <h3>女性用户规模与健康关注</h3>
+          <div class="fact">6.24 亿</div>
+          <p>QuestMobile《2025「她经济」洞察报告》显示，2025 年 1 月全网女性活跃用户为 6.24 亿；女性对健康相关产品与服务更为重视，智能穿戴活跃用户规模亦呈同比增长。</p>
+          <span class="src">来源：QuestMobile《2025「她经济」洞察报告》<br /><a href="https://www.questmobile.com.cn/research/report/1899305687210627074/" target="_blank" rel="noopener">https://www.questmobile.com.cn/research/report/1899305687210627074/</a></span>
+        </article>
+      </div>
+
+      <h2 style="margin-top:28px;font-size:1.35rem">数据洞察</h2>
+      <p class="section__intro">以下数据说明穿戴用户规模扩大、健康管理驱动增强，以及戒指形态已进入选择范围。</p>
+      <div class="insight-grid">
+        <article class="insight-card">
+          <h3>智能穿戴应用用户规模持续扩大</h3>
+          <div class="fact">1.60 亿</div>
+          <p>QuestMobile：2025 年 9 月智能穿戴 App 行业月活跃用户 1.60 亿，同比增长 13.3%，健康管理为重要驱动方向。</p>
+          <span class="src">来源：QuestMobile《2025-2026年度核心趋势报告》<br /><a href="https://www.questmobile.com.cn/research/report/2016078388490506241/" target="_blank" rel="noopener">https://www.questmobile.com.cn/research/report/2016078388490506241/</a></span>
+        </article>
+        <article class="insight-card">
+          <h3>穿戴形态已包含戒指</h3>
+          <div class="fact">形态延伸</div>
+          <p>QuestMobile 报告指出，智能穿戴产品形态已由手环、手表延伸至戒指等，功能向健康管理、效率办公、情感陪伴等场景拓展，与「配饰化佩戴」方向一致。</p>
+          <span class="src">来源：同上<br /><a href="https://www.questmobile.com.cn/research/report/2016078388490506241/" target="_blank" rel="noopener">https://www.questmobile.com.cn/research/report/2016078388490506241/</a></span>
+        </article>
+        <article class="insight-card">
+          <h3>中国腕戴大盘仍在增长</h3>
+          <div class="fact">+20.8%</div>
+          <p>IDC：2025 年中国腕戴设备（智能手表与手环）出货 7,390 万台，同比增长 20.8%。腕戴仍是用户比较智能戒指时的主要形态参照。</p>
+          <span class="src">来源：IDC《中国可穿戴设备市场》相关公开解读<br /><a href="https://www.idc.com/resource-center/blog/2025%E5%B9%B4%E4%B8%AD%E5%9B%BD%E8%85%95%E6%88%B4%E8%AE%BE%E5%A4%87%E5%B8%82%E5%9C%BA%E5%90%8C%E6%AF%94%E5%A2%9E%E9%95%BF20-8%EF%BC%8C%E4%BF%83%E9%94%80%E8%A1%A5%E8%B4%B4%E5%AF%B9%E5%B8%82%E5%9C%BA/" target="_blank" rel="noopener">https://www.idc.com/resource-center/blog/…</a></span>
+        </article>
+        <article class="insight-card">
+          <h3>女性品质生活叙事转向</h3>
+          <div class="fact">CBNData</div>
+          <p>CBNData《我们的叙事·2025女性品质生活趋势洞察报告》指出，妇女节沟通宜贴近真实需求，减少空泛口号。本案以成色与礼盒承接，避免节庆套话堆叠。</p>
+          <span class="src">来源：第一财经商业数据中心（CBNData）<br /><a href="https://m.cbndata.com/report/3283/detail" target="_blank" rel="noopener">https://m.cbndata.com/report/3283/detail</a></span>
+        </article>
+      </div>
+
+      <h2 style="margin-top:28px;font-size:1.35rem">竞争与参照</h2>
+      <p class="section__intro">包含同品类智能戒指、手表与手环的选型参照，以及往年妇女节营销案例。案例均附公开来源。</p>
+      <div class="comp-grid" id="compGrid">
+        <button type="button" class="is-on" data-comp="ring"><strong>智能戒指</strong><span>同品类</span></button>
+        <button type="button" data-comp="watch"><strong>手表 / 手环</strong><span>选型参照</span></button>
+        <button type="button" data-comp="case"><strong>妇女节案例</strong><span>节点打法</span></button>
+      </div>
+      <div class="panel is-on" id="comp-ring">
+        <h3>同品类智能戒指</h3>
+        <p class="desc"><b style="color:var(--ink)">本案（Oura）</b>节日沟通以成色选择与妇女节礼盒为主，不以功能参数比拼为主。下表仅列出其他品牌常见沟通方向，供对照。</p>
+        <table class="comp-table">
+          <thead><tr><th>品牌</th><th>常见沟通重心</th><th>相对本案</th></tr></thead>
+          <tbody>
+            <tr><td>Samsung Galaxy Ring</td><td>手机生态互联，拉动品类认知</td><td>本案侧重独立配饰感与礼盒完成度</td></tr>
+            <tr><td>RingConn</td><td>功能、续航、监测点，国内电商声量较高</td><td>本案不以功能清单为主，侧重成色与礼盒决策</td></tr>
+            <tr><td>Ultrahuman</td><td>运动、代谢（海外叙事更多）</td><td>本案侧重日常佩戴可见性与礼赠场景</td></tr>
+            <tr><td>其他国行戒指</td><td>价格与尝鲜</td><td>本案以成色体系与礼盒提升可送、可展示的完成度</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel" id="comp-watch">
+        <h3>手表 / 手环</h3>
+        <p class="desc">用户常会比较手表与戒指。手表、手环更擅长通知与运动场景；戒指更轻、更接近配饰，也更便于睡眠时段连续佩戴。二者可以并存，本案需把形态差异说明清楚。</p>
+        <table class="comp-table">
+          <thead><tr><th>参照</th><th>用户通常看重</th><th>内容承接</th></tr></thead>
+          <tbody>
+            <tr><td>Apple Watch 等智能手表</td><td>通知、运动、生态</td><td>说明连续佩戴负担更轻，正式场合更易佩戴</td></tr>
+            <tr><td>华为手表 / 手环等</td><td>健康 App、国产品牌习惯</td><td>通勤、会议上身对比，服务换设备人群</td></tr>
+            <tr><td>手环类</td><td>入门、价格</td><td>强调配饰感与礼盒体面</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel" id="comp-case">
+        <h3>往年妇女节营销案例</h3>
+        <p class="desc">从主张、载体与商品收口三个角度对照，每条均可点开核验来源。</p>
+        <article class="case-card">
+          <h4>华为「春日养花 / 陪你心花开」· 2024–2025</h4>
+          <dl>
+            <dt>主张</dt><dd>女性健康关怀；2025 年延伸至情绪健康</dd>
+            <dt>载体</dt><dd>门店快闪、主题海报、WATCH 功能体验</dd>
+            <dt>收口</dt><dd>智能手表促销与到店互动</dd>
+            <dt>对照</dt><dd>健康节点叙事可参考；本案以戒指成色与线上礼盒收口，不以花园门店为主路径</dd>
+          </dl>
+          <span class="src"><a href="https://www.sh.chinanews.com.cn/shishang/2024-03-08/121879.shtml" target="_blank" rel="noopener">中新社上海（2024）</a> · <a href="https://www.leiphone.com/category/industrynews/fnftOmwej0Qkb1A0.html" target="_blank" rel="noopener">雷峰网（2025）</a></span>
+        </article>
+        <article class="case-card">
+          <h4>联想《她们的AI进化论》· 2025</h4>
+          <dl>
+            <dt>主张</dt><dd>女性在 AI 研发中的具体故事</dd>
+            <dt>载体</dt><dd>短片、雇主品牌叙事</dd>
+            <dt>收口</dt><dd>偏品牌态度与人才形象，商品礼盒较弱</dd>
+            <dt>对照</dt><dd>叙事克制、具体可参考；本案需将「真我」落到可购买的礼盒</dd>
+          </dl>
+          <span class="src"><a href="https://www.digitaling.com/projects/333339.html" target="_blank" rel="noopener">数英</a> · <a href="https://www.4anet.com/p/01jnqswym9e13eh15sejt8qtbr" target="_blank" rel="noopener">4A广告网</a></span>
+        </article>
+        <article class="case-card">
+          <h4>夸迪「能量女孩限量礼盒」</h4>
+          <dl>
+            <dt>主张</dt><dd>女性能量觉醒</dd>
+            <dt>载体</dt><dd>大片 / TVC，并露出限量礼盒</dd>
+            <dt>收口</dt><dd>礼盒清晰；复盘亦指出种草闭环仍可加强</dd>
+            <dt>对照</dt><dd>礼盒完成度可参考；本品为可每日佩戴的成色商品，种草需接到礼盒购买页</dd>
+          </dl>
+          <span class="src">来源：Morketing 三八复盘<br /><a href="https://www.morketing.com/detail/25728" target="_blank" rel="noopener">https://www.morketing.com/detail/25728</a></span>
+        </article>
+      </div>
+      <p class="place-note" style="margin-top:14px">以上为公开报道与复盘口径，用于概念案对照，非品牌官方经营数据。</p>
+    </section>
+
+<section class="page section" data-page="2" id="page-2">
+      <div class="section__label">03 · 创意主轴</div>
+      <h2>真我成色</h2>
+      <p class="section__intro">口号：真我，戴在手上。概念落成四件事：</p>
+      <div class="beats">
+        <article class="beat"><div class="dot"></div><b>01</b><strong>可见</strong><p>成色和主视觉先被看见，记住活动名和产品。</p></article>
+        <article class="beat"><div class="dot"></div><b>02</b><strong>可佩戴</strong><p>每天戴、睡觉也戴，区别于手表手环。</p></article>
+        <article class="beat"><div class="dot"></div><b>03</b><strong>可展示</strong><p>上身图、短视频能被拍到、被问到、被转发。</p></article>
+        <article class="beat"><div class="dot"></div><b>04</b><strong>可自护</strong><p>睡眠/恢复是购买理由，帮她安排休息。</p></article>
+      </div>
+
+      <h2 style="margin-top:28px;font-size:1.35rem">内容与物料示例</h2>
+      <p class="section__intro">短视频分镜、笔记标题与选礼内容结构如下，可按人群分版使用。</p>
+
+      <div class="sample-block">
+        <h3>15 秒短视频分镜</h3>
+        <div class="sample-row"><b>0–3 秒</b><p>手部特写，完成成色选择；画面标题：「成色选择」</p></div>
+        <div class="sample-row"><b>3–8 秒</b><p>佩戴完成并进入日常场景。入门版字幕强调自我选购；换设备版强调相对腕表的佩戴负担变化。</p></div>
+        <div class="sample-row"><b>8–12 秒</b><p>展示睡眠相关状态界面（仅作状态参考，不表述疗效）</p></div>
+        <div class="sample-row"><b>12–15 秒</b><p>礼盒合盖，收束口号「真我，戴在手上」，并提示妇女节 / 38节礼盒相关搜索词</p></div>
+        <div class="sample-row"><b>分版</b><ul>
+          <li>礼赠版：结尾展示成色对照说明，强调礼盒组合</li>
+          <li>熟龄版：画面偏产品质感，文案强调长期佩戴与完成度</li>
+        </ul></div>
+      </div>
+
+      <div class="sample-block">
+        <h3>小红书标题示例</h3>
+        <div class="sample-row"><b>入门</b><div class="title-chips"><span>妇女节｜给自己的第一枚智能戒指</span><span>38节自购｜成色与佩戴记录</span><span>戴了两周的睡眠状态分享</span></div></div>
+        <div class="sample-row"><b>换设备</b><div class="title-chips"><span>由腕表改用戒指的佩戴对比</span><span>正式场合的轻负担选择</span><span>智能戒指与手表如何取舍</span></div></div>
+        <div class="sample-row"><b>礼赠</b><div class="title-chips"><span>妇女节礼物｜实用向礼盒怎么选</span><span>送母亲：成色与礼盒说明</span><span>闺蜜共同挑选成色开箱</span></div></div>
+        <div class="sample-row"><b>熟龄</b><div class="title-chips"><span>长期佩戴的 Oura Ring 选择</span><span>夜间自我时间的状态管理工具</span><span>更看重完成度的一枚戒指</span></div></div>
+      </div>
+
+      <div class="sample-block">
+        <h3>选礼内容结构</h3>
+        <div class="sample-row"><b>目录</b><ul>
+          <li>01 明确对象：自购 / 闺蜜 / 伴侣或女儿 / 母亲</li>
+          <li>02 成色参考：结合日常着装作示意对照</li>
+          <li>03 尺码确认方式：测量与询问指引</li>
+          <li>04 礼盒说明：成色卡与照护说明卡</li>
+          <li>05 购买指引：旗舰店礼盒页与搜一搜词包</li>
+        </ul></div>
+      </div>
+    </section>
+
+    <section class="page section" data-page="3" id="page-3">
+      <div class="section__label">04 · 卖什么</div>
+      <h2>陶瓷成色 + 妇女节礼盒</h2>
+      <div class="product">
+        <div class="card">
+          <h3>产品组合</h3>
+          <ul>
+            <li>现有 Oura Ring 4 Ceramic 成色（不新开限定色）：Cloud（高岭土米白）、Tide（青瓷淡蓝绿）、Petal（胭脂粉淡紫调）、Midnight（钴蓝夜空蓝）</li>
+            <li>礼盒内含成色卡、照护说明卡</li>
+            <li>自购与礼赠共用礼盒组合，话术按对象区分</li>
+            <li>礼赠对象覆盖闺蜜、伴侣、女儿、母亲</li>
+          </ul>
+          <div class="offer-tags">
+            <span>自己买</span><span>送闺蜜</span><span>送伴侣</span><span>送女儿</span><span>送母亲</span>
+          </div>
+        </div>
+        <div class="product__art">
+          <img src="kv-apple-v1.png" alt="陶瓷戒指" />
+        </div>
+      </div>
+      <div class="split2" style="margin-top:12px">
+        <article class="card">
+          <h3>转化路径</h3>
+          <ul>
+            <li>内容种草后，站外以天猫 / 京东礼盒页为主要成交场</li>
+            <li>微信侧以小程序为主成交与活动承接（目前暂无小程序，此为概念案）</li>
+            <li>抖音橱窗作为站外接力入口；腾讯搜一搜导向小程序活动页（概念）</li>
+            <li>礼赠场景需提示尺码确认方式，降低佩戴不适配风险</li>
+            <li>3月6日至7日完成页置顶与预约；3月8日集中转化；3月9日礼赠向内容加权</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>创意资产</h3>
+          <ul>
+            <li>主视觉 KV</li>
+            <li>成色海报</li>
+            <li>15 秒主版及分版短视频</li>
+            <li>小红书笔记模板</li>
+            <li>选礼说明内容</li>
+            <li>成色图鉴框（长尾 UGC）</li>
+          </ul>
+        </article>
+      </div>
+      <div class="split2" style="margin-top:12px">
+        <article class="card">
+          <h3>礼盒视觉原则</h3>
+          <ul>
+            <li>主视觉与礼盒主图统一「真我成色」主轴，少堆节庆符号</li>
+            <li>成色卡：清楚展示 Cloud / Tide / Petal / Midnight 四色，便于自购与礼赠对照</li>
+            <li>照护说明卡：佩戴与日常照护要点，语气克制，不表述疗效</li>
+            <li>详情首屏：成色与礼盒组合优先于参数列表</li>
+            <li>留白与材质感优先，避免促销感贴纸与夸张折扣信息</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>达人 brief 要点</h3>
+          <p style="font-size:12px;font-weight:700;color:var(--ink);margin:0 0 6px">必说</p>
+          <ul>
+            <li>活动名「真我成色」与口号「真我，戴在手上」</li>
+            <li>出镜成色须为 Cloud / Tide / Petal / Midnight 之一，点名成色与日常佩戴感受</li>
+            <li>妇女节 / 38节礼盒（成色卡、照护说明卡）</li>
+            <li>自购或礼赠场景之一，并指向购买入口</li>
+          </ul>
+          <p style="font-size:12px;font-weight:700;color:var(--ink);margin:12px 0 6px">注意</p>
+          <ul>
+            <li>优先露脸、种草封面；节日沟通以成色与礼盒为主，不以功能参数比拼为主</li>
+            <li>不贬低其他品牌；睡眠与恢复仅作状态参考，不表述疗效；成色用现有 Ceramic 四色</li>
+            <li>节日名称使用妇女节 / 38节</li>
+            <li>交付：封面或前 3 秒出成色；文案含礼盒或搜索引导</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="page section" data-page="4" id="page-4">
+      <div class="section__label">05 · 人群</div>
+      <h2>人群策略</h2>
+      <p class="section__intro">传播与达人投放优先一线及新一线，核心年龄 25–34 岁；成交承接全国线上。下方按人群查看场景与策略。</p>
+      <div class="focus-bar">
+        <div><b>主攻</b><strong>入门自购 · 礼赠决策者</strong><p>约占内容与达人露出七成；小红书、抖音为主。</p></div>
+        <div><b>攻坚</b><strong>换设备人群</strong><p>以对比内容与 B 站深度说明为主，规模小于主攻。</p></div>
+        <div><b>跟投</b><strong>熟龄自购 35–45</strong><p>质感内容与腾讯侧信任转化，不追求传播爆量。</p></div>
+      </div>
+      <div class="aud-overview" id="audTabs">
+        <button type="button" class="is-on" data-aud="a1"><div class="num">01</div><strong>自购 · 入门</strong><span>25–34 · 主攻</span></button>
+        <button type="button" data-aud="a2"><div class="num">02</div><strong>自购 · 换设备</strong><span>腕表用户 · 攻坚</span></button>
+        <button type="button" data-aud="a3"><div class="num">03</div><strong>礼赠决策者</strong><span>平行主攻</span></button>
+        <button type="button" data-aud="a4"><div class="num">04</div><strong>自购 · 熟龄</strong><span>35–45 · 跟投</span></button>
+      </div>
+      <div class="panel is-on" id="a1">
+        <h3>01 自购入门</h3>
+        <p class="desc">给自己买一件能天天戴的健康礼物。先讲佩戴和成色，再讲睡眠。</p>
+        <div class="cloud" aria-label="人群词云">
+          <span class="w1">天天戴</span><span class="w2">睡眠</span><span class="w3">给自己</span>
+          <span class="w2">成色</span><span class="w4">体检后</span><span class="w3">不卷打卡</span>
+          <span class="w5">加班</span><span class="w4">入门</span><span class="w5">25–34</span>
+        </div>
+        <div class="scene-grid">
+          <div class="scene"><em>场景</em><p>加班到凌晨，进电梯才发觉又没睡够。</p></div>
+          <div class="scene"><em>场景</em><p>体检单一般，想改，不知道从哪天开始。</p></div>
+          <div class="scene"><em>场景</em><p>不想卷打卡，只想先把觉睡够。</p></div>
+        </div>
+        <div class="playbook">
+          <div class="play"><b>沟通重点</b><strong>降低入门门槛</strong><p>先说明日常佩戴与成色，再引入睡眠相关状态参考。</p></div>
+          <div class="play"><b>内容策略</b><strong>种草向笔记与短视频</strong><ul><li>成色试戴与佩戴记录</li><li>主观使用感受为主</li><li>导向节日礼盒购买页</li></ul></div>
+          <div class="play"><b>达人</b><strong>腰部生活方式创作者与真实开箱</strong><p>以同龄自购表达为主，减少评测腔。</p></div>
+          <div class="play"><b>平台路径</b><strong>小红书 → 抖音测款 → 旗舰店礼盒</strong><ul><li>搜索词：妇女节礼物、智能戒指</li><li>购买页强调每日佩戴，而非参数列表</li></ul></div>
+        </div>
+      </div>
+      <div class="panel" id="a2">
+        <h3>02 换设备</h3>
+        <p class="desc">从手腕装备换成手指配饰，功能不减、观感更轻。</p>
+        <div class="cloud" aria-label="人群词云">
+          <span class="w1">换成戒指</span><span class="w2">安静</span><span class="w3">正装</span>
+          <span class="w2">成色先看</span><span class="w4">手腕太吵</span><span class="w3">轻</span>
+          <span class="w5">手表</span><span class="w4">配饰感</span><span class="w5">功能加分</span>
+        </div>
+        <div class="scene-grid">
+          <div class="scene"><em>场景</em><p>开会手表太吵，想换成更安静的。</p></div>
+          <div class="scene"><em>场景</em><p>正装/礼服场合，不想手腕再挂屏。</p></div>
+          <div class="scene"><em>场景</em><p>先被成色吸引，功能是加分项。</p></div>
+        </div>
+        <div class="playbook">
+          <div class="play"><b>沟通重点</b><strong>形态替换</strong><p>先比较佩戴负担与场合适配，再补充睡眠与恢复相关能力。</p></div>
+          <div class="play"><b>内容策略</b><strong>对比说明</strong><ul><li>腕表与戒指并置展示</li><li>通勤与正式场合上身</li><li>B 站中长内容说明差异</li></ul></div>
+          <div class="play"><b>达人</b><strong>数码与穿搭交叉腰部</strong><p>由具备设备使用经验的创作者说明替换理由。</p></div>
+          <div class="play"><b>平台路径</b><strong>B 站说明 + 小红书成色 + 抖音短对比</strong><ul><li>搜索词：智能戒指与手表如何选择</li><li>详情页强调轻负担连续佩戴</li></ul></div>
+        </div>
+      </div>
+      <div class="panel" id="a3">
+        <h3>03 礼赠决策者</h3>
+        <p class="desc">降低选择成本，提供对象—成色—礼盒的清晰决策路径。</p>
+        <div class="cloud" aria-label="人群词云">
+          <span class="w1">好选</span><span class="w2">母亲</span><span class="w3">闺蜜</span>
+          <span class="w2">礼盒</span><span class="w4">挑成色</span><span class="w3">女儿</span>
+          <span class="w5">实用</span><span class="w4">伴侣</span><span class="w5">决策</span>
+        </div>
+        <div class="scene-grid">
+          <div class="scene"><em>场景</em><p>花和包都送过，想送更实用的。</p></div>
+          <div class="scene"><em>场景</em><p>闺蜜一起挑成色。</p></div>
+          <div class="scene"><em>场景</em><p>送给女儿：能长期戴的礼物。</p></div>
+          <div class="scene"><em>场景</em><p>送给母亲：有心意，科技感不要太冷。</p></div>
+        </div>
+        <div class="playbook">
+          <div class="play"><b>沟通重点</b><strong>决策减负</strong><p>按对象、成色、礼盒三步完成选择，并提示尺码确认。</p></div>
+          <div class="play"><b>内容策略</b><strong>选礼说明</strong><ul><li>成色对照与尺码指引</li><li>礼盒开箱说明</li><li>3月8日至9日礼赠向内容加权</li></ul></div>
+          <div class="play wide"><b>对象分层</b><strong>同一礼盒，区分表述</strong>
+            <div class="sub-plays">
+              <div><em>送闺蜜</em><p>强调共同挑选成色与日常适配。</p></div>
+              <div><em>送伴侣 / 女儿</em><p>强调长期佩戴与礼盒完成度。</p></div>
+              <div><em>送母亲</em><p>强调心意表达，弱化技术参数堆叠。</p></div>
+            </div>
+          </div>
+          <div class="play"><b>达人</b><strong>选礼向内容与腰部创作者</strong><p>礼赠内容单独排期，标题与自购种草区分。</p></div>
+          <div class="play"><b>平台路径</b><strong>小红书选礼搜索 → 天猫 / 京东礼盒；微信侧小程序（概念）</strong><ul><li>搜索词：妇女节礼物、送母亲</li><li>购买页默认礼盒组合，客服提供尺码指引</li></ul></div>
+        </div>
+      </div>
+      <div class="panel" id="a4">
+        <h3>04 熟龄自购</h3>
+        <p class="desc">强调产品质感、长期佩戴价值与完成度。</p>
+        <div class="cloud" aria-label="人群词云">
+          <span class="w1">长期</span><span class="w2">质感</span><span class="w3">夜里自己</span>
+          <span class="w2">睡眠数据</span><span class="w4">35–45</span><span class="w3">完成度</span>
+          <span class="w5">跟投</span><span class="w4">付费意愿</span><span class="w5">状态管理</span>
+        </div>
+        <div class="scene-grid">
+          <div class="scene"><em>场景</em><p>家里安顿好后，夜里才有自己的时间。</p></div>
+          <div class="scene"><em>场景</em><p>白天很稳，睡眠数据暴露疲劳。</p></div>
+          <div class="scene"><em>场景</em><p>为长期状态管理付费意愿高。</p></div>
+        </div>
+        <div class="playbook">
+          <div class="play"><b>沟通重点</b><strong>长期价值</strong><p>以材质、佩戴体验与状态参考可信度为主，减少口号化表达。</p></div>
+          <div class="play"><b>内容策略</b><strong>质感呈现</strong><ul><li>产品与手部特写</li><li>中长内容说明日常使用方式</li><li>文风稳健，避免过度年轻化梗</li></ul></div>
+          <div class="play"><b>达人</b><strong>头腰部生活质感与轻健康方向</strong><p>调性稳健，审美统一。</p></div>
+          <div class="play"><b>平台路径</b><strong>视频号、朋友圈与小程序（概念）</strong><ul><li>微信侧以小程序为主成交与活动承接（概念案）</li><li>小程序 / 详情首屏强调成色与礼盒完成度</li><li>客服说明侧重长期佩戴</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page section" data-page="5" id="page-5">
+      <div class="section__label">06 · 渠道 · 流量位</div>
+      <h2>平台与流量位</h2>
+      <p class="section__intro">内容与达人投放向主攻人群倾斜。开屏仅配置小红书与天猫；站外成交以天猫 / 京东礼盒页为主，微信侧以小程序为主（概念案）。各平台搜索主词见下方，长尾可展开。</p>
+      <div class="chan-grid" id="chanGrid">
+        <button type="button" class="is-on" data-ch="xhs"><strong>小红书</strong><span>种草 · 开屏</span></button>
+        <button type="button" data-ch="dy"><strong>抖音</strong><span>信息流 / 搜 / 商城</span></button>
+        <button type="button" data-ch="bili"><strong>B站</strong><span>播放 / 推荐 / 搜</span></button>
+        <button type="button" data-ch="tx"><strong>腾讯</strong><span>朋友圈九宫格 / 搜 / 视频号</span></button>
+        <button type="button" data-ch="shop"><strong>购物平台</strong><span>礼盒转化 · 开屏</span></button>
+      </div>
+
+      <div class="panel is-on chan-body" id="ch-xhs">
+        <ul>
+          <li>达人笔记：露脸种草封面；标题清晰，强调 Oura Ring 成色与佩戴</li>
+          <li>搜索承接节日礼赠与品类长尾</li>
+          <li>品牌开屏传递主轴信息</li>
+        </ul>
+        <div class="slot-tags">
+          <span>达人笔记</span><span>大字封面</span><span>搜索 SEO</span><span>信息流</span><span>开屏</span>
+        </div>
+        <div class="place-grid">
+          <div class="media-shot">
+            <img src="media-xhs-kols.png" alt="小红书达人种草笔记封面" />
+            <div class="cap">达人笔记 · 种草封面/标题参考（白底信息栏）</div>
+          </div>
+          <div class="media-shot portrait">
+            <img src="media-xhs-seo.png" alt="小红书搜索结果位示意" />
+            <div class="cap">搜索结果位 · 双列瀑布流（真机示意）</div>
+          </div>
+        </div>
+        <div class="media-shot portrait" style="margin-top:12px">
+          <img src="media-splash-xhs.png" alt="小红书开屏" />
+          <div class="cap">小红书开屏 · 手部主视觉（原版）</div>
+        </div>
+        <div class="seo-pack">
+          <div class="seo-label">词包（写进笔记标题 / 话题，不是搜索栏资源位）</div>
+          <div class="chips">
+            <span>妇女节礼物</span><span>送女生礼物</span><span>实用主义礼物</span><span>智能戒指</span><span>预算三千的礼物</span>
+          </div>
+          <p class="seo-land">落地：标题与话题带词 → 搜索 SEO 可见 → 引导至天猫 / 京东礼盒页</p>
+          <details>
+            <summary>展开长尾</summary>
+            <p class="long-tail">38节礼物、妇女节送什么、送自己礼物、实用又好看的礼物、有仪式感的礼物、三千内轻奢礼物、轻奢礼物推荐、健康向礼物、科技感礼物、配饰感礼物、智能戒指推荐、智能戒指怎么样、健康戒指、可以测睡眠的戒指、智能戒指适合什么人、戒指和手表怎么选、不想戴手表、连续佩戴、智能戒指配色、陶瓷戒指、通勤也能戴、Oura 戒指、Oura 礼盒、妇女节智能戒指礼盒、38节礼盒开箱</p>
+          </details>
+        </div>
+      </div>
+      <div class="panel chan-body" id="ch-dy">
+        <ul>
+          <li>信息流 15s：品牌片 + 达人同题材分版本测款</li>
+          <li>搜索页承接话题与店铺入口</li>
+          <li>商城橱窗卡：礼盒直达下单</li>
+        </ul>
+        <div class="slot-tags">
+          <span>信息流</span><span>搜索</span><span>商城橱窗</span><span>达人短视频</span>
+        </div>
+        <div class="place-grid solo">
+          <div class="media-shot">
+            <img src="media-dy-slots.png" alt="抖音信息流、搜索、商城流量位" />
+            <div class="cap">抖音流量位 · 信息流 / 搜索 / 商城</div>
+          </div>
+        </div>
+        <div class="seo-pack">
+          <div class="seo-label">搜索主词</div>
+          <div class="chips">
+            <span>妇女节礼物</span><span>智能戒指</span><span>智能戒指测评</span><span>Oura</span><span>妇女节礼盒</span>
+          </div>
+          <p class="seo-land">落地：搜一搜 + 商城橱窗 → 旗舰店礼盒</p>
+          <details>
+            <summary>展开长尾</summary>
+            <p class="long-tail">38节礼物、38节送什么好、妇女节送女朋友、送妈妈实用礼物、健康戒指、智能戒指开箱、智能戒指值得买吗、戒指手表对比、手环换戒指、睡眠监测戒指、陶瓷智能戒指、Oura 戒指体验、Oura 旗舰店、智能戒指礼盒、38节礼盒</p>
+          </details>
+        </div>
+      </div>
+
+      <div class="panel chan-body" id="ch-bili">
+        <ul>
+          <li>中长片讲透「为什么是戒指」；UP 共创「我的成色」</li>
+          <li>推荐卡与搜索结果承接深度观众</li>
+        </ul>
+        <div class="slot-tags">
+          <span>播放页</span><span>推荐卡</span><span>搜索</span><span>UP 共创</span>
+        </div>
+        <div class="place-grid solo">
+          <div class="media-shot">
+            <img src="media-bili-slots.png" alt="B站播放、推荐、搜索流量位" />
+            <div class="cap">B站流量位 · 播放页 · 搜索 · 推荐</div>
+          </div>
+        </div>
+        <div class="seo-pack">
+          <div class="seo-label">搜索主词</div>
+          <div class="chips">
+            <span>智能戒指值得买吗</span><span>Oura 体验</span><span>戒指 vs 手表</span><span>智能戒指怎么选</span>
+          </div>
+          <p class="seo-land">落地：标题 / 标签 / 搜索 → 说明内容与礼盒入口</p>
+          <details>
+            <summary>展开长尾</summary>
+            <p class="long-tail">智能戒指是什么、Oura 戒指体验、Oura Ring 评测、睡眠与恢复监测、智能戒指和手环区别、连续佩戴对比、配饰感穿戴设备、妇女节礼物推荐、科技向礼物、送自己的健康礼物、陶瓷成色、智能戒指配色、日常佩戴观感</p>
+          </details>
+        </div>
+      </div>
+
+      <div class="panel chan-body" id="ch-tx">
+        <ul>
+          <li>朋友圈：九宫格图文为主；文案控制在 30 字内</li>
+          <li>搜一搜词包导向小程序活动页（概念案）</li>
+          <li>视频号达人短片补信任；微信侧以小程序为主成交与活动承接（目前暂无小程序，此为概念案）</li>
+        </ul>
+        <div class="slot-tags">
+          <span>朋友圈九宫格</span><span>视频号</span><span>搜一搜</span><span>小程序·概念</span>
+        </div>
+        <div class="place-grid solo">
+          <div class="media-shot">
+            <img src="media-tx-slots.png" alt="腾讯朋友圈、搜一搜、视频号流量位" />
+            <div class="cap">腾讯流量位 · 朋友圈九宫格 · 视频号播放页 · 搜一搜</div>
+          </div>
+        </div>
+        <div class="seo-pack">
+          <div class="seo-label">搜索主词</div>
+          <div class="chips">
+            <span>真我成色</span><span>Oura 妇女节</span><span>妇女节礼盒</span><span>Oura 戒指</span><span>真我戴在手上</span>
+          </div>
+          <p class="seo-land">落地：搜一搜 → 小程序活动页（概念案）；无小程序前可暂落旗舰店说明页</p>
+          <details>
+            <summary>展开长尾</summary>
+            <p class="long-tail">Oura 38节、Oura 小程序、38节礼盒、送母亲礼物、智能戒指、健康戒指、妇女节成色礼盒、Oura 活动页</p>
+          </details>
+        </div>
+      </div>
+
+      <div class="panel chan-body" id="ch-shop">
+        <ul>
+          <li>站外种草落到可买：天猫 / 京东礼盒页为主成交场</li>
+          <li>天猫开屏承接礼盒转化；京东搜广与抖店商品卡并行</li>
+          <li>主图与详情首屏统一「真我成色」主轴</li>
+        </ul>
+        <div class="slot-tags">
+          <span>天猫活动/详情</span><span>开屏</span><span>京东搜索广告</span><span>抖店商品卡</span>
+        </div>
+        <div class="place-grid">
+          <div class="media-shot">
+            <img src="media-shop.png" alt="天猫京东抖店购物广告布局" />
+            <div class="cap">天猫详情 / 京东搜广 / 抖店商品卡</div>
+          </div>
+          <div class="media-shot portrait">
+            <img src="media-splash-tmall.png" alt="天猫开屏" />
+            <div class="cap">天猫开屏 · 礼盒转化</div>
+          </div>
+        </div>
+        <div class="seo-pack">
+          <div class="seo-label">搜索主词</div>
+          <div class="chips">
+            <span>Oura</span><span>妇女节礼盒</span><span>智能戒指</span><span>38节礼盒</span><span>陶瓷智能戒指</span>
+          </div>
+          <p class="seo-land">落地：搜广 / 店内搜 → 礼盒详情页</p>
+          <details>
+            <summary>展开长尾</summary>
+            <p class="long-tail">Oura Ring、奥拉戒指（以实际备案名为准）、妇女节智能戒指、智能健康戒指、睡眠监测戒指、送女友礼物、送母亲、自用礼盒、实用礼盒（礼赠修饰词按平台规范筛用）</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="page section" data-page="6" id="page-6">
+      <div class="section__label">07 · Timeline</div>
+      <h2>排期日历</h2>
+      <p class="section__intro">以 3月8日为锚点，周期为 2月22日至 3月22日。资源向主攻人群与爆发周倾斜；明细见各阶段表格。</p>
+
+      <div class="viz-stack">
+        <div class="month-board" aria-label="月份可视日历">
+          <div class="month">
+            <h4>二月 <span>预热启动</span></h4>
+            <div class="month-grid">
+              <div class="wd">一</div><div class="wd">二</div><div class="wd">三</div><div class="wd">四</div><div class="wd">五</div><div class="wd">六</div><div class="wd">日</div>
+              <div class="d empty"></div><div class="d empty"></div><div class="d empty"></div><div class="d empty"></div><div class="d empty"></div><div class="d empty"></div><div class="d">1</div>
+              <div class="d">2</div><div class="d">3</div><div class="d">4</div><div class="d">5</div><div class="d">6</div><div class="d">7</div><div class="d">8</div>
+              <div class="d">9</div><div class="d">10</div><div class="d">11</div><div class="d">12</div><div class="d">13</div><div class="d">14</div><div class="d">15</div>
+              <div class="d">16</div><div class="d">17</div><div class="d">18</div><div class="d">19</div><div class="d">20</div><div class="d">21</div><div class="d warm">22</div>
+              <div class="d warm">23</div><div class="d warm">24</div><div class="d warm">25</div><div class="d warm">26</div><div class="d warm">27</div><div class="d warm">28</div>
+            </div>
+          </div>
+          <div class="month">
+            <h4>三月 <span>爆发 + 长尾</span></h4>
+            <div class="month-grid">
+              <div class="wd">一</div><div class="wd">二</div><div class="wd">三</div><div class="wd">四</div><div class="wd">五</div><div class="wd">六</div><div class="wd">日</div>
+              <div class="d empty"></div><div class="d empty"></div><div class="d empty"></div><div class="d empty"></div><div class="d empty"></div><div class="d empty"></div><div class="d warm">1</div>
+              <div class="d warm">2</div><div class="d warm">3</div><div class="d warm">4</div><div class="d warm">5</div><div class="d hot">6</div><div class="d hot">7</div><div class="d peak">8</div>
+              <div class="d hot">9</div><div class="d tail">10</div><div class="d tail">11</div><div class="d tail">12</div><div class="d tail">13</div><div class="d tail">14</div><div class="d tail">15</div>
+              <div class="d tail">16</div><div class="d tail">17</div><div class="d tail">18</div><div class="d tail">19</div><div class="d tail">20</div><div class="d tail">21</div><div class="d tail">22</div>
+              <div class="d">23</div><div class="d">24</div><div class="d">25</div><div class="d">26</div><div class="d">27</div><div class="d">28</div><div class="d">29</div>
+              <div class="d">30</div><div class="d">31</div>
+            </div>
+            <div class="viz-legend">
+              <span><i class="l1"></i>预热 2/22–3/5</span>
+              <span><i class="l2"></i>爆发 3/6–3/9</span>
+              <span><i class="l3"></i>长尾 3/10–3/22</span>
+              <span>圈出 = 38节</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="swim-card">
+          <h3>平台泳道 · 2/22 – 3/22</h3>
+          <div class="swim" aria-hidden="true">
+            <div class="swim-head">
+              <span></span>
+              <span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span>
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+              <span class="mk">6</span><span class="mk">7</span><span class="mk">8</span><span class="mk">9</span>
+              <span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span>
+              <span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span>
+            </div>
+            <div class="swim-row">
+              <b>小红书</b>
+              <div class="swim-track">
+                <div class="swim-peak-line"></div>
+                <i class="xhs" style="left:0%;width:10.3%">预告·词包</i>
+                <i class="xhs" style="left:10.3%;width:34.5%;opacity:.85">达人种草</i>
+                <i class="xhs" style="left:44.8%;width:10.3%">开屏峰值</i>
+                <i class="xhs" style="left:55.2%;width:44.8%;opacity:.7">图鉴长尾</i>
+              </div>
+            </div>
+            <div class="swim-row">
+              <b>抖音</b>
+              <div class="swim-track">
+                <div class="swim-peak-line"></div>
+                <i class="dy" style="left:10.3%;width:31%">测钩子</i>
+                <i class="dy" style="left:41.4%;width:13.8%">放量加投</i>
+                <i class="dy" style="left:55.2%;width:44.8%;opacity:.65">胜出复投</i>
+              </div>
+            </div>
+            <div class="swim-row">
+              <b>B站</b>
+              <div class="swim-track">
+                <div class="swim-peak-line"></div>
+                <i class="bili" style="left:20.7%;width:20.7%">中长片</i>
+                <i class="bili" style="left:41.4%;width:13.8%">共创峰值</i>
+                <i class="bili" style="left:55.2%;width:44.8%;opacity:.7">合集</i>
+              </div>
+            </div>
+            <div class="swim-row">
+              <b>腾讯</b>
+              <div class="swim-track">
+                <div class="swim-peak-line"></div>
+                <i class="tx" style="left:0%;width:41.4%">搜一搜就绪</i>
+                <i class="tx" style="left:41.4%;width:13.8%">朋友圈</i>
+                <i class="tx" style="left:55.2%;width:44.8%;opacity:.65">轻触达</i>
+              </div>
+            </div>
+            <div class="swim-row">
+              <b>购物</b>
+              <div class="swim-track">
+                <div class="swim-peak-line"></div>
+                <i class="shop" style="left:0%;width:41.4%">主图·预约</i>
+                <i class="shop" style="left:41.4%;width:13.8%">开屏·冲量</i>
+                <i class="shop" style="left:55.2%;width:44.8%;opacity:.7">商品卡长尾</i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-card" style="margin-bottom:0">
+          <h3>爆发周关键节点 · 3/6 – 3/9</h3>
+          <div class="peak-board">
+            <div class="peak-day">
+              <div class="when">周五</div>
+              <strong>3/6</strong>
+              <div class="acts">
+                <span>小红书倒计时笔记</span>
+                <span>天猫开屏开启</span>
+                <span>朋友圈图文开投</span>
+              </div>
+            </div>
+            <div class="peak-day">
+              <div class="when">周六</div>
+              <strong>3/7</strong>
+              <div class="acts">
+                <span>小红书开屏开启</span>
+                <span>达人矩阵连发</span>
+                <span>朋友圈视频开投</span>
+              </div>
+            </div>
+            <div class="peak-day is-peak">
+              <div class="when">周日 · 38节</div>
+              <strong>3/8</strong>
+              <div class="acts">
+                <span>全平台峰值放出</span>
+                <span>开屏 + 信息流加投</span>
+                <span>礼盒冲量</span>
+              </div>
+            </div>
+            <div class="peak-day">
+              <div class="when">周一</div>
+              <strong>3/9</strong>
+              <div class="acts">
+                <span>送礼向内容接力</span>
+                <span>物流催发</span>
+                <span>开屏收束</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h3>全盘节奏</h3>
+        <div class="gantt">
+          <div class="gantt-row"><b>内容</b><div class="gantt-track"><i class="p1">预热铺设</i><i class="p2">集中发</i><i class="p3">UGC 长尾</i></div></div>
+          <div class="gantt-row"><b>达人</b><div class="gantt-track"><i class="p1" style="left:10.3%;width:31.1%">开始种草</i><i class="p2">主推</i><i class="p3">精选复播</i></div></div>
+          <div class="gantt-row"><b>投放</b><div class="gantt-track"><i class="p1" style="left:10.3%;width:31.1%">测款</i><i class="p2">加投</i><i class="p3">只投胜出</i></div></div>
+          <div class="gantt-row"><b>转化</b><div class="gantt-track"><i class="p1" style="width:41.4%;opacity:.55">预约</i><i class="p2">礼盒峰值</i><i class="p3">再转化</i></div></div>
+        </div>
+        <div class="gantt-axis"><span></span><div><span>2/22</span><span>3/8</span><span>3/22</span></div></div>
+      </div>
+      <div class="tl-bar is-1" id="tlBar" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="tl-rail" id="tlRail">
+        <button type="button" class="is-on" data-phase="1"><div class="n">01 预热</div><strong>做认知</strong><span>2/22 – 3/5</span></button>
+        <button type="button" data-phase="2"><div class="n">02 爆发</div><strong>做认同+转化</strong><span>3/6 – 3/9 · 含 3/8</span></button>
+        <button type="button" data-phase="3"><div class="n">03 长尾</div><strong>做口碑+再转化</strong><span>3/10 – 3/22</span></button>
+      </div>
+
+      <div class="panel is-on phase-body" id="ph-1">
+        <h3>预热 · 2月22日 – 3月5日</h3>
+        <div class="mind">目标：记住「真我成色」和礼盒；先看见，不强推下单</div>
+        <div class="detail-label">日程明细</div>
+        <div class="cal-wrap">
+          <table class="cal-table">
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th>小红书</th>
+                <th>抖音</th>
+                <th>B站</th>
+                <th>腾讯</th>
+                <th>购物</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="date">2/22 – 2/24<em>T-14 ~ T-12</em></td>
+                <td><ul><li>品牌号发 KV / 成色预告</li><li>搜索词包上线</li></ul></td>
+                <td><ul><li>账号预告短片</li><li>分镜测拍</li></ul></td>
+                <td><ul><li>UP 档期确认</li><li>预告动态</li></ul></td>
+                <td><ul><li>搜一搜词包备案</li><li>小程序活动页联调（概念）</li></ul></td>
+                <td><ul><li>主图 / 详情首屏换「真我成色」</li></ul></td>
+              </tr>
+              <tr>
+                <td class="date">2/25 – 2/27<em>T-11 ~ T-9</em></td>
+                <td><ul><li>达人笔记开始发（成色/佩戴）</li><li>选礼指南上线</li></ul></td>
+                <td><ul><li>测 2 版 15s 钩子</li></ul></td>
+                <td><ul><li>中长片脚本定稿</li></ul></td>
+                <td><ul><li>视频号预告</li></ul></td>
+                <td><ul><li>礼盒页开放预约</li></ul></td>
+              </tr>
+              <tr>
+                <td class="date">2/28 – 3/2<em>T-8 ~ T-6</em></td>
+                <td><ul><li>四类人群入口笔记铺开</li><li>信息流小预算测款</li></ul></td>
+                <td><ul><li>胜出钩子加投测</li><li>达人短视频排期</li></ul></td>
+                <td><ul><li>「为什么是戒指」片上线</li></ul></td>
+                <td><ul><li>朋友圈素材过审</li></ul></td>
+                <td><ul><li>京东搜广测款</li></ul></td>
+              </tr>
+              <tr>
+                <td class="date">3/3 – 3/5<em>T-5 ~ T-3</em></td>
+                <td><ul><li>开屏素材过审就绪</li><li>合集页建好</li></ul></td>
+                <td><ul><li>商城橱窗卡上架</li></ul></td>
+                <td><ul><li>推荐位素材备好</li></ul></td>
+                <td><ul><li>搜一搜 ↔ 小程序联调（概念）</li></ul></td>
+                <td><ul><li>天猫开屏过审</li><li>客服 FAQ 上线</li></ul></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel phase-body" id="ph-2">
+        <h3>爆发 · 3月6日 – 3月9日</h3>
+        <div class="mind">目标：形成认同并完成自购与礼赠；3月8日为峰值日</div>
+        <div class="detail-label">日程明细</div>
+        <div class="cal-wrap">
+          <table class="cal-table">
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th>小红书</th>
+                <th>抖音</th>
+                <th>B站</th>
+                <th>腾讯</th>
+                <th>购物</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="date">3/6<em>周五 · T-2</em></td>
+                <td><ul><li>全端统一主轴文案</li><li>达人倒计时笔记</li></ul></td>
+                <td><ul><li>倒计时短视频</li><li>信息流抬量</li></ul></td>
+                <td><ul><li>UP 共创预热发布</li></ul></td>
+                <td><ul><li>朋友圈图文卡开投</li></ul></td>
+                <td><ul><li>礼盒页置顶</li><li>天猫开屏开启</li></ul></td>
+              </tr>
+              <tr>
+                <td class="date">3/7<em>周六 · T-1</em></td>
+                <td><ul><li>品牌开屏开启</li><li>选礼指南加推</li></ul></td>
+                <td><ul><li>达人矩阵连发</li></ul></td>
+                <td><ul><li>播放页广告位开启</li></ul></td>
+                <td><ul><li>朋友圈视频卡开投</li><li>搜一搜置顶</li></ul></td>
+                <td><ul><li>开屏续投</li><li>抖店橱窗加权</li></ul></td>
+              </tr>
+              <tr>
+                <td class="date peak-cell">3/8<em>周日 · 38节</em></td>
+                <td class="peak-cell"><ul><li>「我的成色」集中发</li><li>开屏加投</li><li>搜索占位加码</li></ul></td>
+                <td class="peak-cell"><ul><li>胜出素材全日加投</li><li>达人峰值发布</li></ul></td>
+                <td class="peak-cell"><ul><li>共创片置顶推荐</li></ul></td>
+                <td class="peak-cell"><ul><li>视频号精华短片</li><li>朋友圈加投</li></ul></td>
+                <td class="peak-cell"><ul><li>礼盒冲量</li><li>天猫开屏峰值</li><li>京东搜广加投</li></ul></td>
+              </tr>
+              <tr>
+                <td class="date">3/9<em>周一 · T+1</em></td>
+                <td><ul><li>母亲 / 闺蜜向内容加权</li></ul></td>
+                <td><ul><li>送礼向短视频接力</li></ul></td>
+                <td><ul><li>精选弹幕二创剪辑</li></ul></td>
+                <td><ul><li>视频号 + 购买页联动</li></ul></td>
+                <td><ul><li>物流催发</li><li>开屏收束</li></ul></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel phase-body" id="ph-3">
+        <h3>长尾 · 3月10日 – 3月22日</h3>
+        <div class="mind">目标：口碑沉淀，内容继续带转化；留下可复用资产</div>
+        <div class="detail-label">日程明细</div>
+        <div class="cal-wrap">
+          <table class="cal-table">
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th>小红书</th>
+                <th>抖音</th>
+                <th>B站</th>
+                <th>腾讯</th>
+                <th>购物</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="date">3/10 – 3/12<em>T+2 ~ T+4</em></td>
+                <td><ul><li>UGC 成色图鉴开征</li><li>合集页更新</li></ul></td>
+                <td><ul><li>只投胜出素材</li></ul></td>
+                <td><ul><li>精选合集上线</li></ul></td>
+                <td><ul><li>朋友圈停投，视频号轻量</li></ul></td>
+                <td><ul><li>开屏下线</li><li>详情页留长尾主图</li></ul></td>
+              </tr>
+              <tr>
+                <td class="date">3/13 – 3/16<em>T+5 ~ T+8</em></td>
+                <td><ul><li>图鉴精选二次分发</li><li>睡眠日常向内容</li></ul></td>
+                <td><ul><li>模板复用小预算</li></ul></td>
+                <td><ul><li>合集推荐位续航</li></ul></td>
+                <td><ul><li>搜一搜词包保留</li></ul></td>
+                <td><ul><li>商品卡长尾投放</li></ul></td>
+              </tr>
+              <tr>
+                <td class="date">3/17 – 3/22<em>T+9 ~ T+14</em></td>
+                <td><ul><li>收束笔记：真我还在手上</li></ul></td>
+                <td><ul><li>停投或极小预算</li></ul></td>
+                <td><ul><li>资产入库剪辑</li></ul></td>
+                <td><ul><li>轻触达收口</li></ul></td>
+                <td><ul><li>礼盒页归档常销</li></ul></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="page section" data-page="7" id="page-7">
+      <div class="section__label">08 · 目标与监测</div>
+      <h2>目标链路与监测</h2>
+      <p class="section__intro">目标链路为认知、认同、转化。天猫 / 京东礼盒与微信小程序（概念）分池核算。本页不设定具体目标数值。</p>
+      <div class="path">
+        <div><b>01</b><strong>认知</strong><span>主轴提及、相关搜索、开屏与信息流曝光</span></div>
+        <div><b>02</b><strong>认同</strong><span>互动与收藏、成色相关 UGC、达人内容完播</span></div>
+        <div><b>03</b><strong>转化</strong><span>礼盒页或小程序下单，并观察自购与礼赠占比</span></div>
+      </div>
+      <div class="funnel-viz" aria-hidden="true">
+        <div><b>认知</b><strong>看见成色</strong></div>
+        <div><b>认同</b><strong>形成认同</strong></div>
+        <div><b>转化</b><strong>自购 / 礼赠</strong></div>
+      </div>
+
+      <div class="phase-kpi" style="margin-top:14px">
+        <div><b>预热</b><strong>认知与种草</strong><p>关注 CPM、相关搜索、互动与收藏。CPA 仅用于小样本测款。</p></div>
+        <div><b>爆发</b><strong>转化效率</strong><p>关注 CVR、CPA、ROAS。店侧与小程序分池观察。</p></div>
+        <div><b>长尾</b><strong>续投判断</strong><p>以 ROAS 决定是否续投；不达标则停投，仅保留验证有效的素材。</p></div>
+      </div>
+
+      <article class="card" style="margin-top:12px">
+        <h3>预估指标（观察用，非承诺）</h3>
+        <p class="section__intro" style="margin-bottom:10px">按约 3000 元礼盒客单与高客单穿戴节日代理口径预设；无总预算数字。</p>
+        <table class="comp-table">
+          <thead><tr><th>指标</th><th>预估值</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>礼盒页 CVR</td><td>2.0%–3.0%</td><td>访问至支付；爆发周取中位观察</td></tr>
+            <tr><td>CPA</td><td>约 600–900 元/单</td><td>约客单 20%–30%；超上限减投</td></tr>
+            <tr><td>付费池 ROAS</td><td>≥ 3.0</td><td>低于 2.0 时长尾停投</td></tr>
+            <tr><td>自购 : 礼赠</td><td>约 65 : 35</td><td>3/8–3/9 礼赠可略升</td></tr>
+            <tr><td>相关搜索</td><td>预热期末较期初环比提升</td><td>方向指标，不设绝对搜索量</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <div class="split2" style="margin-top:12px">
+        <article class="card">
+          <h3>预算占比</h3>
+          <ul>
+            <li>达人 40% · 投放 60%（不含内容制作科目）</li>
+            <li>入门自购与礼赠合计约占露出七成</li>
+            <li>预热侧重达人与测款；爆发提高投放与开屏；长尾仅投放已验证素材</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>达人结构</h3>
+          <ul>
+            <li>头部 1–2：主轴与礼盒信任</li>
+            <li>腰部 8–12：按人群场景分发</li>
+            <li>补充真实开箱与成色 UGC</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <div class="note">
+      <span>刘骅慧作品集 · Oura 妇女节 营销概念案</span>
+      <span>概念策划 · 非官方活动</span>
+    </div>
+  </div>
+
+      <div class="pager">
+        <div class="pager__btns">
+          <button type="button" class="nav" id="btnPrev">上一页</button>
+          <button type="button" class="nav primary" id="btnNext">下一页</button>
+        </div>
+        <div class="pager__meta">
+          <span id="pagerLabel">封面主轴</span>
+          <div class="pager__dots" id="pagerDots" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PAGE_TITLES = ["封面主轴","洞察与机会","主轴与样例","卖什么","人群","渠道流量位","排期日历","目标与监测"];
+    const pages = [...document.querySelectorAll(".page[data-page]")];
+    const sideBtns = [...document.querySelectorAll("#sideNav button")];
+    const pill = document.getElementById("pagePill");
+    const prev = document.getElementById("btnPrev");
+    const next = document.getElementById("btnNext");
+    const label = document.getElementById("pagerLabel");
+    const dots = document.getElementById("pagerDots");
+    let cur = 0;
+
+    PAGE_TITLES.forEach((_, i) => {
+      const d = document.createElement("i");
+      if (i === 0) d.classList.add("is-on");
+      dots.appendChild(d);
+    });
+
+    function goPage(n) {
+      cur = Math.max(0, Math.min(PAGE_TITLES.length - 1, n));
+      pages.forEach((p) => p.classList.toggle("is-on", Number(p.dataset.page) === cur));
+      sideBtns.forEach((b) => b.classList.toggle("is-on", Number(b.dataset.page) === cur));
+      [...dots.children].forEach((d, i) => d.classList.toggle("is-on", i === cur));
+      pill.textContent = String(cur + 1).padStart(2, "0") + " / 08";
+      label.textContent = PAGE_TITLES[cur];
+      prev.disabled = cur === 0;
+      next.disabled = cur === PAGE_TITLES.length - 1;
+      next.textContent = cur === PAGE_TITLES.length - 1 ? "已到末页" : "下一页";
+      history.replaceState(null, "", "#p" + cur);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    sideBtns.forEach((b) => b.addEventListener("click", () => goPage(Number(b.dataset.page))));
+    prev.addEventListener("click", () => goPage(cur - 1));
+    next.addEventListener("click", () => goPage(cur + 1));
+    document.addEventListener("keydown", (e) => {
+      if (e.target.matches("input,textarea")) return;
+      if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); goPage(cur + 1); }
+      if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); goPage(cur - 1); }
+    });
+    const boot = /^#p(\d+)$/.exec(location.hash);
+    goPage(boot ? Number(boot[1]) : 0);
+
+    function bindTabs(btns, apply) {
+      btns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          btns.forEach((b) => b.classList.remove("is-on"));
+          btn.classList.add("is-on");
+          apply(btn);
+        });
+      });
+    }
+    bindTabs(document.querySelectorAll("#audTabs button"), (btn) => {
+      document.querySelectorAll("#a1,#a2,#a3,#a4").forEach((p) => {
+        p.classList.toggle("is-on", p.id === btn.dataset.aud);
+      });
+    });
+    bindTabs(document.querySelectorAll("#chanGrid button"), (btn) => {
+      ["xhs","dy","bili","tx","shop"].forEach((k) => {
+        document.getElementById("ch-" + k).classList.toggle("is-on", k === btn.dataset.ch);
+      });
+    });
+    bindTabs(document.querySelectorAll("#compGrid button"), (btn) => {
+      ["ring","watch","case"].forEach((k) => {
+        document.getElementById("comp-" + k).classList.toggle("is-on", k === btn.dataset.comp);
+      });
+    });
+    const tlBar = document.getElementById("tlBar");
+    bindTabs(document.querySelectorAll("#tlRail button"), (btn) => {
+      ["1","2","3"].forEach((n) => {
+        document.getElementById("ph-" + n).classList.toggle("is-on", n === btn.dataset.phase);
+      });
+      tlBar.className = "tl-bar is-" + btn.dataset.phase;
+    });
+  </script>
+  <script src="case-edit.js"></script>
+</body>
+</html>

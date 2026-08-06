@@ -1,0 +1,135 @@
+<view class="wrap">
+  <view class="card">
+    <view class="label">动态日历</view>
+    <view class="day-quick">
+      <block wx:for="{{dayChips}}" wx:key="day">
+        <view
+          class="day-chip {{selectedDay===item.day?'on':''}}"
+          data-day="{{item.day}}"
+          bindtap="selectDay"
+        >
+          <text class="day-chip-main">{{item.label}}</text>
+          <text class="day-chip-sub">{{item.sub}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="chips more-days" wx:if="{{moreDays.length}}">
+      <block wx:for="{{moreDays}}" wx:key="day">
+        <view
+          class="chip {{selectedDay===item.day?'on':''}}"
+          data-day="{{item.day}}"
+          bindtap="selectDay"
+        >{{item.label}}</view>
+      </block>
+    </view>
+    <picker
+      mode="multiSelector"
+      range="{{[feedYears, feedMonths, feedDays]}}"
+      value="{{feedIndex}}"
+      bindchange="onFeedPick"
+      bindcolumnchange="onFeedColumn"
+    >
+      <view class="date-pick">
+        <text class="date-main">{{dateLabel}}</text>
+        <text class="muted">选更早日期 ›</text>
+      </view>
+    </picker>
+  </view>
+
+  <view class="card nudge-card" wx:if="{{myNudges.length}}">
+    <view class="label">家人提醒</view>
+    <block wx:for="{{myNudges}}" wx:key="id">
+      <view class="nudge-row">
+        <text class="nudge-text">{{item.text}}</text>
+        <text class="nudge-ok" data-id="{{item.id}}" bindtap="dismissNudge">知道了</text>
+      </view>
+    </block>
+    <view class="hint linkish" wx:if="{{myNudges.length>1}}" bindtap="dismissAllNudges">全部知道了</view>
+  </view>
+
+  <view class="card compose" wx:if="{{isToday}}">
+    <view class="label">今日一更</view>
+    <view class="hint" wx:if="{{postedToday}}">今天已发过。改图或重发请先删下面那条。</view>
+    <block wx:if="{{postedToday}}">
+      <button size="mini" class="ghost remind-btn" bindtap="remindFamily">提醒其他家人</button>
+    </block>
+    <block wx:else>
+      <textarea class="area" placeholder="一句短文案，也可以只发图" value="{{content}}" bindinput="onContent" maxlength="200" />
+      <view class="preview" wx:if="{{imagePath}}">
+        <image src="{{imagePath}}" mode="aspectFill" class="thumb" />
+        <text class="clear" bindtap="clearImage">去掉图片</text>
+      </view>
+      <view class="actions">
+        <button size="mini" class="ghost pick-img" bindtap="pickImage">📷 相册/拍照</button>
+        <button size="mini" class="primary" bindtap="publish">发布今日</button>
+      </view>
+      <view class="hint">发布后可提醒家人。</view>
+    </block>
+  </view>
+
+  <view class="card" wx:else>
+    <view class="hint">正在看历史日。回到今天才能发布新动态。</view>
+    <button size="mini" class="ghost back-today" bindtap="goToday">回到今天</button>
+  </view>
+
+  <block wx:for="{{posts}}" wx:key="id">
+    <view class="card post">
+      <view class="meta">
+        <text class="name">{{item.name}}</text>
+        <text class="muted">{{item.timeLabel}}</text>
+      </view>
+      <view class="body" wx:if="{{item.content}}">{{item.content}}</view>
+      <image wx:if="{{item.imagePath}}" src="{{item.imagePath}}" mode="widthFix" class="photo" />
+
+      <view class="reacts">
+        <text
+          class="emoji {{item.myReact===emo?'on':''}}"
+          wx:for="{{item.quickEmojis}}"
+          wx:for-item="emo"
+          wx:key="*this"
+          data-id="{{item.id}}"
+          data-emoji="{{emo}}"
+          bindtap="react"
+        >{{emo}}</text>
+      </view>
+
+      <view class="react-summary" wx:if="{{item.reactionGroups.length}}">
+        <block wx:for="{{item.reactionGroups}}" wx:for-item="g" wx:key="emoji">
+          <view class="react-pill {{g.mine?'on':''}}" data-id="{{item.id}}" data-emoji="{{g.emoji}}" bindtap="react">
+            {{g.emoji}} {{g.count}}
+          </view>
+        </block>
+      </view>
+
+      <view class="comments" wx:if="{{item.comments.length}}">
+        <block wx:for="{{item.comments}}" wx:for-item="c" wx:key="id">
+          <view class="comment">
+            <text class="c-name">{{c.name}}</text>
+            <text class="c-text">{{c.text}}</text>
+            <text class="c-del" wx:if="{{c.canDelete}}" data-id="{{item.id}}" data-cid="{{c.id}}" catchtap="removeComment">删</text>
+          </view>
+        </block>
+      </view>
+
+      <view class="comment-row">
+        <input
+          class="comment-input"
+          placeholder="写一句评论"
+          value="{{commentDrafts[item.id]}}"
+          data-id="{{item.id}}"
+          bindinput="onCommentInput"
+          maxlength="80"
+          confirm-type="send"
+          bindconfirm="sendComment"
+        />
+        <button size="mini" class="primary comment-btn" data-id="{{item.id}}" bindtap="sendComment">评论</button>
+      </view>
+
+      <view class="del" wx:if="{{item.mine}}" data-id="{{item.id}}" bindtap="remove">删除这条</view>
+    </view>
+  </block>
+
+  <view class="card" wx:if="{{!posts.length}}">
+    <view class="hint">这一天还没有动态。</view>
+  </view>
+</view>

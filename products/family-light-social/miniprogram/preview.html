@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>家灯 · 文案/按键预览</title>
+  <style>
+    :root {
+      --ink: #2f2a28;
+      --soft: #8a817c;
+      --blush: #e9b7b2;
+      --blush-deep: #d4928c;
+      --sand: #f0e7dc;
+      --paper: #fbf9f7;
+      --sky: #d5e1e8;
+      --line: rgba(47, 42, 40, 0.08);
+      --bg: #efeae4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(ellipse at 20% 0%, rgba(233,183,178,.35), transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(213,225,232,.5), transparent 45%),
+        #e8e2db;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 48px;
+    }
+    .banner {
+      max-width: 420px;
+      width: 100%;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .banner h1 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .banner p {
+      margin: 0;
+      color: var(--soft);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .phone {
+      width: min(390px, 100%);
+      height: min(780px, 88vh);
+      background: var(--bg);
+      border-radius: 36px;
+      box-shadow:
+        0 0 0 10px #2a2624,
+        0 0 0 12px #4a403c,
+        0 28px 60px rgba(47,42,40,.25);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    .status-bar {
+      height: 44px;
+      padding: 12px 22px 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      background: var(--paper);
+      flex-shrink: 0;
+    }
+    .nav {
+      background: var(--paper);
+      padding: 10px 16px 12px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 16px;
+      border-bottom: 1px solid var(--line);
+      flex-shrink: 0;
+      position: relative;
+      min-height: 22px;
+    }
+    .nav-back {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--blush-deep);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+      padding: 4px 6px;
+    }
+    .nav-back.show { display: block; }
+    .scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 8px;
+    }
+    .screen { display: none; }
+    .screen.on { display: block; }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 14px;
+      margin: 12px;
+      box-shadow: 0 4px 14px rgba(47,42,40,.05);
+    }
+    .label {
+      font-size: 11px;
+      letter-spacing: .12em;
+      color: var(--blush-deep);
+      font-weight: 700;
+    }
+    .hint { color: var(--soft); font-size: 12px; margin-top: 6px; line-height: 1.45; }
+    .title { font-size: 22px; font-weight: 700; margin-top: 8px; }
+    .input, .area {
+      width: 100%;
+      background: var(--sand);
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+      font: inherit;
+      color: var(--ink);
+    }
+    .area { min-height: 72px; resize: none; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .picked-box {
+      margin: 10px 0 6px;
+      padding: 10px 12px;
+      background: rgba(233,183,178,.18);
+      border-radius: 12px;
+    }
+    .picked-title { font-size: 11px; color: var(--soft); font-weight: 600; margin: 10px 0 6px; }
+    .chip.picked-chip {
+      background: rgba(233,183,178,.55);
+      border-color: var(--blush);
+      font-weight: 600;
+      padding-right: 8px;
+    }
+    .chip .x {
+      margin-left: 6px;
+      color: var(--blush-deep);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .shuffle-btn {
+      margin-top: 10px;
+      background: var(--sand) !important;
+      color: var(--ink) !important;
+    }
+    .add-row { display: none; gap: 8px; margin-top: 10px; align-items: center; }
+    .add-row.show { display: flex; }
+    .chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--sand);
+      font-size: 13px;
+      cursor: pointer;
+      user-select: none;
+      border: 1.5px solid transparent;
+    }
+    .chip.on {
+      background: rgba(233,183,178,.45);
+      border-color: var(--blush);
+      font-weight: 600;
+    }
+    .chip.green.on { background: rgba(124,184,154,.35); border-color: #7cb89a; }
+    .chip.yellow.on { background: rgba(224,192,112,.4); border-color: #e0c070; }
+    .chip.red.on { background: rgba(212,146,140,.4); border-color: #d4928c; }
+    .picker-like {
+      position: relative;
+      line-height: 1.4;
+      cursor: pointer;
+    }
+    #lunarPickRow, #solarPickRow { display: none; }
+    #lunarPickRow.show, #solarPickRow.show { display: flex; }
+    .btn {
+      display: block;
+      width: calc(100% - 24px);
+      margin: 12px;
+      border: none;
+      border-radius: 14px;
+      padding: 13px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #f3d4cf, #e9b7b2 60%, #d8c4df);
+      color: var(--ink);
+    }
+    .btn-ghost { background: var(--sand); color: var(--ink); }
+    .btn.mini {
+      display: inline-block;
+      width: auto;
+      margin: 0;
+      padding: 8px 14px;
+      font-size: 13px;
+      border-radius: 10px;
+    }
+    .actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
+    .member {
+      display: flex; gap: 10px; padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .member:last-child { border-bottom: none; }
+    .dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      margin-top: 5px; flex-shrink: 0;
+    }
+    .dot.green { background: #7cb89a; }
+    .dot.yellow { background: #e0c070; }
+    .dot.red { background: #d4928c; }
+    .name { font-weight: 600; font-size: 14px; }
+    .muted { color: var(--soft); font-size: 12px; }
+    .q { font-size: 17px; font-weight: 600; margin: 10px 0 4px; line-height: 1.4; }
+    .opt {
+      background: var(--sand);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .opt.on {
+      background: rgba(233,183,178,.45);
+      box-shadow: inset 0 0 0 1.5px var(--blush);
+      font-weight: 600;
+    }
+    .row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--line); cursor: pointer;
+    }
+    .row:last-child { border-bottom: none; }
+    .meta { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .reacts { margin-top: 10px; font-size: 20px; }
+    .reacts span { cursor: pointer; margin-right: 8px; }
+    .match { font-size: 16px; font-weight: 700; color: var(--blush-deep); margin: 8px 0; }
+    .tabbar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+      padding: 8px 0 14px;
+      flex-shrink: 0;
+    }
+    .tab {
+      text-align: center;
+      font-size: 11px;
+      color: var(--soft);
+      cursor: pointer;
+      padding: 4px;
+    }
+    .tab.on { color: var(--blush-deep); font-weight: 700; }
+    .tab .ico {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #b5aea9; margin: 0 auto 4px;
+    }
+    .tab.on .ico { background: var(--blush-deep); }
+    .toast {
+      position: absolute; left: 50%; bottom: 90px; transform: translateX(-50%);
+      background: rgba(47,42,40,.88); color: #fff; padding: 8px 14px;
+      border-radius: 999px; font-size: 13px; opacity: 0; pointer-events: none;
+      transition: opacity .2s; white-space: nowrap; z-index: 5;
+    }
+    .toast.show { opacity: 1; }
+    .tip { background: rgba(213,225,232,.55); }
+    .role-switch {
+      max-width: 420px; width: 100%; margin-top: 14px;
+      display: flex; gap: 8px; justify-content: center;
+    }
+    .role-switch button {
+      border: none; border-radius: 999px; padding: 8px 14px;
+      background: #fff; color: var(--ink); font: inherit; font-size: 13px;
+      cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    }
+    .role-switch button.on { background: var(--blush); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <h1>家灯 · 测试预览（文案 / 按键）</h1>
+    <p>浏览器可点可切换，文案与小程序一致。不是微信真机包。</p>
+    <p id="phoneTip" style="margin-top:8px;font-size:12px;color:#2f2a28"></p>
+    <img id="qr" alt="" width="140" height="140" style="display:none;margin:10px auto 0;border-radius:12px;background:#fff;padding:8px" />
+  </div>
+
+  <div class="phone">
+    <div class="status-bar"><span>9:41</span><span>家灯</span></div>
+    <div class="nav">
+      <span class="nav-back" id="navBack" onclick="goBack()">‹ 返回</span>
+      <span id="navTitle">家灯</span>
+    </div>
+    <div class="scroll">
+
+      <!-- 加入 -->
+      <section class="screen on" data-screen="join" data-title="家灯">
+        <div class="card">
+          <div class="label">家灯</div>
+          <div class="title">低负担的家庭连接</div>
+          <div class="hint">父母愿意打开；子女大约一分钟搞定。先建或加入一个家。</div>
+        </div>
+        <div class="card" id="createBox">
+          <div class="label">创建家庭</div>
+          <input class="input" placeholder="你的称呼，如：小刘" value="小刘" />
+          <button class="btn btn-primary" style="width:100%;margin:12px 0 0" onclick="go('about')">生成家庭码</button>
+          <button class="btn btn-ghost" style="width:100%;margin:10px 0 0" onclick="toggleJoin(true)">我有家庭码</button>
+        </div>
+        <div class="card" id="joinBox" style="display:none">
+          <div class="label">加入家庭</div>
+          <input class="input" placeholder="六位家庭码" value="A7K2M9" />
+          <input class="input" placeholder="你的称呼，如：妈妈" value="妈妈" />
+          <button class="btn btn-primary" style="width:100%;margin:12px 0 0" onclick="go('about')">加入</button>
+          <button class="btn btn-ghost" style="width:100%;margin:10px 0 0" onclick="toggleJoin(false)">改为创建家庭</button>
+        </div>
+        <div class="card tip">
+          <div class="hint">跨手机给朋友用：需在微信开发者工具开通「云开发」。本地模式仅同机可测。</div>
+        </div>
+      </section>
+
+      <!-- 关于我 -->
+      <section class="screen" data-screen="about" data-title="关于我">
+        <div class="card">
+          <div class="label">关于我</div>
+          <div class="hint" id="aboutIntro">词包可换一换；换满 8 次可手加。</div>
+        </div>
+        <div class="card">
+          <div class="label">角色</div>
+          <div class="chips" id="roles">
+            <div class="chip on" data-v="child" onclick="pickAboutRole(this,'child')">子女 / 晚辈</div>
+            <div class="chip" data-v="elder" onclick="pickAboutRole(this,'elder')">父母 / 长辈</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="label">现居住地</div>
+          <div class="input picker-like" id="residenceLabel" style="margin-top:10px">中国大陆 · 上海 · 上海</div>
+          <div id="placePickRow" style="display:flex;gap:8px;margin-top:10px">
+            <select id="placeRegion" class="input" style="flex:1;margin-top:0" onchange="onPlacePreviewChange(0)"></select>
+            <select id="placeSub" class="input" style="flex:1;margin-top:0" onchange="onPlacePreviewChange(1)"></select>
+            <select id="placeCity" class="input" style="flex:1;margin-top:0" onchange="onPlacePreviewChange(2)"></select>
+          </div>
+          <input type="hidden" id="aboutResidence" value="上海" />
+          <div class="hint" style="color:#d4928c;text-decoration:underline;cursor:pointer;margin-top:6px" onclick="clearPlacePreview()">清除居住地</div>
+        </div>
+        <div class="card">
+          <div class="label">生日与年龄</div>
+          <div class="hint">选填；年龄家人看不到。带年份的生日会自动生成年龄，只能改年份来调整。</div>
+          <div class="chips" id="bdayCal">
+            <div class="chip on" data-c="solar" onclick="pickBdayCal(this,'solar')">阳历</div>
+            <div class="chip" data-c="lunar" onclick="pickBdayCal(this,'lunar')">阴历</div>
+          </div>
+          <div class="input picker-like" id="bdayLabel" style="margin-top:10px">阳历 1998年8月5日</div>
+          <div class="hint" id="bdayPairLabel" style="margin-top:6px">对应阴历：—</div>
+          <div id="solarPickRow" class="show" style="gap:8px;margin-top:10px">
+            <select id="solarYear" class="input" style="flex:1;margin-top:0" onchange="onSolarBdayChange()"></select>
+            <select id="solarMonth" class="input" style="flex:1;margin-top:0" onchange="onSolarBdayChange()"></select>
+            <select id="solarDay" class="input" style="flex:1;margin-top:0" onchange="onSolarBdayChange()"></select>
+          </div>
+          <div id="lunarPickRow" style="gap:8px;margin-top:10px">
+            <select id="lunarYear" class="input" style="flex:1;margin-top:0" onchange="onLunarBdayChange()"></select>
+            <select id="lunarMonth" class="input" style="flex:1;margin-top:0" onchange="onLunarBdayChange()"></select>
+            <select id="lunarDay" class="input" style="flex:1;margin-top:0" onchange="onLunarBdayChange()"></select>
+          </div>
+          <div class="muted" style="margin-top:12px;font-weight:600">年龄</div>
+          <div class="input picker-like" id="aboutAge" style="font-weight:700">24 岁</div>
+          <div class="hint" id="aboutAgeHint" style="display:none">选生日年份后自动生成。</div>
+          <div class="hint" style="color:#d4928c;text-decoration:underline;cursor:pointer" onclick="clearBdayPreview()">清除生日</div>
+        </div>
+        <div class="card" id="familyNameCard">
+          <div class="label">家的名字</div>
+          <input class="input" placeholder="比如：刘家小窝 / 灯火人家" value="刘家小窝" />
+        </div>
+        <div class="card">
+          <div class="label">阶段（可多选）</div>
+          <div class="hint" id="stageHint">填年龄后会推荐阶段。</div>
+          <div class="chips" id="stages">
+            <div class="chip" onclick="this.classList.toggle('on')">学生</div>
+            <div class="chip on" onclick="this.classList.toggle('on')">初入职场 · 推荐</div>
+            <div class="chip" onclick="this.classList.toggle('on')">已独立生活</div>
+            <div class="chip" onclick="this.classList.toggle('on')">其他</div>
+          </div>
+        </div>
+        <div class="card" data-pack="concern">
+          <div class="label" id="concernLabel">最近在意的事（最多 10 个）</div>
+          <div class="hint" id="concernHint" style="display:none">选「我想靠近/想被懂」的事，少选管教口吻的词。</div>
+          <div class="picked-box" id="concern-picked" style="display:none"></div>
+          <div class="picked-title">换一批选</div>
+          <div class="chips" id="concern-pool"></div>
+          <button class="btn mini shuffle-btn" onclick="shufflePack('concern')">换一换（<span id="concern-count">0</span>/8）</button>
+          <div class="add-row" id="concern-add">
+            <input class="input" style="margin-top:0;flex:1" id="concern-input" placeholder="词包没有？自己加" maxlength="12" />
+            <button class="btn mini btn-primary" style="margin:0" onclick="addCustomPack('concern')">添加</button>
+          </div>
+        </div>
+        <div class="card" data-pack="world">
+          <div class="label" id="worldLabel">我的小世界（最多 10 个）</div>
+          <div class="hint" id="worldHint" style="display:none"></div>
+          <div class="picked-box" id="world-picked" style="display:none"></div>
+          <div class="picked-title">换一批选</div>
+          <div class="chips" id="world-pool"></div>
+          <button class="btn mini shuffle-btn" onclick="shufflePack('world')">换一换（<span id="world-count">0</span>/8）</button>
+          <div class="add-row" id="world-add">
+            <input class="input" style="margin-top:0;flex:1" id="world-input" placeholder="没有？如：独立乐队" maxlength="12" />
+            <button class="btn mini btn-primary" style="margin:0" onclick="addCustomPack('world')">添加</button>
+          </div>
+        </div>
+        <div class="card" data-pack="understood">
+          <div class="label" id="understoodLabel">最想被爸妈理解的（最多 10 个）</div>
+          <div class="hint" id="understoodHint" style="display:none">用「我其实…」的句子，避免「你应该…」。</div>
+          <div class="picked-box" id="understood-picked" style="display:none"></div>
+          <div class="picked-title">换一批选</div>
+          <div class="chips" id="understood-pool"></div>
+          <button class="btn mini shuffle-btn" onclick="shufflePack('understood')">换一换（<span id="understood-count">0</span>/8）</button>
+          <div class="add-row" id="understood-add">
+            <input class="input" style="margin-top:0;flex:1" id="understood-input" placeholder="没有？自己加一句" maxlength="24" />
+            <button class="btn mini btn-primary" style="margin:0" onclick="addCustomPack('understood')">添加</button>
+          </div>
+        </div>
+        <div class="card" data-pack="together">
+          <div class="label" id="togetherLabel">最想和爸妈一起做的（最多 10 个）</div>
+          <div class="picked-box" id="together-picked" style="display:none"></div>
+          <div class="picked-title">换一批选</div>
+          <div class="chips" id="together-pool"></div>
+          <button class="btn mini shuffle-btn" onclick="shufflePack('together')">换一换（<span id="together-count">0</span>/8）</button>
+          <div class="add-row" id="together-add">
+            <input class="input" style="margin-top:0;flex:1" id="together-input" placeholder="没有？自己加一项" maxlength="24" />
+            <button class="btn mini btn-primary" style="margin:0" onclick="addCustomPack('together')">添加</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="label">一句更具体的话</div>
+          <input class="input" id="aboutNote" placeholder="比如：最近在追某部番；喜欢独立乐队" />
+        </div>
+        <button class="btn btn-primary" onclick="go('home'); toast('已保存')">保存并进入家</button>
+      </section>
+
+      <!-- 家 -->
+      <section class="screen" data-screen="home" data-title="家" data-tab="home">
+        <div id="celebrateCard" class="card" style="display:none;background:linear-gradient(135deg,rgba(233,183,178,.28),rgba(213,225,232,.45))"></div>
+        <div id="portraitTipCard" class="card" style="display:none;background:linear-gradient(135deg,rgba(233,183,178,.22),rgba(213,225,232,.5))">
+          <div class="label">近期画像提示</div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 0">
+            <div style="flex:1;font-weight:600;font-size:14px">从最新的默契里，能感到 小刘 心里有些沉，先接住感受会更好。</div>
+            <button class="btn mini btn-ghost" style="margin:0" onclick="go('portrait')">去看看</button>
+            <span class="muted" style="font-size:12px;cursor:pointer" onclick="document.getElementById('portraitTipCard').style.display='none';toast('已知道')">知道了</span>
+          </div>
+        </div>
+        <div class="card" style="background:linear-gradient(135deg,rgba(213,225,232,.55),rgba(233,183,178,.22))">
+          <div class="label">今日</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:6px">
+            <div>
+              <div id="homeTodayDate" style="font-size:20px;font-weight:700">—</div>
+              <div class="muted" id="homeTodayWeek" style="margin-top:2px">—</div>
+            </div>
+            <div id="homeNowTime" style="font-size:28px;font-weight:700;letter-spacing:.04em">—</div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div>
+              <div id="homeFamilyName" style="font-size:20px;font-weight:700;margin-bottom:4px">刘家小窝</div>
+              <div class="label">今日家灯</div>
+            </div>
+            <div class="muted">A7K2M9</div>
+          </div>
+          <div class="member">
+            <div class="dot green"></div>
+            <div style="flex:1">
+              <div class="name">小刘 <span id="xiaoliuBdayTag" style="display:none;font-size:11px;padding:1px 6px;border-radius:999px;background:rgba(233,183,178,.7);font-weight:700;margin:0 4px">生日</span> <span class="muted">晚辈</span></div>
+              <div class="muted" style="margin-top:6px;font-size:12px">上海 · <span id="wxXiaoliu">加载中…</span></div>
+              <div class="chips" style="margin-top:8px">
+                <span class="chip green on" style="pointer-events:none">绿 · 空闲</span>
+                <span class="chip on" style="pointer-events:none;background:rgba(213,225,232,.75)">☀️ 挺好</span>
+              </div>
+              <div class="muted" style="margin-top:6px">通话、视频都可以</div>
+            </div>
+          </div>
+          <div class="member">
+            <div class="dot yellow"></div>
+            <div style="flex:1">
+              <div class="name">妈妈 <span class="muted">长辈</span></div>
+              <div class="muted" style="margin-top:6px;font-size:12px">杭州 · <span id="wxMom">加载中…</span></div>
+              <div class="chips" style="margin-top:8px">
+                <span class="chip yellow on" style="pointer-events:none">黄 · 空闲但不想被打扰</span>
+                <span class="chip on" style="pointer-events:none;background:rgba(213,225,232,.75)">😮‍💨 有点累</span>
+              </div>
+              <div class="muted" style="margin-top:6px">通话需要提前文字沟通</div>
+              <div class="muted" style="margin-top:4px">下午 3 点 · 医院 · 陪奶奶复查</div>
+            </div>
+          </div>
+          <div class="member">
+            <div class="dot red"></div>
+            <div style="flex:1">
+              <div class="name">爸爸 <span class="muted">长辈</span></div>
+              <div class="muted" style="margin-top:6px;font-size:12px">成都 · <span id="wxDad">加载中…</span></div>
+              <div class="chips" style="margin-top:8px">
+                <span class="chip red on" style="pointer-events:none">红 · 有点忙，别打扰</span>
+                <span class="chip on" style="pointer-events:none;background:rgba(213,225,232,.75)">🫧 平静</span>
+              </div>
+              <div class="muted" style="margin-top:6px">暂时不通话</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="label">我的今日</div>
+          <div class="muted" style="margin-top:12px;font-weight:600">状态灯</div>
+          <div class="chips" id="status">
+            <div class="chip green on" onclick="pickChip(this,'status')">绿 · 空闲</div>
+            <div class="chip yellow" onclick="pickChip(this,'status')">黄 · 空闲但不想被打扰</div>
+            <div class="chip red" onclick="pickChip(this,'status')">红 · 有点忙，别打扰</div>
+          </div>
+          <div class="muted" style="margin-top:12px;font-weight:600">今日心情</div>
+          <div class="chips" id="mood">
+            <div class="chip on" onclick="pickChip(this,'mood')">☀️ 挺好</div>
+            <div class="chip" onclick="pickChip(this,'mood')">🫧 平静</div>
+            <div class="chip" onclick="pickChip(this,'mood')">😮‍💨 有点累</div>
+            <div class="chip" onclick="pickChip(this,'mood')">🌧️ 低落</div>
+            <div class="chip" onclick="pickChip(this,'mood')">🤗 想被关心</div>
+          </div>
+          <input class="input" placeholder="一句短状态" value="在家写作业" />
+          <div class="muted" style="margin-top:12px;font-weight:600">细节</div>
+          <input class="input" placeholder="时间，如：晚饭前 / 晚上 9 点" />
+          <input class="input" placeholder="地点，如：在家 / 公司附近" />
+          <input class="input" placeholder="和谁 / 做什么" />
+        </div>
+        <div class="card">
+          <div class="label">通话 / 视频意愿</div>
+          <div class="chips" id="call">
+            <div class="chip green on" onclick="this.classList.toggle('on')">通话</div>
+            <div class="chip green on" onclick="this.classList.toggle('on')">视频</div>
+          </div>
+          <div class="hint" style="margin-top:8px">现在展示：通话、视频都可以</div>
+        </div>
+      </section>
+
+      <!-- 动态 -->
+      <section class="screen" data-screen="feed" data-title="动态" data-tab="feed">
+        <div class="card">
+          <div class="label">动态日历</div>
+          <div id="feedDayQuick" style="display:flex;gap:8px;margin-top:10px">
+            <div class="chip on feed-day" data-day="今天" onclick="pickFeedDay(this)" style="flex:1;text-align:center;border-radius:12px;padding:10px 4px">
+              <b style="display:block">今天</b><span class="muted" style="font-size:11px">8/5</span>
+            </div>
+            <div class="chip feed-day" data-day="昨天" onclick="pickFeedDay(this)" style="flex:1;text-align:center;border-radius:12px;padding:10px 4px">
+              <b style="display:block">昨天</b><span class="muted" style="font-size:11px">8/4</span>
+            </div>
+            <div class="chip feed-day" data-day="前天" onclick="pickFeedDay(this)" style="flex:1;text-align:center;border-radius:12px;padding:10px 4px">
+              <b style="display:block">前天</b><span class="muted" style="font-size:11px">8/3</span>
+            </div>
+            <div class="chip feed-day" data-day="大前天" onclick="pickFeedDay(this)" style="flex:1;text-align:center;border-radius:12px;padding:10px 4px">
+              <b style="display:block">大前天</b><span class="muted" style="font-size:11px">8/2</span>
+            </div>
+          </div>
+          <div class="date-pick" style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;background:#f0e7dc;border-radius:12px;padding:12px">
+            <b id="feedDateLabel">今天 · 2026-8-6</b>
+            <span class="muted">更早日期 ↓</span>
+          </div>
+          <div id="feedPickRow" style="display:flex;gap:8px;margin-top:10px">
+            <select id="feedYear" class="input" style="flex:1;margin-top:0" onchange="onFeedWheelChange()"></select>
+            <select id="feedMonth" class="input" style="flex:1;margin-top:0" onchange="onFeedWheelChange()"></select>
+            <select id="feedDay" class="input" style="flex:1;margin-top:0" onchange="onFeedWheelChange()"></select>
+          </div>
+        </div>
+        <div id="feedNudgeCard" class="card" style="background:linear-gradient(135deg,rgba(213,225,232,.55),rgba(233,183,178,.22))">
+          <div class="label">家人提醒</div>
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 0">
+            <div style="flex:1;font-weight:600;font-size:14px">妈妈 提醒你：今天也来一更吧</div>
+            <span class="muted" style="font-size:12px" onclick="toast('已知道')">知道了</span>
+          </div>
+        </div>
+        <div class="card" id="feedComposeCard">
+          <div class="label">今日一更</div>
+          <textarea class="area" id="feedComposeText" placeholder="一句短文案，或配张图">今天天气很好，路过的猫。</textarea>
+          <div id="feedImgPreview" style="display:none;margin-top:10px">
+            <img id="feedImgEl" alt="" style="width:100%;max-height:180px;object-fit:cover;border-radius:12px;background:#f0e7dc" />
+            <div class="hint" style="color:#d4928c;text-decoration:underline;cursor:pointer;margin-top:6px" onclick="clearFeedImage()">去掉图片</div>
+          </div>
+          <div class="actions">
+            <label class="btn mini btn-ghost" style="margin:0;cursor:pointer;display:inline-block">
+              📷 相册/拍照
+              <input id="feedAlbumInput" type="file" accept="image/*" style="display:none" onchange="onFeedAlbumPick(this)" />
+            </label>
+            <button class="btn mini btn-primary" onclick="toast('今日已更新 · 可选提醒家人')">发布今日</button>
+          </div>
+          <div class="hint">发布后可提醒家人。</div>
+        </div>
+        <div class="card" id="feedHistHint" style="display:none">
+          <div class="hint">正在看历史日。回到今天才能发布新动态。</div>
+          <button class="btn mini btn-ghost" style="margin:10px 0 0" onclick="goFeedToday()">回到今天</button>
+        </div>
+        <div id="feedList"></div>
+      </section>
+
+      <!-- 默契 · 子女 -->
+      <section class="screen" data-screen="quiz" data-title="默契" data-tab="quiz">
+        <div class="card" id="quizChild">
+          <div class="label">今日默契</div>
+          <div class="hint">先选答案，再选谁来答。</div>
+          <div class="q">当我成绩波动时，我最希望家里怎么做？</div>
+          <div class="muted">在意的事</div>
+          <div class="opts" id="opts">
+            <div class="opt on" onclick="pickOpt(this)">先安慰再谈方法</div>
+            <div class="opt" onclick="pickOpt(this)">别拿别人比较</div>
+            <div class="opt" onclick="pickOpt(this)">给我一点空间</div>
+            <div class="opt" onclick="pickOpt(this)">一起商量下一步</div>
+          </div>
+          <div class="label" style="margin-top:14px">发给谁</div>
+          <div class="hint">可多选。</div>
+          <div class="chips" id="targets">
+            <div class="chip on" onclick="this.classList.toggle('on')">妈妈</div>
+            <div class="chip on" onclick="this.classList.toggle('on')">爸爸</div>
+          </div>
+          <button class="btn btn-primary" style="width:100%;margin:14px 0 0" onclick="toast('已发出')">发出去</button>
+          <button class="btn btn-ghost" style="width:100%;margin:10px 0 0" onclick="toast('换一题（剩 19）')">换一题（剩 20）</button>
+          <button class="btn btn-ghost" style="width:100%;margin:10px 0 0" onclick="go('portrait')">查看家庭成员画像 ›</button>
+        </div>
+        <div class="card" id="quizElder" style="display:none">
+          <div class="label">今日默契 · 发给家人</div>
+          <div class="hint">先选答案再选人。可撤回重发。</div>
+          <div class="q">我想关心你时，怎样开口你比较收得下？</div>
+          <div class="muted">关心方式</div>
+          <div class="opts">
+            <div class="opt on" onclick="pickOpt(this)">先问你需不需要听</div>
+            <div class="opt" onclick="pickOpt(this)">只关心一句近况</div>
+            <div class="opt" onclick="pickOpt(this)">把担心说成关心</div>
+            <div class="opt" onclick="pickOpt(this)">等你主动再说</div>
+          </div>
+          <div class="label" style="margin-top:14px">发给谁</div>
+          <div class="hint">可多选。</div>
+          <div class="chips">
+            <div class="chip on">小刘 · 晚辈</div>
+            <div class="chip">小妹 · 晚辈</div>
+            <div class="chip on">爸爸 · 长辈</div>
+          </div>
+          <button class="btn btn-primary" style="width:100%;margin:14px 0 0" onclick="toast('已发出')">发出去</button>
+          <button class="btn btn-ghost" style="width:100%;margin:10px 0 0" onclick="go('portrait')">查看家庭成员画像 ›</button>
+        </div>
+        <div class="card">
+          <div class="meta"><span class="name">小刘 发起</span><span class="muted">8-05 16:30</span></div>
+          <div class="q">关于「被拿来比较」，我真实的感受更接近？</div>
+          <div class="match">心有灵犀</div>
+          <div class="muted">TA 的答案：委屈，觉得不被看见</div>
+          <div class="muted">妈妈：委屈，觉得不被看见（心有灵犀）</div>
+        </div>
+        <div class="card">
+          <div class="meta"><span class="name">妈妈 发起</span><span class="muted">8-05 17:02</span></div>
+          <div class="muted" style="font-size:12px;margin-top:4px">发给：小刘、爸爸</div>
+          <div class="q">我想关心你时，怎样开口你比较收得下？</div>
+          <div class="muted">关心方式</div>
+          <div class="hint">等家人答完后揭晓</div>
+          <div style="margin-top:10px;text-align:right;color:#d4928c;font-size:12px" onclick="toast('已撤回，可重发')">撤回并重选发送对象</div>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="portrait" data-title="查看家庭成员画像">
+        <div class="card">
+          <div class="label">查看家庭成员画像</div>
+          <div class="hint">只看其他家人。</div>
+        </div>
+        <div class="card">
+          <div class="label">选择家人</div>
+          <div class="chips" id="portraitPeople"></div>
+        </div>
+        <div class="card" id="portraitProfile"></div>
+        <div class="card" id="portraitSummary"></div>
+        <div class="card">
+          <div class="label">搜索画像存档</div>
+          <input class="input" id="portraitSearch" placeholder="搜题目、答案、类别关键词" oninput="renderPortrait()" />
+        </div>
+        <div class="card">
+          <div class="label">存档类别</div>
+          <div class="chips" id="portraitCats"></div>
+        </div>
+        <div id="portraitEntries"></div>
+      </section>
+
+      <!-- 我的 -->
+      <section class="screen" data-screen="mine" data-title="我的" data-tab="mine">
+        <div class="card">
+          <div class="label">我的</div>
+          <div class="title" id="mineName">小刘</div>
+          <div class="hint" id="mineRoleLine">子女 / 晚辈 · <span id="mineFamilyName">刘家小窝</span></div>
+          <div class="hint">家庭码 A7K2M9</div>
+        </div>
+        <div class="card">
+          <div class="row" onclick="go('about')"><span>关于我</span><span class="muted">年龄与档案 ›</span></div>
+          <div class="row" id="mineFamilyNameRow" onclick="openFamilyNameEdit()"><span>家的名字</span><span class="muted" id="mineFamilyNameLink">刘家小窝 ›</span></div>
+          <div class="row" onclick="go('portrait')"><span>查看家庭成员画像</span><span class="muted">点击查看 ›</span></div>
+          <div class="row" onclick="toast('已复制 A7K2M9')"><span>复制家庭码</span><span class="muted">A7K2M9</span></div>
+        </div>
+        <div class="card">
+        </div>
+        <button class="btn btn-ghost" onclick="go('join'); toast('已退出')">退出当前家庭</button>
+      </section>
+    </div>
+
+    <div id="familyNameMask" style="display:none;position:absolute;inset:0;background:rgba(47,42,40,.35);z-index:40;align-items:flex-end">
+      <div style="width:100%;background:#fff;border-radius:16px 16px 0 0;padding:16px 16px 24px;box-shadow:0 -4px 20px rgba(0,0,0,.12)">
+        <div class="label">家的名字</div>
+        <div class="hint">最多 12 个字。</div>
+        <input class="input" id="familyNameInput" maxlength="12" placeholder="比如：刘家小窝 / 灯火人家" value="刘家小窝" />
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+          <button class="btn mini btn-ghost" style="margin:0;width:auto;padding:8px 14px" onclick="closeFamilyNameEdit()">取消</button>
+          <button class="btn mini btn-primary" style="margin:0;width:auto;padding:8px 14px" onclick="saveFamilyNameEdit()">保存</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabbar" id="tabbar">
+      <div class="tab" data-go="home"><div class="ico"></div>家</div>
+      <div class="tab" data-go="feed"><div class="ico"></div>动态</div>
+      <div class="tab" data-go="quiz"><div class="ico"></div>默契</div>
+      <div class="tab" data-go="mine"><div class="ico"></div>我的</div>
+    </div>
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <div class="role-switch">
+    <button class="on" id="btnChild" onclick="setRoleView('child')">预览：子女视角</button>
+    <button id="btnElder" onclick="setRoleView('elder')">预览：长辈视角</button>
+  </div>
+
+  <script src="utils/places.js"></script>
+  <script>
+    const titles = { join:'家灯', about:'关于我', home:'家', feed:'动态', quiz:'默契', mine:'我的', portrait:'查看家庭成员画像' }
+    const TAB_PAGES = ['home', 'feed', 'quiz', 'mine']
+    const STACK_PAGES = ['about', 'portrait']
+    let navStack = ['join']
+    let previewRole = 'child'
+
+    function updateNavBack() {
+      const back = document.getElementById('navBack')
+      const cur = navStack[navStack.length - 1]
+      const show = navStack.length > 1 && STACK_PAGES.indexOf(cur) >= 0
+      if (back) back.classList.toggle('show', show)
+    }
+
+    function go(name, opts) {
+      opts = opts || {}
+      if (!opts.replace) {
+        if (TAB_PAGES.indexOf(name) >= 0 || name === 'join') {
+          navStack = [name]
+        } else if (STACK_PAGES.indexOf(name) >= 0) {
+          if (navStack[navStack.length - 1] !== name) navStack.push(name)
+        } else {
+          navStack = [name]
+        }
+      } else {
+        navStack[navStack.length - 1] = name
+      }
+      document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.dataset.screen === name))
+      document.getElementById('navTitle').textContent = titles[name] || '家灯'
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('on', t.dataset.go === name))
+      document.getElementById('tabbar').style.display = TAB_PAGES.indexOf(name) >= 0 ? 'grid' : 'none'
+      updateNavBack()
+      if (name === 'portrait') renderPortrait()
+      if (name === 'home') {
+        renderCelebrate()
+        tickHomeClock()
+        refreshHomeWeather()
+      }
+    }
+
+    function goBack() {
+      if (navStack.length <= 1) return
+      navStack.pop()
+      go(navStack[navStack.length - 1], { replace: true })
+    }
+
+    document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => go(t.dataset.go)))
+
+    function toggleJoin(isJoin) {
+      document.getElementById('createBox').style.display = isJoin ? 'none' : 'block'
+      document.getElementById('joinBox').style.display = isJoin ? 'block' : 'none'
+    }
+
+    function pickChip(el, groupId) {
+      document.querySelectorAll('#' + groupId + ' .chip').forEach(c => c.classList.remove('on'))
+      el.classList.add('on')
+    }
+
+    const ROLE_PACKS = {
+      child: {
+        concern: ['学业压力','被比较','隐私边界','工作稳定','作息冲突','情感支持','金钱话题','社交压力','未来选择','身体健康','睡眠不足','人际冲突','原生家庭议题','婚恋压力','城市漂泊','容貌焦虑','身份认同','时间不够用'],
+        world: ['二次元','追番','漫画','同人创作','COS','谷子收藏','追星','应援','演唱会','游戏','单机游戏','手游','电竞','开黑','小众音乐','说唱','摇滚','民谣','独立乐队','听播客','影视综','纪录片','短视频创作','手作/绘画','摄影','写作','读书','女性主义','性别多元','LGBTQ友好','环保生活','心理健康','独处充电','慢生活','反内卷','宠物','猫党','运动户外','健身','旅行','城市漫游','咖啡与店探','美妆穿搭','数码科技','志愿公益','烹饪','桌游','剧本杀','博物馆','展览','舞蹈','乐器'],
+        understood: ['我的爱好不是浪费时间','我想被当成独立的人','我的价值不只有成绩/工作','性别议题对我很重要','我需要空间，不是冷淡','我有自己的审美和圈子','我的情绪需要被接住','比较会伤到我','我想慢慢来，不急着定终身','钱的事我想有发言权','身体与边界由我决定','我的朋友圈也值得被尊重','失败不等于没出息','安静不等于疏远','我想被先听完再给建议','我不想被公开讨论私事','我的职业选择需要支持','我想保留一点秘密也没关系','我累的时候只想被抱抱/被安静陪着','我不想用婚恋进度证明人生','我的外表选择请别评价','我需要被相信能处理好','我想和你们平等对话','我的兴趣是身份的一部分','请别用「为你好」压我'],
+        together: ['一起看一部我喜欢的作品','一起听歌/去演出','一起做顿饭或出门吃','一起散步随便聊','一起玩一局游戏','一起做手作或拍照','安静待在同一空间就好','一起出门短途走走','一起整理旧照片/回忆','一起学一个新技能','一起看日出或夜景','一起逛书店或展览','一起运动一小会儿','一起给宠物互动','一起看场电影','一起去咖啡店坐坐','一起做饭不评价对错','一起听我安利喜欢的东西','一起做家务也不催','一起过一个轻松的节日','一起出门拍照打卡','一起看比赛/直播','一起逛市集或展览','一起尝试新餐厅','一起写一封给彼此的短信'],
+        selected: {
+          concern: ['学业压力','被比较'],
+          world: ['二次元','女性主义'],
+          understood: ['我的爱好不是浪费时间'],
+          together: ['一起看一部我喜欢的作品']
+        }
+      },
+      elder: {
+        concern: ['怎么开口不伤感情','想见又怕打扰','身体小毛病','睡眠与作息','工作或退休节奏','两地分隔','想被记得一句关心','学着用新方式沟通','经济安心','养老与互相照顾','想听听孩子近况','代际观念差但想靠近','老同事老友','家常琐事','想被夸一句辛苦','安静相处也很好'],
+        world: ['做饭家常菜','养花种菜','健身散步','爬山短途','追剧综艺','听戏戏曲','书法字画','摄影拍拍','旅游走走','棋牌娱乐','钓鱼放松','看新闻','听广播播客','学智能手机','社区活动','志愿公益','收藏小物件','广场舞/舞蹈','唱歌K歌','阅读看报','烹饪烘焙','宠物陪伴','看球听戏','市集逛逛','旧照片整理'],
+        understood: ['我担心时其实是想靠近','关心不等于要管你','我也需要被听完再说','我怕被嫌啰嗦','我在学着用新方式和你聊','沉默有时是我不知道怎么说','我也想被一句「辛苦了」','身体不适时不想被说矫情','我想了解近况，不是查岗','我也会迷茫和丢脸','年轻时我也有自己的爱好','希望你把我当家人也当大人','团聚轻松比仪式更重要','意见不合时我想先停一下','我需要一点信息才安心','请别觉得我只会说教'],
+        together: ['一起吃顿放松的饭','一起走走随便聊','一起看点轻松的节目','安静待在同一空间','一起整理旧照片','一起做道家常菜','听你讲最近的生活','一起出门短途走走','一起过个轻松节日','教我用一个小软件','一起逛逛菜市场/超市','一起听听我喜欢的歌/戏','饭后散个小步','一起给花浇浇水','视频里陪我说说话'],
+        selected: {
+          concern: ['怎么开口不伤感情','想听听孩子近况'],
+          world: ['做饭家常菜','学智能手机'],
+          understood: ['我担心时其实是想靠近'],
+          together: ['一起吃顿放松的饭']
+        }
+      }
+    }
+    let aboutRole = 'child'
+    const PACKS = {
+      concern: { pack: ROLE_PACKS.child.concern.slice(), selected: ROLE_PACKS.child.selected.concern.slice(), max: 10, maxLen: 12, shuffles: 0 },
+      world: { pack: ROLE_PACKS.child.world.slice(), selected: ROLE_PACKS.child.selected.world.slice(), max: 10, maxLen: 12, shuffles: 0 },
+      understood: { pack: ROLE_PACKS.child.understood.slice(), selected: ROLE_PACKS.child.selected.understood.slice(), max: 10, maxLen: 24, shuffles: 0 },
+      together: { pack: ROLE_PACKS.child.together.slice(), selected: ROLE_PACKS.child.selected.together.slice(), max: 10, maxLen: 24, shuffles: 0 }
+    }
+
+    function pickAboutRole(el, role) {
+      if (aboutRole === role) return
+      pickChip(el, 'roles')
+      aboutRole = role
+      const src = ROLE_PACKS[role]
+      ;['concern','world','understood','together'].forEach(k => {
+        PACKS[k].pack = src[k].slice()
+        PACKS[k].selected = src.selected[k].slice()
+        PACKS[k].shuffles = 0
+        renderPack(k)
+      })
+      document.getElementById('aboutIntro').textContent = role === 'elder'
+        ? '写一点你想让家人慢慢认识的自己。'
+        : '词包可换一换；换满 8 次可手加。'
+      document.getElementById('familyNameCard').style.display = role === 'elder' ? 'none' : 'block'
+      setPlaceByCity(role === 'elder' ? (previewResidences.mom || '杭州') : (previewResidences.xiaoliu || '上海'))
+      initSolarSelects()
+      setSolarBday(role === 'elder' ? 1968 : 1998, role === 'elder' ? 3 : 8, role === 'elder' ? 12 : 5)
+      if (bdayCalMode === 'solar') onSolarBdayChange()
+      else onLunarBdayChange()
+      syncAgeFromBdayPreview()
+      document.getElementById('stageHint').textContent = role === 'elder'
+        ? '按年龄推荐：退休前后'
+        : '填年龄后会推荐阶段。'
+      document.getElementById('stages').innerHTML = role === 'elder'
+        ? '<div class="chip" onclick="this.classList.toggle(\'on\')">仍在工作</div><div class="chip on" onclick="this.classList.toggle(\'on\')">退休前后 · 推荐</div><div class="chip" onclick="this.classList.toggle(\'on\')">需多照顾</div><div class="chip" onclick="this.classList.toggle(\'on\')">其他</div>'
+        : '<div class="chip" onclick="this.classList.toggle(\'on\')">学生</div><div class="chip on" onclick="this.classList.toggle(\'on\')">初入职场 · 推荐</div><div class="chip" onclick="this.classList.toggle(\'on\')">已独立生活</div><div class="chip" onclick="this.classList.toggle(\'on\')">其他</div>'
+      document.getElementById('concernLabel').textContent = role === 'elder' ? '最近放在心上的事（最多 10 个）' : '最近在意的事（最多 10 个）'
+      document.getElementById('concernHint').style.display = role === 'elder' ? 'block' : 'none'
+      document.getElementById('worldLabel').textContent = role === 'elder' ? '我的生活小趣味（最多 10 个）' : '我的小世界（最多 10 个）'
+      document.getElementById('worldHint').style.display = role === 'elder' ? 'block' : 'none'
+      document.getElementById('worldHint').textContent = role === 'elder' ? '爱好与日常。' : ''
+      document.getElementById('world-input').placeholder = role === 'elder' ? '没有？如：听戏' : '没有？如：独立乐队'
+      document.getElementById('understoodLabel').textContent = role === 'elder' ? '最想被家人理解的（最多 10 个）' : '最想被爸妈理解的（最多 10 个）'
+      document.getElementById('understoodHint').style.display = role === 'elder' ? 'block' : 'none'
+      document.getElementById('togetherLabel').textContent = role === 'elder' ? '最想和家人一起做的（最多 10 个）' : '最想和爸妈一起做的（最多 10 个）'
+      document.getElementById('aboutNote').placeholder = role === 'elder'
+        ? '比如：最近在学用手机看视频；想听听你近况'
+        : '比如：最近在追某部番；喜欢独立乐队'
+      toast(role === 'elder' ? '已切到父母版词包' : '已切到子女版词包')
+    }
+    const SHUFFLE_NEED = 8
+    const POOL_SIZE = 8
+
+    function shuffleArr(arr) {
+      const a = arr.slice()
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[a[i], a[j]] = [a[j], a[i]]
+      }
+      return a
+    }
+
+    function nextPool(kind) {
+      const st = PACKS[kind]
+      const set = new Set(st.selected)
+      return shuffleArr(st.pack.filter(t => !set.has(t))).slice(0, POOL_SIZE)
+    }
+
+    function renderPack(kind) {
+      const st = PACKS[kind]
+      const picked = document.getElementById(kind + '-picked')
+      const pool = document.getElementById(kind + '-pool')
+      const countEl = document.getElementById(kind + '-count')
+      const addRow = document.getElementById(kind + '-add')
+      if (!picked || !pool) return
+
+      if (st.selected.length) {
+        picked.style.display = 'block'
+        picked.innerHTML = '<div class="picked-title" style="margin-top:0">已选</div><div class="chips" style="margin-top:6px">' +
+          st.selected.map(t =>
+            '<div class="chip picked-chip">' + t +
+            '<span class="x" onclick="removePack(\'' + kind + '\',\'' + t.replace(/'/g, "\\'") + '\')">×</span></div>'
+          ).join('') + '</div>'
+      } else {
+        picked.style.display = 'none'
+        picked.innerHTML = ''
+      }
+
+      const candidates = nextPool(kind)
+      pool.innerHTML = candidates.map(t =>
+        '<div class="chip" onclick="pickPack(\'' + kind + '\',\'' + t.replace(/'/g, "\\'") + '\')">' + t + '</div>'
+      ).join('') || '<div class="hint">词包已选完，可换一换或手加</div>'
+
+      countEl.textContent = st.shuffles
+      addRow.classList.toggle('show', st.shuffles >= SHUFFLE_NEED)
+    }
+
+    function pickPack(kind, item) {
+      const st = PACKS[kind]
+      if (st.selected.indexOf(item) > -1) return
+      if (st.selected.length >= st.max) {
+        toast('最多选 ' + st.max + ' 个')
+        return
+      }
+      st.selected.push(item)
+      renderPack(kind)
+    }
+
+    function removePack(kind, item) {
+      const st = PACKS[kind]
+      st.selected = st.selected.filter(t => t !== item)
+      renderPack(kind)
+    }
+
+    function shufflePack(kind) {
+      const st = PACKS[kind]
+      st.shuffles += 1
+      renderPack(kind)
+      if (st.shuffles === SHUFFLE_NEED) toast('可以手动添加了')
+    }
+
+    function addCustomPack(kind) {
+      const st = PACKS[kind]
+      if (st.shuffles < SHUFFLE_NEED) {
+        toast('先换一换满 ' + SHUFFLE_NEED + ' 次')
+        return
+      }
+      const input = document.getElementById(kind + '-input')
+      const raw = (input.value || '').trim().replace(/\s+/g, ' ')
+      if (!raw) { toast('先写一个标签'); return }
+      if (raw.length > st.maxLen) { toast('最多 ' + st.maxLen + ' 字'); return }
+      if (st.selected.indexOf(raw) > -1) { input.value = ''; toast('已在已选里'); return }
+      if (st.selected.length >= st.max) { toast('最多选 ' + st.max + ' 个，先叉掉一个'); return }
+      if (st.pack.indexOf(raw) < 0) st.pack.push(raw)
+      st.selected.push(raw)
+      input.value = ''
+      renderPack(kind)
+      toast('已添加')
+    }
+
+    ;['concern','world','understood','together'].forEach(renderPack)
+
+    function toggleMulti(el) {
+      el.classList.toggle('on')
+    }
+
+    function pickOpt(el) {
+      document.querySelectorAll('#opts .opt').forEach(o => o.classList.remove('on'))
+      el.classList.add('on')
+    }
+
+    function feedDayKey(y, m, d) {
+      return y + '-' + m + '-' + d
+    }
+    function feedOffsetKey(offset) {
+      const now = new Date()
+      const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate() - offset)
+      return feedDayKey(dt.getFullYear(), dt.getMonth() + 1, dt.getDate())
+    }
+    /** 预览示例动态：按日期切换（与小程序按 dayKey 过滤一致） */
+    const FEED_DEMO = {}
+    ;(function buildFeedDemo() {
+      FEED_DEMO[feedOffsetKey(0)] = [
+        {
+          name: '小刘', time: '16:20', text: '今天天气很好，路过的猫。',
+          emos: ['🐱', '☀️', '💛'], reacts: '💛 2 · 👏 1',
+          comments: [['妈妈', '路过的猫好可爱'], ['爸爸', '注意安全']],
+          mine: true
+        },
+        {
+          name: '妈妈', time: '12:08', text: '买了草莓，晚上给你留着。',
+          emos: ['😋', '💛', '👏'], reacts: '', comments: [], mine: false
+        }
+      ]
+      FEED_DEMO[feedOffsetKey(1)] = [
+        {
+          name: '小刘', time: '21:05', text: '昨天加班有点晚，到家了。',
+          emos: ['😮‍💨', '💛', '🏠'], reacts: '💛 1', comments: [['妈妈', '早点休息']], mine: true
+        }
+      ]
+      FEED_DEMO[feedOffsetKey(2)] = [
+        {
+          name: '爸爸', time: '18:40', text: '楼下枇杷熟了，摘了一小袋。',
+          emos: ['🍋', '💛', '👏'], reacts: '👏 2', comments: [['小刘', '给我留两颗！']], mine: false
+        },
+        {
+          name: '妈妈', time: '09:12', text: '早起去买菜了。',
+          emos: ['🛒', '☀️', '💛'], reacts: '', comments: [], mine: false
+        }
+      ]
+      FEED_DEMO[feedOffsetKey(3)] = [
+        {
+          name: '小刘', time: '14:22', text: '图书馆坐了一下午。',
+          emos: ['📚', '🫧', '💛'], reacts: '💛 1', comments: [], mine: true
+        }
+      ]
+    })()
+
+    function renderFeedPostCard(p) {
+      const emos = (p.emos || []).map(function (e, i) {
+        const on = i === 0 ? 'background:rgba(233,183,178,.45);border-radius:8px;padding:2px 4px;' : ''
+        return '<span onclick="toast(\'已点' + e + '\')" style="margin-right:6px;' + on + '">' + e + '</span>'
+      }).join('')
+      const reacts = p.reacts
+        ? '<div style="margin-top:8px"><span class="chip on" style="font-size:12px;padding:4px 10px">' + p.reacts + '</span></div>'
+        : ''
+      const comments = (p.comments || []).length
+        ? '<div style="margin-top:10px;background:rgba(240,231,220,.55);border-radius:10px;padding:8px 10px;font-size:13px">' +
+          p.comments.map(function (c, i) {
+            return '<div style="padding:4px 0;' + (i ? 'border-top:1px solid var(--line)' : '') + '"><b style="color:#d4928c">' +
+              c[0] + '</b> ' + c[1] + '</div>'
+          }).join('') + '</div>'
+        : ''
+      const del = p.mine
+        ? '<div style="margin-top:10px;text-align:right;color:#d4928c;font-size:12px" onclick="toast(\'已删除\')">删除这条</div>'
+        : ''
+      return '<div class="card">' +
+        '<div class="meta"><span class="name">' + p.name + '</span><span class="muted">' + p.time + '</span></div>' +
+        '<div>' + p.text + '</div>' +
+        '<div class="muted" style="font-size:11px;margin-top:8px">按内容推荐的快捷表情</div>' +
+        '<div class="reacts" style="margin-top:6px;font-size:20px">' + emos + '</div>' +
+        reacts + comments +
+        '<div style="display:flex;gap:8px;margin-top:10px;align-items:center">' +
+        '<input class="input" style="margin-top:0;flex:1;border-radius:999px" placeholder="写一句评论" />' +
+        '<button class="btn mini btn-primary" style="margin:0" onclick="toast(\'已评论\')">评论</button></div>' +
+        del + '</div>'
+    }
+
+    function renderFeedByDate(y, m, d, isToday) {
+      const key = feedDayKey(y, m, d)
+      const list = FEED_DEMO[key] || []
+      const box = document.getElementById('feedList')
+      const compose = document.getElementById('feedComposeCard')
+      const hist = document.getElementById('feedHistHint')
+      const nudge = document.getElementById('feedNudgeCard')
+      if (compose) compose.style.display = isToday ? 'block' : 'none'
+      if (hist) hist.style.display = isToday ? 'none' : 'block'
+      if (nudge) nudge.style.display = isToday ? 'block' : 'none'
+      if (!box) return
+      if (!list.length) {
+        box.innerHTML = '<div class="card"><div class="hint">这一天还没有动态。</div></div>'
+        return
+      }
+      box.innerHTML = list.map(renderFeedPostCard).join('')
+    }
+
+    function goFeedToday() {
+      const now = new Date()
+      initFeedWheel(now.getFullYear(), now.getMonth() + 1, now.getDate())
+      const first = document.querySelector('#feedDayQuick .feed-day')
+      if (first) {
+        document.querySelectorAll('#feedDayQuick .feed-day').forEach(c => c.classList.remove('on'))
+        first.classList.add('on')
+      }
+      const title = document.getElementById('feedDateLabel')
+      if (title) {
+        title.textContent = '今天 · ' + now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
+      }
+      renderFeedByDate(now.getFullYear(), now.getMonth() + 1, now.getDate(), true)
+      toast('已回到今天')
+    }
+
+    function feedDaysInMonth(y, m) {
+      if ([1,3,5,7,8,10,12].indexOf(m) >= 0) return 31
+      if (m === 2) return ((y % 4 === 0 && y % 100 !== 0) || y % 400 === 0) ? 29 : 28
+      return 30
+    }
+    function initFeedWheel(y, m, d) {
+      const ySel = document.getElementById('feedYear')
+      const mSel = document.getElementById('feedMonth')
+      const dSel = document.getElementById('feedDay')
+      if (!ySel) return
+      const now = new Date()
+      const yNow = now.getFullYear()
+      const startY = yNow - 5
+      if (!ySel.options.length) {
+        let html = ''
+        for (let yy = yNow; yy >= startY; yy--) html += '<option value="' + yy + '">' + yy + '年</option>'
+        ySel.innerHTML = html
+      }
+      if (!mSel.options.length) {
+        mSel.innerHTML = Array.from({length: 12}, (_, i) =>
+          '<option value="' + (i + 1) + '">' + (i + 1) + '月</option>'
+        ).join('')
+      }
+      ySel.value = String(y)
+      mSel.value = String(m)
+      const max = feedDaysInMonth(y, m)
+      dSel.innerHTML = Array.from({length: max}, (_, i) =>
+        '<option value="' + (i + 1) + '">' + (i + 1) + '日</option>'
+      ).join('')
+      dSel.value = String(Math.min(d, max))
+    }
+    function applyFeedWheelLabel(fromQuick) {
+      const y = parseInt(document.getElementById('feedYear').value, 10)
+      const m = parseInt(document.getElementById('feedMonth').value, 10)
+      const d = parseInt(document.getElementById('feedDay').value, 10)
+      const now = new Date()
+      const isToday = y === now.getFullYear() && m === now.getMonth() + 1 && d === now.getDate()
+      const title = document.getElementById('feedDateLabel')
+      if (title && !fromQuick) {
+        title.textContent = (isToday ? '今天 · ' : '') + y + '-' + m + '-' + d
+      }
+      if (!fromQuick) {
+        document.querySelectorAll('#feedDayQuick .feed-day').forEach(c => c.classList.remove('on'))
+        if (isToday) {
+          const first = document.querySelector('#feedDayQuick .feed-day')
+          if (first) first.classList.add('on')
+        }
+      }
+      renderFeedByDate(y, m, d, isToday)
+      return { y, m, d, isToday }
+    }
+    function onFeedWheelChange() {
+      const y = parseInt(document.getElementById('feedYear').value, 10)
+      const m = parseInt(document.getElementById('feedMonth').value, 10)
+      let d = parseInt(document.getElementById('feedDay').value, 10)
+      const now = new Date()
+      // 不能选未来
+      if (y > now.getFullYear() ||
+          (y === now.getFullYear() && m > now.getMonth() + 1) ||
+          (y === now.getFullYear() && m === now.getMonth() + 1 && d > now.getDate())) {
+        initFeedWheel(now.getFullYear(), now.getMonth() + 1, now.getDate())
+        toast('不能选今天之后')
+      } else {
+        initFeedWheel(y, m, d)
+      }
+      const r = applyFeedWheelLabel(false)
+      toast('正在看 ' + r.y + '-' + r.m + '-' + r.d)
+    }
+    function pickFeedDay(el) {
+      document.querySelectorAll('#feedDayQuick .feed-day').forEach(c => c.classList.remove('on'))
+      el.classList.add('on')
+      const label = el.getAttribute('data-day') || '今天'
+      const sub = el.querySelector('.muted')
+      const dateHint = sub ? sub.textContent : ''
+      const now = new Date()
+      let offset = 0
+      if (label === '昨天') offset = 1
+      else if (label === '前天') offset = 2
+      else if (label === '大前天') offset = 3
+      const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate() - offset)
+      initFeedWheel(dt.getFullYear(), dt.getMonth() + 1, dt.getDate())
+      const title = document.getElementById('feedDateLabel')
+      if (title) title.textContent = label + (dateHint ? ' · ' + dateHint : '')
+      renderFeedByDate(dt.getFullYear(), dt.getMonth() + 1, dt.getDate(), offset === 0)
+      toast('正在看' + label)
+    }
+
+    function onFeedAlbumPick(input) {
+      const file = input.files && input.files[0]
+      if (!file) return
+      if (!/^image\//.test(file.type || '')) {
+        toast('请选择图片文件')
+        input.value = ''
+        return
+      }
+      const url = URL.createObjectURL(file)
+      const box = document.getElementById('feedImgPreview')
+      const img = document.getElementById('feedImgEl')
+      if (img && img._objectUrl) URL.revokeObjectURL(img._objectUrl)
+      if (img) {
+        img._objectUrl = url
+        img.src = url
+      }
+      if (box) box.style.display = 'block'
+      toast('已从相册选取')
+    }
+    function clearFeedImage() {
+      const box = document.getElementById('feedImgPreview')
+      const img = document.getElementById('feedImgEl')
+      const input = document.getElementById('feedAlbumInput')
+      if (img && img._objectUrl) URL.revokeObjectURL(img._objectUrl)
+      if (img) { img.src = ''; img._objectUrl = '' }
+      if (box) box.style.display = 'none'
+      if (input) input.value = ''
+      toast('已去掉图片')
+    }
+
+    let bdayCalMode = 'solar'
+    let bdayPreviewSet = true
+
+    function fillYearOptions(sel, selected, withEmpty) {
+      if (!sel) return
+      const yNow = new Date().getFullYear()
+      let html = withEmpty ? '<option value="">不填年</option>' : ''
+      for (let y = yNow; y >= 1900; y--) {
+        html += '<option value="' + y + '"' + (y === selected ? ' selected' : '') + '>' + y + '年</option>'
+      }
+      sel.innerHTML = html
+    }
+    function fillMonthDay(mSel, dSel, month, day, maxDay) {
+      if (mSel && !mSel.options.length) {
+        mSel.innerHTML = Array.from({length: 12}, (_, i) =>
+          '<option value="' + (i + 1) + '">' + (i + 1) + '月</option>'
+        ).join('')
+      }
+      if (mSel) mSel.value = String(month)
+      const max = maxDay || 31
+      if (dSel) {
+        dSel.innerHTML = Array.from({length: max}, (_, i) =>
+          '<option value="' + (i + 1) + '">' + (i + 1) + '日</option>'
+        ).join('')
+        dSel.value = String(Math.min(day, max))
+      }
+    }
+    function solarDaysInMonth(y, m) {
+      if ([1,3,5,7,8,10,12].indexOf(m) >= 0) return 31
+      if (m === 2) {
+        if (!y) return 29
+        return ((y % 4 === 0 && y % 100 !== 0) || y % 400 === 0) ? 29 : 28
+      }
+      return 30
+    }
+    function initSolarSelects() {
+      const ySel = document.getElementById('solarYear')
+      const mSel = document.getElementById('solarMonth')
+      const dSel = document.getElementById('solarDay')
+      if (!ySel) return
+      if (!ySel.options.length) fillYearOptions(ySel, 1998, true)
+      fillMonthDay(mSel, dSel, 8, 5, solarDaysInMonth(1998, 8))
+    }
+    function initLunarSelects() {
+      const ySel = document.getElementById('lunarYear')
+      const mSel = document.getElementById('lunarMonth')
+      const dSel = document.getElementById('lunarDay')
+      if (!ySel) return
+      if (!ySel.options.length) fillYearOptions(ySel, 1998, true)
+      fillMonthDay(mSel, dSel, 8, 5, 30)
+    }
+    function setSolarBday(y, m, d) {
+      initSolarSelects()
+      const ySel = document.getElementById('solarYear')
+      const mSel = document.getElementById('solarMonth')
+      const dSel = document.getElementById('solarDay')
+      if (ySel) ySel.value = y ? String(y) : ''
+      fillMonthDay(mSel, dSel, m, d, solarDaysInMonth(y, m))
+      bdayPreviewSet = true
+    }
+    function setLunarBday(y, m, d) {
+      initLunarSelects()
+      const ySel = document.getElementById('lunarYear')
+      const mSel = document.getElementById('lunarMonth')
+      const dSel = document.getElementById('lunarDay')
+      if (ySel) ySel.value = y ? String(y) : ''
+      fillMonthDay(mSel, dSel, m, d, 30)
+      bdayPreviewSet = true
+    }
+    function pickBdayCal(el, mode) {
+      pickChip(el, 'bdayCal')
+      bdayCalMode = mode
+      const solar = document.getElementById('solarPickRow')
+      const lunar = document.getElementById('lunarPickRow')
+      if (mode === 'solar') {
+        initSolarSelects()
+        solar.classList.add('show')
+        lunar.classList.remove('show')
+        if (bdayPreviewSet) syncBdayPairFrom('lunar')
+        refreshBdayPreviewLabels()
+      } else {
+        initLunarSelects()
+        lunar.classList.add('show')
+        solar.classList.remove('show')
+        if (bdayPreviewSet) syncBdayPairFrom('solar')
+        refreshBdayPreviewLabels()
+      }
+      renderCelebrate()
+    }
+    function onSolarBdayChange() {
+      const y = document.getElementById('solarYear').value
+      const m = parseInt(document.getElementById('solarMonth').value, 10) || 1
+      let d = parseInt(document.getElementById('solarDay').value, 10) || 1
+      const max = solarDaysInMonth(y ? parseInt(y, 10) : 0, m)
+      fillMonthDay(document.getElementById('solarMonth'), document.getElementById('solarDay'), m, d, max)
+      bdayPreviewSet = true
+      bdayCalMode = 'solar'
+      syncBdayPairFrom('solar')
+      refreshBdayPreviewLabels()
+      renderCelebrate()
+    }
+    function onLunarBdayChange() {
+      bdayPreviewSet = true
+      bdayCalMode = 'lunar'
+      syncBdayPairFrom('lunar')
+      refreshBdayPreviewLabels()
+      renderCelebrate()
+    }
+    function clearBdayPreview() {
+      bdayPreviewSet = false
+      document.getElementById('bdayLabel').textContent = '未填写 · 点此选择'
+      const pair = document.getElementById('bdayPairLabel')
+      if (pair) pair.textContent = ''
+      syncAgeFromBdayPreview()
+      renderCelebrate()
+      toast('已清除生日')
+    }
+
+    /* 预览用：公历→农历（与小程序 calendar.js 同表） */
+    const PREVIEW_LUNAR_INFO = [0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x05ac0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a2d0,0x0d150,0x0f252,0x0d520]
+    function previewLeapMonth(y) { return PREVIEW_LUNAR_INFO[y - 1900] & 0xf }
+    function previewLeapDays(y) { return previewLeapMonth(y) ? (PREVIEW_LUNAR_INFO[y - 1900] & 0x10000 ? 30 : 29) : 0 }
+    function previewMonthDays(y, m) { return PREVIEW_LUNAR_INFO[y - 1900] & (0x10000 >> m) ? 30 : 29 }
+    function previewYearDays(y) {
+      let sum = 348
+      for (let i = 0x8000; i > 0x8; i >>= 1) sum += PREVIEW_LUNAR_INFO[y - 1900] & i ? 1 : 0
+      return sum + previewLeapDays(y)
+    }
+    function previewSolarToLunar(sy, sm, sd) {
+      const base = new Date(1900, 0, 31)
+      const obj = new Date(sy, sm - 1, sd)
+      let offset = Math.floor((obj - base) / 86400000)
+      let i, temp = 0
+      for (i = 1900; i < 2101 && offset > 0; i++) { temp = previewYearDays(i); offset -= temp }
+      if (offset < 0) { offset += temp; i-- }
+      const year = i
+      const leap = previewLeapMonth(year)
+      let isLeap = false
+      for (i = 1; i < 13 && offset > 0; i++) {
+        if (leap > 0 && i === leap + 1 && !isLeap) { i--; isLeap = true; temp = previewLeapDays(year) }
+        else temp = previewMonthDays(year, i)
+        if (isLeap && i === leap + 1) isLeap = false
+        offset -= temp
+      }
+      if (offset === 0 && leap > 0 && i === leap + 1) {
+        if (isLeap) isLeap = false
+        else { isLeap = true; i-- }
+      }
+      if (offset < 0) { offset += temp; i-- }
+      return { year, month: i, day: offset + 1, leap: isLeap }
+    }
+    function previewLunarToSolar(ly, lm, ld) {
+      let offset = 0
+      for (let i = 1900; i < ly; i++) offset += previewYearDays(i)
+      const leap = previewLeapMonth(ly)
+      for (let i = 1; i < lm; i++) {
+        offset += previewMonthDays(ly, i)
+        if (leap === i) offset += previewLeapDays(ly)
+      }
+      offset += ld - 1
+      const base = new Date(1900, 0, 31)
+      const date = new Date(base.getTime() + offset * 86400000)
+      return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() }
+    }
+    /** fromSide: 刚改动的一侧，立刻同步另一侧滚轮 */
+    function syncBdayPairFrom(fromSide) {
+      const refY = new Date().getFullYear()
+      if (fromSide === 'solar') {
+        const y = document.getElementById('solarYear').value
+        const m = parseInt(document.getElementById('solarMonth').value, 10) || 1
+        const d = parseInt(document.getElementById('solarDay').value, 10) || 1
+        const lunar = previewSolarToLunar(y ? parseInt(y, 10) : refY, m, d)
+        setLunarBday(y ? lunar.year : '', lunar.month, lunar.day)
+      } else {
+        const y = document.getElementById('lunarYear').value
+        const m = parseInt(document.getElementById('lunarMonth').value, 10) || 1
+        const d = parseInt(document.getElementById('lunarDay').value, 10) || 1
+        const solar = previewLunarToSolar(y ? parseInt(y, 10) : refY, m, d)
+        setSolarBday(y ? solar.year : '', solar.month, solar.day)
+      }
+    }
+    function refreshBdayPreviewLabels() {
+      const pairEl = document.getElementById('bdayPairLabel')
+      if (!bdayPreviewSet) {
+        document.getElementById('bdayLabel').textContent = '未填写 · 点此选择'
+        if (pairEl) pairEl.textContent = ''
+        return
+      }
+      const sy = document.getElementById('solarYear').value
+      const sm = parseInt(document.getElementById('solarMonth').value, 10) || 1
+      const sd = parseInt(document.getElementById('solarDay').value, 10) || 1
+      const ly = document.getElementById('lunarYear').value
+      const lm = parseInt(document.getElementById('lunarMonth').value, 10) || 1
+      const ld = parseInt(document.getElementById('lunarDay').value, 10) || 1
+      const solarText = '阳历 ' + (sy ? sy + '年' : '') + sm + '月' + sd + '日'
+      const lunarText = '阴历 ' + (ly ? ly + '年' : '') + lm + '月' + ld + '日'
+      if (bdayCalMode === 'solar') {
+        document.getElementById('bdayLabel').textContent = solarText
+        if (pairEl) pairEl.textContent = '对应' + lunarText
+      } else {
+        document.getElementById('bdayLabel').textContent = lunarText
+        if (pairEl) pairEl.textContent = '对应' + solarText
+      }
+      syncAgeFromBdayPreview()
+    }
+    function syncAgeFromBdayPreview() {
+      const ageEl = document.getElementById('aboutAge')
+      const hintEl = document.getElementById('aboutAgeHint')
+      if (!ageEl) return
+      const showLocked = function (text) {
+        ageEl.style.display = 'block'
+        ageEl.textContent = text
+        if (hintEl) hintEl.style.display = 'none'
+      }
+      const showEmpty = function () {
+        ageEl.style.display = 'none'
+        if (hintEl) hintEl.style.display = 'block'
+      }
+      if (!bdayPreviewSet) {
+        showEmpty()
+        return
+      }
+      const now = new Date()
+      let sy, sm, sd
+      if (bdayCalMode === 'solar') {
+        sy = parseInt(document.getElementById('solarYear').value, 10)
+        sm = parseInt(document.getElementById('solarMonth').value, 10) || 1
+        sd = parseInt(document.getElementById('solarDay').value, 10) || 1
+      } else {
+        const ly = parseInt(document.getElementById('lunarYear').value, 10)
+        const lm = parseInt(document.getElementById('lunarMonth').value, 10) || 1
+        const ld = parseInt(document.getElementById('lunarDay').value, 10) || 1
+        if (!ly) {
+          showEmpty()
+          return
+        }
+        const solar = previewLunarToSolar(ly, lm, ld)
+        sy = solar.year
+        sm = solar.month
+        sd = solar.day
+      }
+      if (!sy) {
+        showEmpty()
+        return
+      }
+      let age = now.getFullYear() - sy
+      const nm = now.getMonth() + 1
+      const nd = now.getDate()
+      if (nm < sm || (nm === sm && nd < sd)) age -= 1
+      if (age >= 1 && age <= 120) showLocked(age + ' 岁')
+      else showEmpty()
+    }
+
+    const PORTRAIT = {
+      active: '',
+      cat: 'all',
+      tagExpanded: {},
+      people: [
+        {
+          id: 'xiaoliu', name: '小刘', kind: '晚辈', role: '子女 / 晚辈 · 学生',
+          archive: '个人档案',
+          tagGroups: [
+            { key: 'concerns', title: '在意的事', tags: ['学业压力', '被比较', '睡眠不足', '社交焦虑', '想被信任', '经济独立'] },
+            { key: 'worlds', title: '小世界', tags: ['追星', '独立乐队', '夜跑', '咖啡店'] }
+          ],
+          headline: '小刘 · 学生阶段', stats: '存档 2 · 心有灵犀 1 · 聚焦 在意的事',
+          para: 'TA 正处在学业压力与自我建立交织的阶段。默契题里反复出现的，往往是「别拿别人比较」「先安慰再谈方法」这类需要安全感的信号。',
+          entries: [
+            { cat: '在意的事', catKey: 'concern', time: '8-05 16:30', q: '关于「被拿来比较」，我真实的感受更接近？', ta: '委屈，觉得不被看见', you: '委屈，觉得不被看见', match: '心有灵犀' },
+            { cat: '边界', catKey: 'bound', time: '8-04 21:10', q: '我更希望家人怎样对待我的隐私？', ta: '可以说近况，不交密码', you: '信任我就不需要查', match: '各有道理' }
+          ]
+        },
+        {
+          id: 'meimei', name: '小妹', kind: '晚辈', role: '子女 / 晚辈 · 初入职场',
+          archive: '个人档案',
+          tagGroups: [
+            { key: 'worlds', title: '小世界', tags: ['追星', '手作/绘画', '市集', '胶片相机', '独立书店', '短途旅行'] }
+          ],
+          headline: '小妹 · 初入职场', stats: '存档 1 · 心有灵犀 0',
+          para: '刚开始独立工作，更在意被当成大人，也希望家里别只问「忙不忙」。',
+          entries: [
+            { cat: '兴趣爱好', catKey: 'hobby', time: '8-03 19:00', q: '关于我的爱好，最希望家人？', ta: '愿意听我安利', you: '偶尔一起了解一点点', match: '各有道理' }
+          ]
+        },
+        {
+          id: 'mom', name: '妈妈', kind: '长辈', role: '父母 / 长辈 · 退休前后',
+          archive: '软档案',
+          tagGroups: [
+            { key: 'concerns', title: '放在心上的事', tags: ['怎么开口不伤感情', '想听听孩子近况', '团聚轻松点', '别只问进度', '身体健康'] },
+            { key: 'worlds', title: '生活小趣味', tags: ['看新闻', '养花', '广场舞'] }
+          ],
+          headline: '妈妈 · 软档案', stats: '存档 1 · 心有灵犀 1',
+          para: '妈妈更希望被理解成「关心不是控制」。团聚时轻松闲聊，比追问进度更让她安心。',
+          entries: [
+            { cat: '理解', catKey: 'understand', time: '8-05 17:02', q: '我担心你时，其实更希望被理解成？', ta: '我想靠近，不是要管', you: '我想靠近，不是要管', match: '心有灵犀' }
+          ]
+        },
+        {
+          id: 'dad', name: '爸爸', kind: '长辈', role: '父母 / 长辈 · 仍在工作',
+          archive: '软档案',
+          tagGroups: [
+            { key: 'worlds', title: '生活小趣味', tags: ['看新闻', '爬山短途'] }
+          ],
+          headline: '爸爸 · 软档案', stats: '存档 0',
+          para: '这位家人还没有软档案。等 TA 发出题目、家人答完后，会慢慢长出来。',
+          entries: []
+        }
+      ]
+    }
+    const PORTRAIT_TAG_PREVIEW = 4
+    function togglePortraitTags(personId, key) {
+      const mapKey = personId + ':' + key
+      PORTRAIT.tagExpanded[mapKey] = !PORTRAIT.tagExpanded[mapKey]
+      renderPortrait()
+    }
+
+    function selfPortraitId() {
+      return previewRole === 'elder' ? 'mom' : 'xiaoliu'
+    }
+    function visiblePortraitPeople() {
+      const selfId = selfPortraitId()
+      return PORTRAIT.people.filter(x => x.id !== selfId)
+    }
+
+    function pickPortraitPerson(id) {
+      if (id === selfPortraitId()) return
+      PORTRAIT.active = id
+      PORTRAIT.cat = 'all'
+      PORTRAIT.tagExpanded = {}
+      const search = document.getElementById('portraitSearch')
+      if (search) search.value = ''
+      renderPortrait()
+    }
+    function pickPortraitCat(key) {
+      PORTRAIT.cat = key
+      renderPortrait()
+    }
+    function renderPortrait() {
+      const people = visiblePortraitPeople()
+      const peopleEl = document.getElementById('portraitPeople')
+      if (!peopleEl) return
+      if (!people.length) {
+        peopleEl.innerHTML = ''
+        document.getElementById('portraitProfile').innerHTML = '<div class="hint">暂时没有其他家人可查看。</div>'
+        document.getElementById('portraitSummary').innerHTML = ''
+        document.getElementById('portraitCats').innerHTML = ''
+        document.getElementById('portraitEntries').innerHTML = ''
+        return
+      }
+      if (!people.find(x => x.id === PORTRAIT.active)) {
+        PORTRAIT.active = people[0].id
+        PORTRAIT.cat = 'all'
+      }
+      const p = people.find(x => x.id === PORTRAIT.active) || people[0]
+      peopleEl.innerHTML = people.map(x =>
+        '<div class="chip' + (x.id === p.id ? ' on' : '') + '" onclick="pickPortraitPerson(\'' + x.id + '\')">' +
+        x.name + ' · ' + x.kind + '</div>'
+      ).join('')
+
+      const groups = p.tagGroups || []
+      const tagsHtml = groups.map(function (g) {
+        const mapKey = p.id + ':' + g.key
+        const open = !!PORTRAIT.tagExpanded[mapKey]
+        const can = g.tags.length > PORTRAIT_TAG_PREVIEW
+        const shown = !can || open ? g.tags : g.tags.slice(0, PORTRAIT_TAG_PREVIEW)
+        const more = g.tags.length - PORTRAIT_TAG_PREVIEW
+        return '<div style="margin-top:10px">' +
+          '<div class="muted" style="font-weight:600">' + g.title + '</div>' +
+          '<div class="chips">' + shown.map(function (t) {
+            return '<div class="chip" style="pointer-events:none">' + t + '</div>'
+          }).join('') + '</div>' +
+          (can
+            ? '<div style="margin-top:6px;color:#d4928c;font-size:12px;font-weight:600;cursor:pointer" onclick="togglePortraitTags(\'' +
+              p.id + '\',\'' + g.key + '\')">' + (open ? '收起' : '展开其余 ' + more + ' 个') + '</div>'
+            : '') +
+          '</div>'
+      }).join('')
+      document.getElementById('portraitProfile').innerHTML =
+        '<div class="label">' + p.archive + '</div>' +
+        '<div class="title" style="font-size:22px;margin-top:6px">' + p.name + '</div>' +
+        '<div class="muted">' + p.role + '</div>' +
+        tagsHtml
+
+      document.getElementById('portraitSummary').innerHTML =
+        '<div class="label">阶段画像</div>' +
+        '<div class="title" style="font-size:20px;margin-top:6px">' + p.headline + '</div>' +
+        '<div class="muted" style="margin:6px 0 10px">' + p.stats + '</div>' +
+        '<div style="font-size:14px;line-height:1.55;margin-top:8px">' + p.para + '</div>'
+
+      const counts = { all: p.entries.length }
+      p.entries.forEach(e => { counts[e.catKey] = (counts[e.catKey] || 0) + 1 })
+      const catDefs = [
+        { key: 'all', label: '全部' },
+        { key: 'concern', label: '在意的事' },
+        { key: 'bound', label: '边界' },
+        { key: 'hobby', label: '兴趣爱好' },
+        { key: 'understand', label: '理解' }
+      ].filter(c => c.key === 'all' || counts[c.key])
+      document.getElementById('portraitCats').innerHTML = catDefs.map(c =>
+        '<div class="chip' + (PORTRAIT.cat === c.key ? ' on' : '') + '" onclick="pickPortraitCat(\'' + c.key + '\')">' +
+        c.label + ' ' + (counts[c.key] || 0) + '</div>'
+      ).join('')
+
+      const q = ((document.getElementById('portraitSearch') || {}).value || '').trim()
+      let list = p.entries.filter(e => PORTRAIT.cat === 'all' || e.catKey === PORTRAIT.cat)
+      if (q) list = list.filter(e => (e.q + e.ta + e.you + e.cat).indexOf(q) >= 0)
+      const box = document.getElementById('portraitEntries')
+      if (!list.length) {
+        box.innerHTML = '<div class="card"><div class="hint">' +
+          (p.entries.length ? '没有搜到相关题卡，换个词试试。' : '这位家人还没有默契存档。等 TA 发出题目、家人答完后，画像会慢慢长出来。') +
+          '</div></div>'
+        return
+      }
+      box.innerHTML = list.map(e =>
+        '<div class="card">' +
+        '<div class="meta"><span style="color:#d4928c;font-weight:600;font-size:11px">' + e.cat + '</span><span class="muted">' + e.time + '</span></div>' +
+        '<div class="q" style="font-size:16px;margin:8px 0">' + e.q + '</div>' +
+        '<div style="background:#f0e7dc;border-radius:12px;padding:10px 12px;font-size:13px">' +
+        '<div><b style="color:#d4928c">TA</b> ' + e.ta + '</div>' +
+        '<div style="margin-top:6px"><b style="color:#6a8fa3">你</b> ' + e.you + '</div></div>' +
+        '<div class="match">' + e.match + '</div></div>'
+      ).join('')
+    }
+    ;(function initFeedDate() {
+      const now = new Date()
+      initFeedWheel(now.getFullYear(), now.getMonth() + 1, now.getDate())
+      // 快捷条日期与今天对齐
+      const chips = document.querySelectorAll('#feedDayQuick .feed-day')
+      chips.forEach(function (chip, i) {
+        const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i)
+        const sub = chip.querySelector('.muted')
+        if (sub) sub.textContent = (dt.getMonth() + 1) + '/' + dt.getDate()
+      })
+      const title = document.getElementById('feedDateLabel')
+      if (title) {
+        title.textContent = '今天 · ' + now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
+      }
+      renderFeedByDate(now.getFullYear(), now.getMonth() + 1, now.getDate(), true)
+    })()
+    renderPortrait()
+
+    function toast(msg) {
+      const t = document.getElementById('toast')
+      t.textContent = msg
+      t.classList.add('show')
+      clearTimeout(toast._timer)
+      toast._timer = setTimeout(() => t.classList.remove('show'), 1400)
+    }
+
+    function syncMineFamilyNameUI() {
+      const name = (document.getElementById('familyNameInput') || {}).value || '刘家小窝'
+      ;['mineFamilyName', 'mineFamilyNameLink'].forEach(id => {
+        const el = document.getElementById(id)
+        if (!el) return
+        el.textContent = id === 'mineFamilyNameLink' ? name + ' ›' : name
+      })
+      const row = document.getElementById('mineFamilyNameRow')
+      const roleLine = document.getElementById('mineRoleLine')
+      if (row) {
+        row.style.opacity = previewRole === 'child' ? '1' : '.7'
+        row.querySelector('.muted').textContent =
+          previewRole === 'child' ? name + ' ›' : '由晚辈修改'
+      }
+      if (roleLine) {
+        roleLine.innerHTML = (previewRole === 'elder' ? '父母 / 长辈' : '子女 / 晚辈') +
+          ' · <span id="mineFamilyName">' + name + '</span>'
+      }
+      const title = document.getElementById('mineName')
+      if (title) title.textContent = previewRole === 'elder' ? '妈妈' : '小刘'
+    }
+
+    function openFamilyNameEdit() {
+      if (previewRole !== 'child') {
+        toast('家的名字由晚辈来取')
+        return
+      }
+      const mask = document.getElementById('familyNameMask')
+      const input = document.getElementById('familyNameInput')
+      const shown = document.getElementById('mineFamilyName')
+      if (input) input.value = (shown && shown.textContent) || input.value || '刘家小窝'
+      mask.style.display = 'flex'
+      setTimeout(() => input && input.focus(), 50)
+    }
+    function closeFamilyNameEdit() {
+      document.getElementById('familyNameMask').style.display = 'none'
+    }
+    function saveFamilyNameEdit() {
+      const input = document.getElementById('familyNameInput')
+      const raw = (input.value || '').trim()
+      if (!raw) { toast('请填写家的名字'); return }
+      if (raw.length > 12) { toast('最多 12 个字'); return }
+      input.value = raw
+      // 同步关于我里的家名输入
+      const aboutInput = document.querySelector('#familyNameCard input')
+      if (aboutInput) aboutInput.value = raw
+      const homeName = document.getElementById('homeFamilyName')
+      if (homeName) homeName.textContent = raw
+      syncMineFamilyNameUI()
+      closeFamilyNameEdit()
+      toast('已更新')
+    }
+
+    function setRoleView(role) {
+      previewRole = role
+      document.getElementById('btnChild').classList.toggle('on', role === 'child')
+      document.getElementById('btnElder').classList.toggle('on', role === 'elder')
+      document.getElementById('quizChild').style.display = role === 'child' ? 'block' : 'none'
+      document.getElementById('quizElder').style.display = role === 'elder' ? 'block' : 'none'
+      const roleChip = document.querySelector('#roles .chip[data-v="' + role + '"]')
+      if (roleChip) pickAboutRole(roleChip, role)
+      PORTRAIT.active = ''
+      syncMineFamilyNameUI()
+      renderCelebrate()
+      const tipCard = document.getElementById('portraitTipCard')
+      if (tipCard) tipCard.style.display = role === 'child' ? 'none' : 'block'
+      go('about')
+    }
+
+    function nthSunday(year, month, n) {
+      const first = new Date(year, month - 1, 1)
+      const dow = first.getDay()
+      const firstSunday = dow === 0 ? 1 : 8 - dow
+      return firstSunday + (n - 1) * 7
+    }
+
+    /** 与小程序一致：只有当天命中节日/生日才显示「今日祝福」 */
+    function buildTodayOccasions() {
+      const now = new Date()
+      const y = now.getFullYear()
+      const m = now.getMonth() + 1
+      const d = now.getDate()
+      const items = []
+      const solar = [
+        [1, 1, '元旦'], [3, 8, '妇女节'], [5, 1, '劳动节'],
+        [6, 1, '儿童节'], [9, 10, '教师节'], [10, 1, '国庆节']
+      ]
+      solar.forEach(function (f) {
+        if (f[0] === m && f[1] === d) items.push({ title: '今天是' + f[2], sub: '给家人送一句祝福吧' })
+      })
+      if (m === 4 && d >= 4 && d <= 6) items.push({ title: '今天是清明节', sub: '给家人送一句祝福吧' })
+      if (m === 5 && d === nthSunday(y, 5, 2)) items.push({ title: '今天是母亲节', sub: '送给 妈妈' })
+      if (m === 6 && d === nthSunday(y, 6, 3)) items.push({ title: '今天是父亲节', sub: '送给 爸爸' })
+
+      // 生日：阳历 / 阴历填一种即可，命中当天就进「今日祝福」
+      if (bdayPreviewSet) {
+        const who = previewRole === 'elder' ? '妈妈' : '小刘'
+        const isSolar = bdayCalMode === 'solar'
+        if (isSolar) {
+          const bm = parseInt(document.getElementById('solarMonth').value, 10)
+          const bd = parseInt(document.getElementById('solarDay').value, 10)
+          if (bm === m && bd === d) {
+            items.unshift({ title: '今天是 ' + who + ' 的生日', sub: '阳历 ' + bm + '月' + bd + '日' })
+          }
+        } else {
+          const bm = parseInt(document.getElementById('lunarMonth').value, 10)
+          const bd = parseInt(document.getElementById('lunarDay').value, 10)
+          const lunar = previewSolarToLunar(y, m, d)
+          if (!lunar.leap && lunar.month === bm && lunar.day === bd) {
+            items.unshift({ title: '今天是 ' + who + ' 的生日', sub: '阴历 ' + bm + '月' + bd + '日' })
+          }
+        }
+      }
+      return items
+    }
+
+    function renderCelebrate() {
+      const card = document.getElementById('celebrateCard')
+      const tag = document.getElementById('xiaoliuBdayTag')
+      if (!card) return
+      const items = buildTodayOccasions()
+      const hasBday = items.some(function (i) { return i.title.indexOf('生日') >= 0 })
+      if (tag) tag.style.display = hasBday && previewRole === 'child' ? 'inline' : 'none'
+      if (!items.length) {
+        card.style.display = 'none'
+        card.innerHTML = ''
+        return
+      }
+      card.style.display = 'block'
+      card.innerHTML = '<div class="label">今日祝福</div>' + items.map(function (it, idx) {
+        return '<div style="display:flex;align-items:center;gap:10px;padding:10px 0;' +
+          (idx < items.length - 1 ? 'border-bottom:1px solid var(--line)' : '') + '">' +
+          '<div style="flex:1"><div style="font-weight:700">' + it.title + '</div>' +
+          '<div class="muted" style="font-size:12px;margin-top:2px">' + it.sub + '</div></div>' +
+          '<button class="btn mini btn-primary" style="margin:0" onclick="toast(\'祝福已送出\')">送祝福</button></div>'
+      }).join('')
+    }
+
+    const WMO_PREVIEW = {
+      0: '晴', 1: '晴间多云', 2: '多云', 3: '阴',
+      45: '雾', 48: '雾', 51: '毛毛雨', 61: '小雨', 63: '中雨', 65: '大雨',
+      71: '小雪', 73: '中雪', 75: '大雪', 80: '阵雨', 95: '雷雨'
+    }
+    const WEEK_PREVIEW = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+    const previewResidences = { xiaoliu: '上海', mom: '杭州', dad: '成都' }
+
+    function tickHomeClock() {
+      const d = new Date()
+      const pad = (n) => String(n).padStart(2, '0')
+      const dateEl = document.getElementById('homeTodayDate')
+      const weekEl = document.getElementById('homeTodayWeek')
+      const timeEl = document.getElementById('homeNowTime')
+      if (dateEl) dateEl.textContent = d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日'
+      if (weekEl) weekEl.textContent = WEEK_PREVIEW[d.getDay()]
+      if (timeEl) timeEl.textContent = pad(d.getHours()) + ':' + pad(d.getMinutes())
+    }
+
+    function fetchCityWeather(city, elId) {
+      const el = document.getElementById(elId)
+      if (!el || !city) return
+      el.textContent = '加载中…'
+      const q = encodeURIComponent(city)
+      fetch('https://geocoding-api.open-meteo.com/v1/search?name=' + q + '&count=1&language=zh&format=json')
+        .then(r => r.json())
+        .then(data => {
+          const g = data.results && data.results[0]
+          if (!g) { el.textContent = '未找到该地点'; return null }
+          return fetch(
+            'https://api.open-meteo.com/v1/forecast?latitude=' + g.latitude +
+            '&longitude=' + g.longitude + '&current=temperature_2m,weather_code&timezone=auto'
+          ).then(r => r.json())
+        })
+        .then(data => {
+          if (!data || !data.current) return
+          const t = Math.round(data.current.temperature_2m)
+          const text = WMO_PREVIEW[data.current.weather_code] || '天气'
+          el.textContent = text + ' ' + t + '°'
+        })
+        .catch(() => { el.textContent = '天气暂不可用' })
+    }
+
+    function refreshHomeWeather() {
+      const mine = (document.getElementById('aboutResidence') || {}).value || previewResidences.xiaoliu
+      if (previewRole === 'child') previewResidences.xiaoliu = mine.trim() || '上海'
+      else previewResidences.mom = mine.trim() || '杭州'
+      fetchCityWeather(previewResidences.xiaoliu, 'wxXiaoliu')
+      fetchCityWeather(previewResidences.mom, 'wxMom')
+      fetchCityWeather(previewResidences.dad, 'wxDad')
+    }
+
+    function fillSelect(sel, list, selectedIdx) {
+      if (!sel) return
+      sel.innerHTML = list.map(function (t, i) {
+        return '<option value="' + i + '"' + (i === selectedIdx ? ' selected' : '') + '>' + t + '</option>'
+      }).join('')
+    }
+    function syncPlaceSelects(idx) {
+      const P = window.PlacesUtil
+      if (!P) return
+      const next = P.clampIndex(idx || [0, 2, 0])
+      const cols = P.columnsOf(next)
+      fillSelect(document.getElementById('placeRegion'), cols[0], next[0])
+      fillSelect(document.getElementById('placeSub'), cols[1], next[1])
+      fillSelect(document.getElementById('placeCity'), cols[2], next[2])
+      const val = P.valueAt(next)
+      const hidden = document.getElementById('aboutResidence')
+      const label = document.getElementById('residenceLabel')
+      if (hidden) hidden.value = val.residence
+      if (label) label.textContent = val.label
+      return val
+    }
+    function onPlacePreviewChange(col) {
+      const P = window.PlacesUtil
+      if (!P) return
+      const r = parseInt(document.getElementById('placeRegion').value, 10) || 0
+      let s = parseInt(document.getElementById('placeSub').value, 10) || 0
+      let c = parseInt(document.getElementById('placeCity').value, 10) || 0
+      if (col === 0) { s = 0; c = 0 }
+      if (col === 1) { c = 0 }
+      syncPlaceSelects([r, s, c])
+      refreshHomeWeather()
+    }
+    function setPlaceByCity(city) {
+      const P = window.PlacesUtil
+      if (!P) return
+      syncPlaceSelects(P.indexOfResidence(city || '上海'))
+      refreshHomeWeather()
+    }
+    function clearPlacePreview() {
+      const P = window.PlacesUtil
+      if (P) syncPlaceSelects(P.defaultIndex())
+      const hidden = document.getElementById('aboutResidence')
+      const label = document.getElementById('residenceLabel')
+      if (hidden) hidden.value = ''
+      if (label) label.textContent = '未选择 · 点此选择'
+      refreshHomeWeather()
+      toast('已清除居住地')
+    }
+
+    tickHomeClock()
+    setInterval(tickHomeClock, 30000)
+    setPlaceByCity('上海')
+
+    initSolarSelects()
+    initLunarSelects()
+    onSolarBdayChange()
+
+    go('join')
+    syncMineFamilyNameUI()
+    renderCelebrate()
+
+    // 电脑打开时显示扫码提示（手机用局域网地址）
+    ;(function () {
+      const host = location.hostname
+      const tip = document.getElementById('phoneTip')
+      const qr = document.getElementById('qr')
+      if (host === '127.0.0.1' || host === 'localhost') {
+        tip.textContent = '手机请用电脑运行 serve-phone.ps1 后打印的局域网地址打开（需同一 Wi‑Fi）。'
+        return
+      }
+      const url = location.href
+      tip.innerHTML = '手机地址：<b style="word-break:break-all">' + url + '</b>'
+      qr.style.display = 'block'
+      qr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=' + encodeURIComponent(url)
+    })()
+  </script>
+</body>
+</html>

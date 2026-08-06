@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="刘骅慧 / Lorde — 海外增长 · 用户增长 · 产品运营 · 内容运营 · 整合营销"
+    />
+    <title>LORDE HALL-A · 刘骅慧 / Lorde</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/editor.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="crt-vignette" aria-hidden="true"></div>
+    <div class="crt-overlay" aria-hidden="true"></div>
+
+    <div class="boot-screen" id="bootScreen">
+      <div class="boot-inner">
+        <div class="boot-title" id="bootTitle">LORDE HALL-A</div>
+        <p class="boot-sub" id="bootSub">点击进入酒吧 · 氛围音将开启（可随时静音）</p>
+        <button type="button" class="boot-enter" id="bootEnter">推门进入</button>
+      </div>
+    </div>
+
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-text" id="brandText">LORDE HALL-A</span>
+          <span class="status-pill" id="statusPill">OPEN · 上海</span>
+        </div>
+        <div class="top-actions">
+          <button type="button" class="chip-btn chip-music" id="musicBtn" title="切换 BGM">♪ BGM</button>
+          <button type="button" class="chip-btn" id="muteBtn" aria-pressed="false">静音</button>
+          <button type="button" class="chip-btn" id="langBtn">EN</button>
+        </div>
+      </header>
+
+      <main class="stage">
+        <section class="panel scene" aria-label="Character">
+          <div class="panel-header">
+            <span class="panel-title">NPC · LORDE</span>
+          </div>
+          <div class="scene-body">
+            <!-- VA-11 style portrait viewport: character + bar BG -->
+            <!-- 原立绘 + 同构图眨眼/张嘴帧 + 发丝裁切层 -->
+            <div class="portrait-stage" id="portraitStage">
+              <div class="portrait-stack" id="portraitStack">
+                <img class="portrait-art is-active" data-frame="idle" src="assets/art/lorde-va11-bust.png?v=mvp5" alt="" width="640" height="640" decoding="async" />
+                <img class="portrait-art" data-frame="blink" src="assets/art/lorde-eye-closed.png?v=mvp33" alt="" width="640" height="640" decoding="async" aria-hidden="true" />
+                <img class="portrait-art" data-frame="speak" src="assets/art/lorde-mouth-open.png?v=mvp5" alt="" width="640" height="640" decoding="async" aria-hidden="true" />
+                <img class="portrait-art" data-frame="both" src="assets/art/lorde-blink-speak.png?v=mvp33" alt="" width="640" height="640" decoding="async" aria-hidden="true" />
+              </div>
+              <div class="portrait-neon portrait-neon-a" aria-hidden="true"></div>
+              <div class="portrait-neon portrait-neon-b" aria-hidden="true"></div>
+              <div class="portrait-neon portrait-neon-c" aria-hidden="true"></div>
+              <div class="portrait-scan" aria-hidden="true"></div>
+            </div>
+
+            <div class="hero-identity">
+              <h1 class="hero-name" id="heroName">刘骅慧 / Lorde</h1>
+              <p class="hero-intent" id="heroIntent">海外增长 · 用户增长 · 产品运营 · 内容运营 · 整合营销</p>
+              <p class="hero-tagline" id="heroTagline">把增长目标拆解成可执行路径的候选人</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="workspace">
+          <div class="panel menu-panel">
+            <div class="panel-header">
+              <span class="panel-title" id="menuTitle">MENU · 点单</span>
+            </div>
+            <div class="panel-body">
+              <div class="drink-grid" id="drinkGrid"></div>
+            </div>
+          </div>
+
+          <div class="panel content-panel">
+            <div class="panel-header">
+              <span class="panel-title" id="contentTitle">DISPLAY · 展示</span>
+            </div>
+            <div class="content-scroll" id="contentBody">
+              <div class="panel-empty">从菜单点一杯，听听她的故事。</div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="dialogue" id="dialogue" aria-live="polite">
+        <div class="dialogue-name" id="dialogueName">刘骅慧</div>
+        <div class="dialogue-text">
+          <span id="dialogueText"></span><span class="dialogue-cursor" id="dialogueCursor" hidden></span>
+        </div>
+        <div class="dialogue-hint" id="dialogueHint">点击「推门进入」开始</div>
+      </aside>
+    </div>
+
+    <!-- BGM 由 js/app.js 动态加载，曲目见 js/content.js → music.tracks -->
+    <script src="js/content.js"></script>
+    <script src="js/content.local.js" onerror="void 0"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

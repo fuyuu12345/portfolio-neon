@@ -1,0 +1,114 @@
+<view class="wrap">
+  <view class="back-bar" bindtap="goBack">‹ 返回</view>
+  <view class="card">
+    <view class="label">{{pageTitle}}</view>
+    <view class="hint">{{pageHint}}</view>
+  </view>
+
+  <block wx:if="{{!people.length}}">
+    <view class="card">
+      <view class="hint">{{emptyHint}}</view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="card">
+      <view class="label">选择家人</view>
+      <view class="chips">
+        <block wx:for="{{people}}" wx:key="id">
+          <view
+            class="chip person-chip {{activeId===item.id?'on':''}}"
+            data-id="{{item.id}}"
+            catchtap="switchPerson"
+          >{{item.name}}{{item.kind==='elder'?' · 长辈':' · 晚辈'}}</view>
+        </block>
+      </view>
+    </view>
+
+    <view class="card profile" wx:if="{{profile}}">
+      <view class="label">{{profile.kind==='elder' ? '软档案' : '个人档案'}}</view>
+      <view class="child-name">{{profile.name}}</view>
+      <view class="muted">
+        {{profile.roleLabel}} · {{profile.stageLabel}}
+      </view>
+      <view class="muted" wx:if="{{profile.birthdayLabel}}" style="margin-top:6rpx">生日 · {{profile.birthdayLabel}}</view>
+      <view class="muted" wx:if="{{profile.residence}}" style="margin-top:6rpx">现居 · {{profile.residence}}</view>
+      <block wx:for="{{tagSections}}" wx:key="key">
+        <view class="block">
+          <view class="sub">{{item.title}}</view>
+          <view class="chips">
+            <view class="chip static" wx:for="{{item.shown}}" wx:for-item="tag" wx:key="*this">{{tag}}</view>
+          </view>
+          <view
+            class="expand-link"
+            wx:if="{{item.canExpand}}"
+            data-key="{{item.key}}"
+            bindtap="toggleTagSection"
+          >{{item.expandText}}</view>
+        </view>
+      </block>
+      <view class="block" wx:if="{{profile.note}}">
+        <view class="sub">备注</view>
+        <view class="note">{{profile.note}}</view>
+      </view>
+      <view class="hint" wx:if="{{!profile.hasAbout}}">TA 还没填「关于我」。</view>
+    </view>
+
+    <view class="card summary" wx:if="{{summary}}">
+      <view class="label">阶段画像</view>
+      <view class="headline">{{summary.headline}}</view>
+      <view class="stats muted" wx:if="{{summary.stats.total}}">
+        存档 {{summary.stats.total}} · 心有灵犀 {{summary.stats.match}}
+        <block wx:if="{{summary.stats.cats.length}}">
+          · 聚焦 {{summary.stats.cats[0].label}}
+        </block>
+      </view>
+      <view class="para" wx:for="{{summary.paragraphs}}" wx:key="*this">{{item}}</view>
+    </view>
+
+    <view class="card">
+      <view class="label">搜索存档</view>
+      <input
+        class="input"
+        placeholder="搜题目、答案、类别关键词"
+        value="{{query}}"
+        bindinput="onSearch"
+        confirm-type="search"
+      />
+      <view class="clear muted" wx:if="{{query}}" bindtap="clearSearch">清除搜索</view>
+    </view>
+
+    <view class="card">
+      <view class="label">存档类别</view>
+      <view class="chips">
+        <block wx:for="{{categories}}" wx:key="key">
+          <view
+            class="chip cat-chip {{category===item.key?'on':''}}"
+            data-key="{{item.key}}"
+            catchtap="setCategory"
+          >{{item.label}} {{item.count}}</view>
+        </block>
+      </view>
+    </view>
+
+    <block wx:for="{{filtered}}" wx:key="id">
+      <view class="card entry">
+        <view class="meta">
+          <text class="layer">{{item.categoryLabel}}</text>
+          <text class="muted">{{item.timeLabel}}</text>
+        </view>
+        <view class="layer-sub muted" wx:if="{{item.layer && item.layer!==item.categoryLabel}}">题层 · {{item.layer}}</view>
+        <view class="q">{{item.question}}</view>
+        <view class="ans">
+          <view class="row-line"><text class="tag">TA</text>{{item.taOption}}</view>
+          <view class="row-line"><text class="tag you">你</text>{{item.youOption}}</view>
+        </view>
+        <view class="match {{item.match==='心有灵犀'?'hit':''}}">{{item.match}}</view>
+      </view>
+    </block>
+
+    <view class="card" wx:if="{{emptyHint}}">
+      <view class="hint">{{emptyHint}}</view>
+    </view>
+  </block>
+</view>

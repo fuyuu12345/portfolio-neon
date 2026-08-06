@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>家灯 · Ins 手账原型</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="desk">
+    <aside class="board" aria-label="Ins手账视觉板">
+      <p class="board-kicker">Family Light Social</p>
+      <h1 class="board-title">家灯</h1>
+      <p class="board-desc">贴纸只做点缀，不挡按钮与文字。胶带不再当首页主 UI。</p>
+
+      <section class="board-block">
+        <h2>素材表</h2>
+        <img class="sheet-full" src="stickers/sheet-08.png" alt="手账贴纸素材表" />
+      </section>
+
+      <section class="board-block">
+        <h2>三屏</h2>
+        <ol class="screen-list">
+          <li><button type="button" data-jump="home">家 · 状态灯</button></li>
+          <li><button type="button" data-jump="feed">动态 · 相簿</button></li>
+          <li><button type="button" data-jump="quiz">默契 · 今日一题</button></li>
+        </ol>
+      </section>
+    </aside>
+
+    <div class="phone-wrap">
+      <!-- 装饰胶带：只贴在手机外壳外，不进内容区 -->
+      <img class="shell-tape shell-tape-l" src="stickers/01-washi-check.png" alt="" aria-hidden="true" />
+      <img class="shell-tape shell-tape-r" src="stickers/02-washi-plain.png" alt="" aria-hidden="true" />
+
+      <div class="phone" id="phone">
+        <div class="phone-notch" aria-hidden="true"></div>
+
+        <header class="app-top">
+          <div class="app-top-text">
+            <p class="app-family">刘家手账 · 03</p>
+            <h2 class="app-heading" id="screenTitle">家</h2>
+          </div>
+          <button type="button" class="stamp-btn" id="roleToggle" title="切换视角">孩子视角</button>
+        </header>
+
+        <main class="app-main">
+          <!-- HOME：灯是插画，不是胶带 -->
+          <section class="screen is-active" id="screen-home" data-title="家">
+            <div class="paper-card lamp-card">
+              <div class="card-head">
+                <div>
+                  <p class="card-label">今日安心灯</p>
+                  <p class="card-sub">一眼看到彼此还好不好</p>
+                </div>
+                <div class="deco-slot" aria-hidden="true">
+                  <img class="deco-img" src="stickers/05-little-lamp.png" alt="" />
+                </div>
+              </div>
+              <div class="lamps">
+                <button type="button" class="lamp" data-who="我">
+                  <span class="lamp-dot is-green"></span>
+                  <span class="lamp-name">我</span>
+                  <span class="lamp-state">外出中</span>
+                </button>
+                <button type="button" class="lamp" data-who="妈妈">
+                  <span class="lamp-dot is-green"></span>
+                  <span class="lamp-name">妈妈</span>
+                  <span class="lamp-state">在家</span>
+                </button>
+                <button type="button" class="lamp" data-who="爸爸">
+                  <span class="lamp-dot is-yellow"></span>
+                  <span class="lamp-name">爸爸</span>
+                  <span class="lamp-state">有点累</span>
+                </button>
+              </div>
+              <p class="whisper">灯是安心信号，细节可不写。</p>
+            </div>
+
+            <!-- 任意状态都可标明：现在能否通话 -->
+            <div class="paper-card call-card">
+              <div class="card-head">
+                <div>
+                  <p class="card-label">现在方便通话吗</p>
+                  <p class="card-sub" id="callHint">任何状态下都可更新</p>
+                </div>
+                <div class="deco-slot tiny" aria-hidden="true">
+                  <span class="spr spr-heart"></span>
+                </div>
+              </div>
+              <div class="chips wrap" id="callChips">
+                <button type="button" class="chip is-on" data-call="ok">可以通话</button>
+                <button type="button" class="chip" data-call="later">稍后再说</button>
+                <button type="button" class="chip" data-call="no">今天别打</button>
+              </div>
+              <p class="call-badge" id="callBadge">当前：可以通话</p>
+            </div>
+
+            <!-- 外出详情：只有填写了才显示对应行 -->
+            <div class="paper-card out-card" id="outCard">
+              <div class="card-head">
+                <p class="card-label">外出补充</p>
+                <button type="button" class="mini-link" id="btnToggleOut">填写（选填）</button>
+              </div>
+              <div class="out-form is-hidden" id="outForm">
+                <label class="mini-field">
+                  <span>预计回来</span>
+                  <input id="outReturn" type="text" placeholder="如 23:00 前" />
+                </label>
+                <label class="mini-field">
+                  <span>和谁 / 去做什么</span>
+                  <input id="outWho" type="text" placeholder="可不填" />
+                </label>
+                <button type="button" class="chip is-on" id="btnSaveOut">保存</button>
+              </div>
+              <div class="out-rows is-hidden" id="outRows">
+                <div class="out-row is-hidden" id="rowReturn">
+                  <span>预计回来</span>
+                  <strong id="valReturn"></strong>
+                </div>
+                <div class="out-row is-hidden" id="rowWho">
+                  <span>和谁 / 去做什么</span>
+                  <strong id="valWho"></strong>
+                </div>
+              </div>
+              <p class="whisper" id="outEmptyHint">未填写时，家人看不到这一块。</p>
+              <div class="chip-row is-hidden" id="outParentActions">
+                <button type="button" class="chip">收到</button>
+                <button type="button" class="chip">到点报一下</button>
+                <button type="button" class="chip chip-soft">担心，但尊重</button>
+              </div>
+            </div>
+
+            <button type="button" class="cta-btn" data-jump="quiz">去发今日默契</button>
+          </section>
+
+          <!-- FEED -->
+          <section class="screen" id="screen-feed" data-title="动态">
+            <div class="paper-card composer">
+              <p class="card-label">贴进本子</p>
+              <div class="polaroid">
+                <div class="polaroid-shot sky">今日天空</div>
+                <p class="polaroid-cap">下班路上的云</p>
+              </div>
+              <p class="caption-input">像棉花糖一样软。</p>
+              <div class="chip-row">
+                <button type="button" class="chip is-on">贴上</button>
+                <button type="button" class="chip">只展示不讨论</button>
+              </div>
+            </div>
+
+            <article class="paper-card post">
+              <p class="post-meta">妈妈 · 昨天</p>
+              <div class="polaroid">
+                <div class="polaroid-shot soup">灶上热汤</div>
+                <p class="polaroid-cap">记得趁热喝</p>
+              </div>
+              <p class="caption">煲了西红柿蛋汤。</p>
+              <div class="chip-row">
+                <button type="button" class="chip">真好看</button>
+                <button type="button" class="chip">想喝</button>
+                <button type="button" class="chip chip-heart">
+                  <span class="spr spr-heart inline" aria-hidden="true"></span>
+                </button>
+              </div>
+            </article>
+          </section>
+
+          <!-- QUIZ -->
+          <section class="screen" id="screen-quiz" data-title="默契">
+            <div class="paper-card quiz-card" id="quizCard">
+              <div class="card-head">
+                <div>
+                  <p class="card-label">今日默契 · 孩子发起</p>
+                  <p class="quiz-layer" id="quizLayer">L2 日常状态</p>
+                </div>
+                <div class="deco-slot tiny" aria-hidden="true">
+                  <span class="spr spr-note"></span>
+                </div>
+              </div>
+              <h3 class="quiz-q" id="quizQuestion">「累的时候」，我最希望你们怎么做？</h3>
+              <div class="options" id="quizOptions"></div>
+              <p class="whisper" id="quizHint">先选你的答案（父母暂时看不见），再送出。</p>
+              <div class="quiz-actions">
+                <button type="button" class="chip" id="btnShuffle">换一题</button>
+                <button type="button" class="chip is-on" id="btnSend" disabled>送出卡片</button>
+              </div>
+            </div>
+
+            <div class="paper-card result-card is-hidden" id="resultCard">
+              <p class="card-label">揭晓</p>
+              <p class="result-title" id="resultTitle">心有灵犀</p>
+              <p class="result-body" id="resultBody"></p>
+              <label class="note-label" for="noteInput">留言（≤30字）</label>
+              <textarea id="noteInput" maxlength="30" rows="2" placeholder="原来你这样想…"></textarea>
+              <button type="button" class="chip is-on" id="btnNote">夹进本子</button>
+            </div>
+          </section>
+        </main>
+
+        <nav class="tabbar" aria-label="主导航">
+          <button type="button" class="tab is-active" data-jump="home"><span>家</span></button>
+          <button type="button" class="tab" data-jump="feed"><span>动态</span></button>
+          <button type="button" class="tab" data-jump="quiz"><span>默契</span></button>
+        </nav>
+      </div>
+      <p class="phone-caption">贴纸不遮挡可点区域</p>
+    </div>
+  </div>
+
+  <div class="toast is-hidden" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>家灯 · 关于我（私密）</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="persona.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="top">
+      <a class="back" href="./index.html">← 原型</a>
+      <div>
+        <p class="kicker">私密档案 · 彼此都看不到</p>
+        <h1>关于我</h1>
+      </div>
+      <button type="button" class="ghost" id="btnPreview">预览题目方向</button>
+    </header>
+
+    <p class="privacy">用来按你的档案定制默契题。每人一份、题各不同，互相看不到。</p>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>0. 我在这个家里是</h2>
+        <span class="req">必选</span>
+      </div>
+      <div class="chips" id="roleChips">
+        <button type="button" class="chip is-on" data-role="child">子女 / 晚辈</button>
+        <button type="button" class="chip" data-role="elder">父母 / 长辈</button>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>1. 人生阶段</h2>
+        <span class="req">必选</span>
+      </div>
+      <div class="chips" id="stageChips"></div>
+      <input class="text is-hidden" id="stageCustom" placeholder="用一句话描述你的现阶段…" />
+      <p class="hint" id="stageHint"></p>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>2. 当前更在意的事</h2>
+        <span class="req">开局选 3 个</span>
+      </div>
+      <p class="hint">默契题会优先从这里生成。</p>
+      <div class="chips wrap" id="worryChips"></div>
+      <p class="count" id="worryCount">已选 0 / 3</p>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>3. 性格</h2>
+        <span class="opt">可稍后</span>
+      </div>
+      <label class="field">
+        <span>MBTI（可选）</span>
+        <select id="mbti">
+          <option value="">先不填</option>
+          <option>INTJ</option><option>INTP</option><option>ENTJ</option><option>ENTP</option>
+          <option>INFJ</option><option>INFP</option><option>ENFJ</option><option>ENFP</option>
+          <option>ISTJ</option><option>ISFJ</option><option>ESTJ</option><option>ESFJ</option>
+          <option>ISTP</option><option>ISFP</option><option>ESTP</option><option>ESFP</option>
+          <option>不清楚</option>
+        </select>
+      </label>
+      <div class="chips wrap" id="traitChips">
+        <button type="button" class="chip">内向</button>
+        <button type="button" class="chip">慢热</button>
+        <button type="button" class="chip">要面子</button>
+        <button type="button" class="chip">敏感</button>
+        <button type="button" class="chip">理智</button>
+        <button type="button" class="chip">需要独处</button>
+        <button type="button" class="chip">容易担心</button>
+        <button type="button" class="chip">嘴硬心软</button>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>4. 兴趣爱好</h2>
+        <span class="opt">可稍后</span>
+      </div>
+      <div class="chips wrap" id="hobbyChips">
+        <button type="button" class="chip">音乐</button>
+        <button type="button" class="chip">影视</button>
+        <button type="button" class="chip">游戏</button>
+        <button type="button" class="chip">穿搭美妆</button>
+        <button type="button" class="chip">运动</button>
+        <button type="button" class="chip">做饭</button>
+        <button type="button" class="chip">旅行</button>
+        <button type="button" class="chip">手作</button>
+        <button type="button" class="chip">小众爱好</button>
+      </div>
+      <input class="text" id="hobbyCustom" placeholder="自定义爱好…" />
+    </section>
+
+    <section class="block" id="eduBlock">
+      <div class="block-head">
+        <h2>5. 就读 / 成长经历</h2>
+        <span class="opt">可稍后</span>
+      </div>
+      <div class="chips wrap" id="eduChips"></div>
+    </section>
+
+    <section class="block" id="workBlock">
+      <div class="block-head">
+        <h2>6. 工作 / 生活状态</h2>
+        <span class="opt">可稍后</span>
+      </div>
+      <div class="chips wrap" id="workChips"></div>
+    </section>
+
+    <section class="block">
+      <div class="block-head">
+        <h2>7. 一件具体事（可选）</h2>
+        <span class="opt">让题更贴你</span>
+      </div>
+      <input class="text" id="storyWhat" placeholder="发生过什么（一句话）" />
+      <div class="chips wrap" id="storyFeel">
+        <button type="button" class="chip">委屈</button>
+        <button type="button" class="chip">担心</button>
+        <button type="button" class="chip">想被理解</button>
+        <button type="button" class="chip">想靠近又怕吵</button>
+      </div>
+      <input class="text" id="storyHope" placeholder="你希望对方怎样理解你…" />
+    </section>
+
+    <div class="bottom-bar">
+      <button type="button" class="secondary" id="btnLater">其它稍后补</button>
+      <button type="button" class="primary" id="btnStart">保存并生成题目方向</button>
+    </div>
+  </div>
+
+  <div class="drawer is-hidden" id="drawer">
+    <div class="drawer-card">
+      <button type="button" class="close" id="btnClose">关闭</button>
+      <h3>你的题目方向</h3>
+      <p class="drawer-note">仅自己可见。家人只看得到你发出的题。</p>
+      <ul id="sampleList"></ul>
+    </div>
+  </div>
+
+  <div class="toast is-hidden" id="toast"></div>
+  <script src="persona.js"></script>
+</body>
+</html>

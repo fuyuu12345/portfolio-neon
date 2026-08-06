@@ -1,0 +1,73 @@
+<view class="wrap">
+  <view class="card">
+    <view class="label">{{isElder ? '今日默契 · 发给家人' : '今日默契'}}</view>
+    <view class="hint">{{hintText}}</view>
+    <view class="q">{{current.question}}</view>
+    <view class="layer muted">{{current.layer}}</view>
+    <view class="opts">
+      <view
+        class="opt {{answerIndex===index?'on':''}}"
+        wx:for="{{current.options}}"
+        wx:key="*this"
+        data-i="{{index}}"
+        bindtap="pickAnswer"
+      >{{item}}</view>
+    </view>
+    <view class="label" style="margin-top:28rpx">{{targetLabel}}</view>
+    <view class="hint">可多选。</view>
+    <view class="chips">
+      <block wx:for="{{targetsPeople}}" wx:key="userId">
+        <view class="chip {{targets.indexOf(item.userId)>-1?'on':''}}" data-id="{{item.userId}}" bindtap="toggleTarget">
+          {{item.name}}{{item.role==='elder'?' · 长辈':' · 晚辈'}}
+        </view>
+      </block>
+    </view>
+    <view class="hint" wx:if="{{!targetsPeople.length}}">还没有其他家人。把家庭码发给家人加入即可。</view>
+    <button class="btn-primary" bindtap="sendQuiz">发出去</button>
+    <button class="btn-ghost" bindtap="reshuffle" disabled="{{hitLimit}}">
+      {{hitLimit ? '达到今日换题上限' : '换一题（剩 ' + reshufflesLeft + '）'}}
+    </button>
+    <view class="hint" wx:if="{{hitLimit}}">今日换题已用完。</view>
+    <button class="btn-ghost" style="margin-top:16rpx" bindtap="goPortrait">查看家庭成员画像 ›</button>
+  </view>
+
+  <view class="card" wx:for="{{quizzes}}" wx:key="id">
+    <view class="meta">
+      <text class="name">{{item.fromName}} 发起</text>
+      <text class="muted">{{item.timeLabel}}</text>
+    </view>
+    <view class="muted target-line">发给：{{item.targetNames}}</view>
+    <view class="q">{{item.question}}</view>
+    <view class="layer muted" wx:if="{{item.layer}}">{{item.layer}}</view>
+
+    <block wx:if="{{item.canAnswer}}">
+      <view class="opts">
+        <view
+          class="opt"
+          wx:for="{{item.options}}"
+          wx:for-item="opt"
+          wx:for-index="oi"
+          wx:key="*this"
+          data-qid="{{item.id}}"
+          data-i="{{oi}}"
+          bindtap="answer"
+        >{{opt}}</view>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="reveal" wx:if="{{item.revealed}}">
+        <view class="match">{{item.matchLabel}}</view>
+        <view class="muted">TA 的答案：{{item.subjectOption}}</view>
+        <view class="muted" wx:for="{{item.answerLines}}" wx:key="*this" wx:for-item="line">{{line}}</view>
+      </view>
+      <view class="hint" wx:else>等家人答完后揭晓</view>
+    </block>
+
+    <view class="recall" wx:if="{{item.canRecall}}" data-id="{{item.id}}" bindtap="recall">撤回并重选发送对象</view>
+  </view>
+
+  <view class="card" wx:if="{{!quizzes.length}}">
+    <view class="hint">暂时还没有往来题目。发出一题，或等家人发给你。</view>
+  </view>
+</view>

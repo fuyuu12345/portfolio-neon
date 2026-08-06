@@ -1,0 +1,55 @@
+.wrap {
+  padding-bottom: 48rpx;
+}
+
+.q {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin: 20rpx 0 8rpx;
+  line-height: 1.45;
+}
+
+.opts {
+  margin-top: 16rpx;
+}
+
+.opt {
+  background: var(--sand);
+  border-radius: 20rpx;
+  padding: 22rpx 24rpx;
+  margin-top: 14rpx;
+}
+
+.opt.on {
+  background: rgba(233, 183, 178, 0.45);
+  box-shadow: inset 0 0 0 2rpx var(--blush);
+  font-weight: 600;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.match {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--blush-deep);
+  margin: 12rpx 0;
+}
+
+.target-line {
+  font-size: 22rpx;
+  margin-top: 6rpx;
+}
+
+.recall {
+  margin-top: 16rpx;
+  font-size: 24rpx;
+  color: var(--blush-deep);
+  text-align: right;
+}

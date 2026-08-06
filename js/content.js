@@ -7,7 +7,7 @@
  * 默认密码请尽快改掉（只有你知道即可）。
  */
 window.SITE = {
-  draftVersion: "2026-08-06-feminist-survey-v5",
+  draftVersion: "2026-08-06-feminist-cover-v6",
 
   /**
    * 编辑模式密码 — 公开仓库请留空，在 js/content.local.js 写真实密码（已 gitignore）。
@@ -376,7 +376,7 @@ window.SITE = {
         tags: ["微信小程序", "Demo", "产品设计"],
       },
       {
-        cover: "products/feminist-survey/images/style-power-type.png",
+        cover: "assets/cases/feminist-survey-cover.png",
         title: { zh: "女性主义文创 · 前期调研问卷", en: "Feminist Cultural Research Survey" },
         summary: {
           zh: "可交互问卷 Demo：题型逻辑、进度填写、统计看板与导出。",

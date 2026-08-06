@@ -838,6 +838,40 @@ body.is-paused .now__eq i {
   font-size: 12px;
 }
 
+.modal__body .contact-modal__cta {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+
+.modal__body .contact-modal__cta .btn {
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.modal__body .contact-modal__cta .btn--fill {
+  background: rgba(255, 61, 184, 0.22);
+  border: 1px solid rgba(255, 61, 184, 0.7);
+  color: var(--text);
+}
+
+.modal__body .contact-modal__cta .btn--ghost {
+  background: transparent;
+  border: 1px dashed rgba(53, 230, 255, 0.55);
+  color: var(--cyan);
+}
+
+.modal__body .contact-modal p {
+  margin: 0 0 8px;
+  color: var(--dim);
+  font-size: 13px;
+}
+
 .dialogue__line {
   margin: 0;
   padding-right: 18px;

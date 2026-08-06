@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 作品集霓虹 · HUD 预览
  * 导航短文右下 / 经历·作品弹窗 / 特调闲聊 / 点击音效
  */
@@ -37,7 +37,7 @@
     { id: "work", mode: "modal", label: { zh: "作品", en: "WORK" }, short: { zh: "作品", en: "WORK" }, svg: ICO.work },
     { id: "skills", mode: "panel", label: { zh: "技能", en: "SKILLS" }, short: { zh: "技能", en: "SKILLS" }, svg: ICO.skills },
     { id: "experience", mode: "modal", label: { zh: "经历", en: "PROCESS" }, short: { zh: "经历", en: "PROCESS" }, svg: ICO.experience },
-    { id: "contact", mode: "panel", label: { zh: "联系", en: "CONTACT" }, short: { zh: "联系", en: "CONTACT" }, svg: ICO.contact },
+    { id: "contact", mode: "modal", label: { zh: "联系", en: "CONTACT" }, short: { zh: "联系", en: "CONTACT" }, svg: ICO.contact },
   ];
 
   const UI = {
@@ -73,6 +73,10 @@
     openExp: { zh: "打开经历", en: "Open experience" },
     modalExp: { zh: "经历", en: "Experience" },
     modalWork: { zh: "作品", en: "Works" },
+    modalContact: { zh: "联系", en: "Contact" },
+    openContact: { zh: "打开联系", en: "Open contact" },
+    downloading: { zh: "正在下载", en: "Downloading…" },
+    copiedBtn: { zh: "已复制", en: "Copied" },
     tabCases: { zh: "整合营销案", en: "IMC Cases" },
     tabPhotos: { zh: "摄影集", en: "Photos" },
     tabSocial: { zh: "社交媒体作品", en: "Social" },
@@ -640,14 +644,9 @@
       return `<div class="tags">${tags.map((x) => `<span class="tag-pill">${x}</span>`).join("")}</div>`;
     }
     if (id === "contact") {
-      const c = SITE.contact || {};
-      return `<p>${t(UI.email)}：${c.email || ""}</p>
-        <p>${t(UI.phone)}：${c.phone || ""}</p>
-        <p>${t(UI.wechat)}：${c.wechat || ""}</p>
-        <p>${t(UI.xhs)}：${t(c.xhsName)}</p>
+      return `<p>${t(UI.panelHintLong)}</p>
         <div class="cta">
-          <a class="btn btn--fill" href="${asset(SITE.resumePath || "assets/resume.pdf")}" download>${t(SITE.ui?.downloadCv) || "下载简历"}</a>
-          <button type="button" class="btn btn--ghost" id="copyWechatBtn">${t(SITE.ui?.addWechat) || "加微信"}</button>
+          <button type="button" class="btn btn--fill" id="reopenModal">${t(UI.openContact)}</button>
         </div>`;
     }
     if (id === "experience" || id === "work") {
@@ -897,6 +896,58 @@
       .join("");
   }
 
+  function contactModalHtml() {
+    const c = SITE.contact || {};
+    return `<div class="contact-modal">
+      <div class="contact-modal__cta">
+        <a class="btn btn--fill" id="downloadCvBtn" href="${asset(SITE.resumePath || "assets/resume.pdf")}" download>${t(SITE.ui?.downloadCv) || "下载简历"}</a>
+        <button type="button" class="btn btn--ghost" id="copyWechatBtn">${t(SITE.ui?.addWechat) || "加微信"}</button>
+      </div>
+      <p>${t(UI.email)}：${c.email || ""}</p>
+      <p>${t(UI.phone)}：${c.phone || ""}</p>
+      <p>${t(UI.wechat)}：${c.wechat || ""}</p>
+      <p>${t(UI.xhs)}：${t(c.xhsName)}</p>
+    </div>`;
+  }
+
+  function bindContactActions() {
+    const dl = $("#downloadCvBtn");
+    const wx = $("#copyWechatBtn");
+    if (dl) {
+      const label = () => t(SITE.ui?.downloadCv) || "下载简历";
+      dl.addEventListener("click", () => {
+        playClick();
+        dl.textContent = t(UI.downloading);
+        setTimeout(() => {
+          dl.textContent = label();
+        }, 1600);
+      });
+    }
+    if (wx) {
+      const label = () => t(SITE.ui?.addWechat) || "加微信";
+      wx.addEventListener("click", async () => {
+        playClick();
+        try {
+          await navigator.clipboard.writeText(SITE.contact?.wechat || "");
+          wx.textContent = t(UI.copiedBtn);
+          toast(t(UI.copied));
+        } catch {
+          wx.textContent = t(UI.copiedBtn);
+          toast(SITE.contact?.wechat || "");
+        }
+        setTimeout(() => {
+          wx.textContent = label();
+        }, 1600);
+      });
+    }
+  }
+
+  function reopenCurrentModal() {
+    if (state.section === "work") openModal("work", state.workTab);
+    else if (state.section === "contact") openModal("contact");
+    else openModal("experience");
+  }
+
   function openModal(kind, workTab) {
     const modal = $("#modal");
     const tabs = $("#modalTabs");
@@ -910,6 +961,13 @@
       title.textContent = t(UI.modalExp);
       body.innerHTML = expModalHtml();
       state.section = "experience";
+    } else if (kind === "contact") {
+      tabs.hidden = true;
+      tabs.innerHTML = "";
+      title.textContent = t(UI.modalContact);
+      body.innerHTML = contactModalHtml();
+      state.section = "contact";
+      bindContactActions();
     } else {
       state.workTab = workTab || state.workTab || "cases";
       tabs.hidden = false;
@@ -937,7 +995,7 @@
     if (reopen) {
       reopen.addEventListener("click", () => {
         playClick();
-        openModal(state.section === "work" ? "work" : "experience");
+        reopenCurrentModal();
       });
     }
   }
@@ -960,7 +1018,9 @@
     buildSpecials();
 
     if (navItem.mode === "modal") {
-      openModal(id === "work" ? "work" : "experience");
+      if (id === "work") openModal("work");
+      else if (id === "contact") openModal("contact");
+      else openModal("experience");
       if (!opts.silent) {
         playDialogue(SITE.narration?.drinks?.[id] || SITE.narration?.boot);
       }
@@ -970,18 +1030,6 @@
     closeModal();
     $("#contentTitle").textContent = t(navItem.label);
     $("#contentBody").innerHTML = sectionHtml(id);
-    const copyBtn = $("#copyWechatBtn");
-    if (copyBtn) {
-      copyBtn.addEventListener("click", async () => {
-        playClick();
-        try {
-          await navigator.clipboard.writeText(SITE.contact?.wechat || "");
-          toast(t(UI.copied));
-        } catch {
-          toast(SITE.contact?.wechat || "");
-        }
-      });
-    }
     if (!opts.silent) {
       playDialogue(SITE.narration?.drinks?.[id] || SITE.narration?.boot);
     }
@@ -1067,7 +1115,7 @@
       if (state.storyId && state.storyNode) renderStoryNode(state.storyNode, false);
       else setSection(state.section);
       if (!$("#modal").hidden) {
-        openModal(state.section === "work" ? "work" : "experience", state.workTab);
+        reopenCurrentModal();
       }
     }
 

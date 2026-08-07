@@ -344,8 +344,8 @@
         },
         c2b: {
           text: {
-            zh: "黑、蕾丝、偶尔一点霓虹。像把夜里的壳穿在身上。",
-            en: "Black, lace, a touch of neon — wearing the night like a shell.",
+            zh: "别人问我有没有别的颜色。我说有啊——更深的黑。",
+            en: "People ask if I own other colors. I do — a deeper black.",
           },
           end: true,
         },

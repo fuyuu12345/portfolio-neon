@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#05050a" />
+    <title>AFTER HOURS · 手机模板</title>
+    <link rel="stylesheet" href="mobile.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+
+    <div class="banner" role="note">
+      手机布局模板 · 不影响电脑版
+      <a href="../index.html">回正式预览</a>
+    </div>
+
+    <div class="boot" id="boot">
+      <p class="boot__brand">AFTER HOURS</p>
+      <p class="boot__hint">竖屏酒吧 HUD 草稿</p>
+      <button type="button" class="boot__btn" id="bootEnter">推门进入</button>
+    </div>
+
+    <main class="app" id="app" hidden>
+      <!-- 首屏：品牌 + 酒吧图 + 对话（像一台机） -->
+      <header class="top">
+        <div class="top__brand">
+          <span class="top__eyebrow">CYBERPUNK BARTENDER</span>
+          <h1>AFTER HOURS</h1>
+        </div>
+        <div class="top__tools">
+          <button type="button" class="tool" id="btnMute" aria-pressed="false">MUTE</button>
+          <button type="button" class="tool" id="btnLang">中/EN</button>
+        </div>
+      </header>
+
+      <section class="hero" aria-label="Bar stage">
+        <img
+          class="hero__img"
+          src="../assets/scene-bar.png?v=2"
+          alt=""
+          width="1280"
+          height="800"
+          decoding="async"
+        />
+        <div class="hero__shade" aria-hidden="true"></div>
+
+        <div class="talk" id="talk">
+          <button type="button" class="talk__main" id="dialogueBtn">
+            <span class="talk__tag">LORDE</span>
+            <span class="talk__text" id="dialogueText"></span>
+            <span class="talk__cue" aria-hidden="true"></span>
+          </button>
+          <div class="choices" id="choices" hidden></div>
+        </div>
+      </section>
+
+      <nav class="dock" aria-label="导航">
+        <button type="button" class="dock__btn is-on" data-nav="talk">点单</button>
+        <button type="button" class="dock__btn" data-nav="work">作品</button>
+        <button type="button" class="dock__btn" data-nav="exp">经历</button>
+        <button type="button" class="dock__btn" data-nav="contact">联系</button>
+      </nav>
+
+      <section class="panel" id="panelDrinks">
+        <div class="panel__head">
+          <h2>今日特调</h2>
+          <p>点一杯，和 Lorde 聊两句</p>
+        </div>
+        <div class="drinks" id="drinks"></div>
+      </section>
+
+      <section class="panel panel--cyan">
+        <div class="panel__head">
+          <h2>FEATURED</h2>
+          <p>精选作品</p>
+        </div>
+        <article class="feat">
+          <div class="feat__cover" id="featCover"></div>
+          <div class="feat__meta">
+            <h3 id="featTitle">家灯</h3>
+            <p id="featSum">其ta · 小程序 Demo</p>
+            <div class="feat__nav">
+              <button type="button" class="hit" id="featPrev" aria-label="上一个">‹</button>
+              <span class="feat__dots" id="featDots"></span>
+              <button type="button" class="hit" id="featNext" aria-label="下一个">›</button>
+            </div>
+            <button type="button" class="btn-wide" id="featOpen">查看作品 →</button>
+          </div>
+        </article>
+      </section>
+
+      <footer class="foot">
+        <p>© 2026 刘骅慧 / Lorde</p>
+        <p class="foot__note">此页仅模板，正式站仍是 preview/index.html</p>
+      </footer>
+    </main>
+
+    <!-- 底部抽屉：作品 / 经历 / 联系 -->
+    <div class="sheet" id="sheet" hidden>
+      <button type="button" class="sheet__scrim" id="sheetScrim" aria-label="关闭"></button>
+      <div class="sheet__card" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+        <div class="sheet__bar">
+          <h2 id="sheetTitle">作品</h2>
+          <button type="button" class="hit sheet__close" id="sheetClose" aria-label="关闭">×</button>
+        </div>
+        <div class="sheet__tabs" id="sheetTabs" hidden></div>
+        <div class="sheet__body" id="sheetBody"></div>
+      </div>
+    </div>
+
+    <script src="mobile.js"></script>
+  </body>
+</html>

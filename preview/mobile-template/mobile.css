@@ -390,8 +390,19 @@ img {
 }
 
 .drink span {
+  display: block;
   font-size: 12px;
   color: var(--dim);
+}
+
+.drink__price {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--pixel);
+  font-size: 10px;
+  font-style: normal;
+  color: var(--pink);
+  line-height: 1.4;
 }
 
 .feat {

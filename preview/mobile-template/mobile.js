@@ -8,11 +8,36 @@
     "点一杯特调，或者直接从底下四个按钮进作品。",
   ];
 
+  /** 与正式 preview 今日特调一致（故事酒，不是导航酒） */
   const drinks = [
-    { id: "about", name: "Neon Intro", blurb: "关于她" },
-    { id: "exp", name: "ROI Sour", blurb: "经历复盘" },
-    { id: "work", name: "Growth Highball", blurb: "作品台" },
-    { id: "contact", name: "Signal Cooler", blurb: "加微信" },
+    {
+      id: "bitter",
+      name: "静默苦味",
+      blurb: "雨夜进店。先认识酒保。",
+      price: "$12",
+      line: "雨敲在霓虹上。吧台那头的人抬眼：「先进来坐。」",
+    },
+    {
+      id: "mosaic",
+      name: "数据马赛克",
+      blurb: "香港与上海的碎片。",
+      price: "$14",
+      line: "两座城的碎片拼在杯里——岭南的夜，和上海的投放屏。",
+    },
+    {
+      id: "collins",
+      name: "故障柯林斯",
+      blurb: "赛博蜉蝣是怎么养的。",
+      price: "$11",
+      line: "赛博蜉蝣不是人设，是养出来的：短、密、真，像一杯特调。",
+    },
+    {
+      id: "sunset",
+      name: "像素落日",
+      blurb: "找故事，还是找履历？",
+      price: "$13",
+      line: "想听故事就点特调；想看履历，底下「经历 / 作品 / 联系」也在。",
+    },
   ];
 
   const features = [
@@ -129,7 +154,11 @@
     $("#drinks").innerHTML = drinks
       .map(
         (d) =>
-          `<button type="button" class="drink" data-drink="${d.id}"><strong>${d.name}</strong><span>${d.blurb}</span></button>`
+          `<button type="button" class="drink" data-drink="${d.id}">
+            <strong>${d.name}</strong>
+            <span>${d.blurb}</span>
+            <em class="drink__price">${d.price}</em>
+          </button>`
       )
       .join("");
   }
@@ -265,21 +294,19 @@
     });
 
     $("#drinks").addEventListener("click", (e) => {
-      const d = e.target.closest("[data-drink]");
-      if (!d) return;
-      const id = d.dataset.drink;
-      if (id === "work") openSheet("work");
-      else if (id === "exp") openSheet("exp");
-      else if (id === "contact") openSheet("contact");
-      else {
-        $("#dialogueText").textContent = "一杯 Neon Intro。她把目标拆成路径，再把路径做成结果。";
-        $(".talk__cue").classList.add("is-off");
-        showChoices([
-          { label: "看看作品", action: "work" },
-          { label: "如何联系", action: "contact" },
-        ]);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      const btn = e.target.closest("[data-drink]");
+      if (!btn) return;
+      const drink = drinks.find((d) => d.id === btn.dataset.drink);
+      if (!drink) return;
+      hideChoices();
+      $("#dialogueText").textContent = drink.line;
+      $(".talk__cue").classList.add("is-off");
+      showChoices([
+        { label: "再点一杯", action: "scroll-drinks" },
+        { label: "看看作品", action: "work" },
+        { label: "如何联系", action: "contact" },
+      ]);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     $$(".dock__btn").forEach((b) => {

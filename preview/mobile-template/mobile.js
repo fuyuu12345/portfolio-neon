@@ -30,6 +30,9 @@
     storyNode: null,
     storyHistory: [],
     hasOrderedDrink: false,
+    typingTimer: null,
+    typingFull: "",
+    typingDone: null,
   };
 
   const STORIES = window.MOBILE_STORIES || {};
@@ -171,6 +174,52 @@
     }
   }
 
+  function clearTyping() {
+    if (state.typingTimer) {
+      clearInterval(state.typingTimer);
+      state.typingTimer = null;
+    }
+  }
+
+  function typeLine(text, onDone) {
+    clearTyping();
+    const el = $("#dialogueText");
+    const cue = $(".talk__cue");
+    state.typingFull = text || "";
+    state.typingDone = onDone || null;
+    el.textContent = "";
+    cue.classList.remove("is-off");
+    if (!text) {
+      cue.classList.add("is-off");
+      const done = state.typingDone;
+      state.typingDone = null;
+      done?.();
+      return;
+    }
+    let i = 0;
+    state.typingTimer = setInterval(() => {
+      el.textContent = text.slice(0, ++i);
+      if (i >= text.length) {
+        clearTyping();
+        cue.classList.add("is-off");
+        const done = state.typingDone;
+        state.typingDone = null;
+        done?.();
+      }
+    }, 18);
+  }
+
+  function skipTyping() {
+    if (!state.typingTimer) return false;
+    clearTyping();
+    $("#dialogueText").textContent = state.typingFull;
+    $(".talk__cue").classList.add("is-off");
+    const done = state.typingDone;
+    state.typingDone = null;
+    done?.();
+    return true;
+  }
+
   function showDrinkMenu() {
     const again = state.hasOrderedDrink;
     state.storyId = "welcome";
@@ -179,9 +228,8 @@
     setStoryBar(true);
     hideChoices();
     $$(".drink").forEach((el) => el.classList.remove("is-on"));
-    $("#dialogueText").textContent = again ? "再来一杯？选吧。" : "今晚想喝哪一杯？右边也有，点这里也行。";
-    $(".talk__cue").classList.add("is-off");
-    showChoices(drinkChoices());
+    const line = again ? "再来一杯？选吧。" : "今晚想喝哪一杯？右边也有，点这里也行。";
+    typeLine(line, () => showChoices(drinkChoices()));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -195,9 +243,9 @@
     state.storyNode = nodeId;
     setStoryBar(true);
     hideChoices();
-    $("#dialogueText").textContent = zh(node.text);
-    $(".talk__cue").classList.toggle("is-off", !!(node.end || node.menu));
-    showChoices(resolveNodeChoices(node));
+    typeLine(zh(node.text), () => {
+      showChoices(resolveNodeChoices(node));
+    });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -218,9 +266,7 @@
     setStoryBar(false);
     hideChoices();
     $$(".drink").forEach((el) => el.classList.remove("is-on"));
-    $("#dialogueText").textContent = "想喝了再挥手，或者点下面特调。";
-    $(".talk__cue").classList.add("is-off");
-    showChoices(endChoices());
+    typeLine("想喝了再挥手，或者点下面特调。", () => showChoices(endChoices()));
   }
 
   function storyBack() {
@@ -237,6 +283,7 @@
   }
 
   function pickChoice(item) {
+    if (state.typingTimer) return;
     if (!item) return;
     if (item.action === "exit-story") {
       exitStory();
@@ -263,7 +310,7 @@
   }
 
   function advanceDialogue() {
-    /* story-driven; tap does not skip tree */
+    skipTyping();
   }
 
   function renderDrinks() {

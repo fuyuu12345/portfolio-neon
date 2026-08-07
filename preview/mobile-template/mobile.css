@@ -22,6 +22,7 @@
   --mono: "IBM Plex Mono", "Cubic 11", "Noto Sans SC", monospace;
   --safe-b: env(safe-area-inset-bottom, 0px);
   --hit: 48px;
+  --title-glow: 0 0 5px rgba(255, 75, 150, 0.55), 0 0 12px rgba(255, 75, 150, 0.28);
 }
 
 *,
@@ -128,21 +129,26 @@ img {
 
 .boot__title {
   margin: 0;
-  font-family: var(--pixel);
+  font-family: "Press Start 2P", var(--pixel);
   font-size: 12px;
+  font-weight: 400;
   color: var(--pink);
   line-height: 1.55;
-  /* 手机端少边缘光，贴近电脑 brand 标题 */
-  text-shadow: 0 0 6px rgba(255, 61, 184, 0.28);
+  letter-spacing: 0.04em;
+  text-shadow: var(--title-glow);
+  -webkit-font-smoothing: none;
 }
 
 .top h1 {
   margin: 4px 0 0;
-  font-family: var(--pixel);
+  font-family: "Press Start 2P", var(--pixel);
   font-size: 11px;
+  font-weight: 400;
   color: var(--pink);
   line-height: 1.55;
-  text-shadow: 0 0 6px rgba(255, 61, 184, 0.28);
+  letter-spacing: 0.04em;
+  text-shadow: var(--title-glow);
+  -webkit-font-smoothing: none;
 }
 
 .boot__welcome {

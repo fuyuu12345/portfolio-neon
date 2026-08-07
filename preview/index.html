@@ -8,7 +8,7 @@
       (function () {
         if (/[?&]desktop=1(?:&|$)/.test(location.search)) return;
         if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "")) {
-          location.replace("mobile-template/index.html" + location.search + location.hash);
+          location.replace("mobile/index.html" + location.search + location.hash);
         }
       })();
     </script>

@@ -5,10 +5,10 @@
   const root = "../.."; // repo root from preview/mobile-template/
 
   const drinks = [
-    { id: "bitter", name: "静默苦味", blurb: "雨夜进店。先认识酒保。", price: "$12", line: "雨敲在霓虹上。吧台那头的人抬眼：「先进来坐。」" },
-    { id: "mosaic", name: "数据马赛克", blurb: "香港与上海的碎片。", price: "$14", line: "两座城的碎片拼在杯里——岭南的夜，和上海的投放屏。" },
-    { id: "collins", name: "故障柯林斯", blurb: "赛博蜉蝣是怎么养的。", price: "$11", line: "赛博蜉蝣不是人设，是养出来的：短、密、真，像一杯特调。" },
-    { id: "sunset", name: "像素落日", blurb: "找故事，还是找履历？", price: "$13", line: "想听故事就点特调；想看履历，底下「经历 / 作品 / 联系」也在。" },
+    { id: "bitter", name: "静默苦味", blurb: "雨夜进店。先认识酒保。", price: "$12" },
+    { id: "mosaic", name: "数据马赛克", blurb: "香港与上海的碎片。", price: "$14" },
+    { id: "collins", name: "故障柯林斯", blurb: "赛博蜉蝣是怎么养的。", price: "$11" },
+    { id: "sunset", name: "像素落日", blurb: "找故事，还是找履历？", price: "$13" },
   ];
 
   const tabDefs = [
@@ -19,7 +19,6 @@
   ];
 
   const state = {
-    line: 0,
     feat: 0,
     muted: false,
     workTab: "cases",
@@ -29,15 +28,10 @@
     storyId: null,
     storyNode: null,
     storyHistory: [],
+    hasOrderedDrink: false,
   };
 
   const STORIES = window.MOBILE_STORIES || {};
-
-  const lines = [
-    "外面收工了，这里才刚热场。",
-    "Growth Highball。桌上是案例和 Demo，点开就能看。",
-    "点一杯特调，或者直接从底下四个按钮进作品。",
-  ];
 
   function zh(v) {
     if (!v) return "";
@@ -109,31 +103,18 @@
   function enter() {
     $("#boot").hidden = true;
     $("#app").hidden = false;
-    renderLine();
     renderDrinks();
     renderFeature();
     playTrack(state.musicIndex, true);
-  }
-
-  function renderLine() {
-    $("#dialogueText").textContent = lines[Math.min(state.line, lines.length - 1)];
-    const atEnd = state.line >= lines.length - 1;
-    $(".talk__cue").classList.toggle("is-off", atEnd);
-    if (atEnd && !state.awaitingChoice) {
-      showChoices([
-        { label: "先看看作品", action: "work" },
-        { label: "点一杯特调", action: "scroll-drinks" },
-        { label: "如何联系你", action: "contact" },
-      ]);
-    }
+    startStory("welcome");
   }
 
   function showChoices(list) {
     const box = $("#choices");
-    state.awaitingChoice = true;
-    box.hidden = false;
-    box._list = list;
-    box.innerHTML = list
+    state.awaitingChoice = !!list?.length;
+    box.hidden = !list?.length;
+    box._list = list || [];
+    box.innerHTML = (list || [])
       .map((c, i) => `<button type="button" class="choice" data-choice="${i}">${typeof c.label === "string" ? c.label : zh(c.label)}</button>`)
       .join("");
   }
@@ -149,17 +130,26 @@
     if (back) back.hidden = !on;
   }
 
+  function drinkChoices() {
+    return drinks.map((d) => ({
+      label: d.name,
+      action: "start-story",
+      story: d.id,
+    }));
+  }
+
   function endChoices() {
     return [
       { label: "结束对话", action: "exit-story" },
-      { label: "再点一杯", action: "order-again" },
+      { label: state.hasOrderedDrink ? "再点一杯" : "点一杯", action: "order-again" },
     ];
   }
 
   function resolveNodeChoices(node) {
-    if (!node) return [];
-    if (node.end) return endChoices();
-    return node.choices || [];
+    if (node?.choices?.length) return node.choices;
+    if (node?.menu === "drinks") return drinkChoices();
+    if (node?.end) return endChoices();
+    return [];
   }
 
   function runStoryAction(action) {
@@ -174,6 +164,20 @@
     }
   }
 
+  function showDrinkMenu() {
+    const again = state.hasOrderedDrink;
+    state.storyId = "welcome";
+    state.storyNode = "w_menu";
+    state.storyHistory = [];
+    setStoryBar(true);
+    hideChoices();
+    $$(".drink").forEach((el) => el.classList.remove("is-on"));
+    $("#dialogueText").textContent = again ? "再来一杯？选吧。" : "今晚想喝哪一杯？右边也有，点这里也行。";
+    $(".talk__cue").classList.add("is-off");
+    showChoices(drinkChoices());
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   function renderStoryNode(nodeId, pushHistory = true) {
     const story = STORIES[state.storyId];
     const node = story?.nodes?.[nodeId];
@@ -185,13 +189,14 @@
     setStoryBar(true);
     hideChoices();
     $("#dialogueText").textContent = zh(node.text);
-    $(".talk__cue").classList.toggle("is-off", !!node.end);
+    $(".talk__cue").classList.toggle("is-off", !!(node.end || node.menu));
     showChoices(resolveNodeChoices(node));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function startStory(storyId) {
     if (!STORIES[storyId]) return;
+    if (storyId !== "welcome") state.hasOrderedDrink = true;
     state.storyId = storyId;
     state.storyHistory = [];
     state.storyNode = null;
@@ -206,12 +211,9 @@
     setStoryBar(false);
     hideChoices();
     $$(".drink").forEach((el) => el.classList.remove("is-on"));
-    $("#dialogueText").textContent = "想再听故事，就点下面四杯特调。";
+    $("#dialogueText").textContent = "想喝了再挥手，或者点下面特调。";
     $(".talk__cue").classList.add("is-off");
-    showChoices([
-      { label: "再点一杯", action: "order-again" },
-      { label: "看看作品", action: "work" },
-    ]);
+    showChoices(endChoices());
   }
 
   function storyBack() {
@@ -220,8 +222,11 @@
       renderStoryNode(state.storyHistory.pop(), false);
       return;
     }
+    if (state.storyId !== "welcome") {
+      showDrinkMenu();
+      return;
+    }
     exitStory();
-    $("#panelDrinks").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function pickChoice(item) {
@@ -231,8 +236,11 @@
       return;
     }
     if (item.action === "order-again") {
-      exitStory();
-      $("#panelDrinks").scrollIntoView({ behavior: "smooth", block: "start" });
+      showDrinkMenu();
+      return;
+    }
+    if (item.action === "start-story" && item.story) {
+      startStory(item.story);
       return;
     }
     if (item.action === "work") {
@@ -243,20 +251,12 @@
       openSheet("contact");
       return;
     }
-    if (item.action === "scroll-drinks") {
-      $("#panelDrinks").scrollIntoView({ behavior: "smooth", block: "start" });
-      return;
-    }
     if (item.action) runStoryAction(item.action);
     if (item.next) renderStoryNode(item.next, true);
   }
 
   function advanceDialogue() {
-    if (state.storyId || state.awaitingChoice) return;
-    if (state.line < lines.length - 1) {
-      state.line += 1;
-      renderLine();
-    }
+    /* story-driven; tap does not skip tree */
   }
 
   function renderDrinks() {

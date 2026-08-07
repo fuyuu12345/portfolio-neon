@@ -26,8 +26,8 @@
   --pixel: "Press Start 2P", "Cubic 11", "Noto Sans SC", monospace;
   --mono: "IBM Plex Mono", "Cubic 11", "Noto Sans SC", monospace;
   --line: 1px;
-  /* 店名霓虹：有边缘光，但不糊成一团 */
-  --title-glow: 0 0 5px rgba(255, 75, 150, 0.55), 0 0 12px rgba(255, 75, 150, 0.28);
+  /* 店名霓虹：贴边一点的光，不糊字 */
+  --title-glow: 0 0 4px rgba(255, 75, 150, 0.7), 0 0 10px rgba(255, 75, 150, 0.35);
 }
 
 *,
@@ -130,16 +130,35 @@ img {
   animation: neon-breathe 2.8s ease-in-out infinite;
 }
 
-.boot__title {
-  margin: 0;
-  font-family: "Press Start 2P", var(--pixel);
-  font-size: clamp(14px, 1.8vw, 20px);
+.boot__title,
+.brand__title {
+  font-family: "Press Start 2P", cursive;
   font-weight: 400;
   line-height: 1.55;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   color: var(--pink);
   text-shadow: var(--title-glow);
   -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.boot__title {
+  margin: 0;
+  font-size: clamp(13px, 1.6vw, 18px);
+}
+
+.brand__title {
+  margin: 8px 0 6px;
+  font-size: clamp(13px, 1.6vw, 18px);
+}
+
+.title-sep {
+  display: inline-block;
+  margin: 0 0.15em;
+  font-family: "Press Start 2P", cursive;
+  color: var(--pink);
+  text-shadow: var(--title-glow);
+  opacity: 0.9;
 }
 
 .boot__welcome {
@@ -343,18 +362,6 @@ img {
   font-size: 11px;
   color: var(--cyan);
   line-height: 1.5;
-}
-
-.brand__title {
-  margin: 8px 0 6px;
-  font-family: "Press Start 2P", var(--pixel);
-  font-size: clamp(14px, 1.8vw, 20px);
-  font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: 0.04em;
-  color: var(--pink);
-  text-shadow: var(--title-glow);
-  -webkit-font-smoothing: none;
 }
 
 .brand__sub {

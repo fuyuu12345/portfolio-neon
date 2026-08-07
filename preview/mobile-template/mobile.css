@@ -22,7 +22,7 @@
   --mono: "IBM Plex Mono", "Cubic 11", "Noto Sans SC", monospace;
   --safe-b: env(safe-area-inset-bottom, 0px);
   --hit: 48px;
-  --title-glow: 0 0 5px rgba(255, 75, 150, 0.55), 0 0 12px rgba(255, 75, 150, 0.28);
+  --title-glow: 0 0 4px rgba(255, 75, 150, 0.7), 0 0 10px rgba(255, 75, 150, 0.35);
 }
 
 *,
@@ -127,28 +127,32 @@ img {
   animation: neon-breathe 2.8s ease-in-out infinite;
 }
 
-.boot__title {
-  margin: 0;
-  font-family: "Press Start 2P", var(--pixel);
-  font-size: 12px;
+.boot__title,
+.top h1 {
+  font-family: "Press Start 2P", cursive;
   font-weight: 400;
   color: var(--pink);
   line-height: 1.55;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-shadow: var(--title-glow);
   -webkit-font-smoothing: none;
 }
 
+.boot__title {
+  margin: 0;
+  font-size: 12px;
+}
+
 .top h1 {
   margin: 4px 0 0;
-  font-family: "Press Start 2P", var(--pixel);
   font-size: 11px;
-  font-weight: 400;
-  color: var(--pink);
-  line-height: 1.55;
-  letter-spacing: 0.04em;
-  text-shadow: var(--title-glow);
-  -webkit-font-smoothing: none;
+}
+
+.title-sep {
+  display: inline-block;
+  margin: 0 0.12em;
+  font-family: "Press Start 2P", cursive;
+  opacity: 0.9;
 }
 
 .boot__welcome {

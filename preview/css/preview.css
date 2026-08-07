@@ -2,7 +2,17 @@
    LORDE HALL-A Preview — 细线 / 虚线边框 · 主图无框铺满
    ========================================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap");
+
+/* 英文像素：本地托管，不依赖 Google（进店页立刻可用） */
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("../assets/fonts/PressStart2P-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 /* 中文像素字体：俐方體 11 号（Cubic 11） */
 @font-face {
@@ -132,30 +142,32 @@ img {
 
 .boot__title,
 .brand__title {
-  font-family: "Press Start 2P", cursive;
+  font-family: "Press Start 2P", "Cubic 11", monospace;
   font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: 0.06em;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
   color: var(--pink);
   text-shadow: var(--title-glow);
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
 }
 
 .boot__title {
   margin: 0;
-  font-size: clamp(13px, 1.6vw, 18px);
+  /* 整数 px，避免像素字发糊 */
+  font-size: 16px;
 }
 
 .brand__title {
   margin: 8px 0 6px;
-  font-size: clamp(13px, 1.6vw, 18px);
+  font-size: 16px;
 }
 
 .title-sep {
   display: inline-block;
-  margin: 0 0.15em;
-  font-family: "Press Start 2P", cursive;
+  margin: 0 0.12em;
+  font-family: "Press Start 2P", "Cubic 11", monospace;
   color: var(--pink);
   text-shadow: var(--title-glow);
   opacity: 0.9;
@@ -179,11 +191,10 @@ img {
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.12em;
+  opacity: 1;
   box-shadow: 0 0 28px rgba(255, 75, 150, 0.75);
-  animation:
-    boot-rise 0.8s ease both,
-    neon-glow 2.4s ease-in-out 0.8s infinite;
-  animation-delay: 0.35s, 0.8s;
+  /* 只动阴影，不动 opacity，避免进店按钮卡透明 */
+  animation: neon-glow 2.4s ease-in-out 0.6s infinite;
 }
 
 @keyframes neon-breathe {

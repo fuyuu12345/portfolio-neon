@@ -344,8 +344,8 @@
         },
         c2b: {
           text: {
-            zh: "别人问我有没有别的颜色。我说有啊——更深的黑。",
-            en: "People ask if I own other colors. I do — a deeper black.",
+            zh: "黑。黑衣服、黑鞋。偶尔一件更深的黑，像夜里还开着的底色。",
+            en: "Black. Black clothes, black shoes. Sometimes a deeper black — like a night that never fully powered off.",
           },
           end: true,
         },

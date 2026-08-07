@@ -41,6 +41,51 @@
     zh: "雨还在下。先推门进来。",
     en: "Rain's still falling. Push the door.",
   };
+  const WELCOME_HI = { zh: "欢迎，", en: "WELCOME," };
+  const WELCOME_NAME = { zh: "陌生人", en: "STRANGER" };
+  const LANG_MENU = { zh: "语言 · 中文 / EN", en: "Language · EN / 中文" };
+  const MUTE_LABEL = { zh: "静音", en: "Mute" };
+  const SOUND_LABEL = { zh: "声音", en: "Sound" };
+
+  function renderWelcome() {
+    const hi = $("#welcomeHi");
+    const name = $("#welcomeName");
+    const menuLang = $("#menuLang");
+    const menuMute = $("#menuMute");
+    if (hi) hi.textContent = WELCOME_HI[state.lang];
+    if (name) name.textContent = WELCOME_NAME[state.lang];
+    if (menuLang) menuLang.textContent = LANG_MENU[state.lang];
+    if (menuMute) menuMute.textContent = state.muted ? SOUND_LABEL[state.lang] : MUTE_LABEL[state.lang];
+  }
+
+  function setLang(next) {
+    state.lang = next;
+    $("#brandEyebrow").textContent = BRAND_EYEBROW[state.lang];
+    const bootEyebrow = $("#bootEyebrow");
+    const bootWelcome = $("#bootWelcome");
+    if (bootEyebrow) bootEyebrow.textContent = BRAND_EYEBROW[state.lang];
+    if (bootWelcome) bootWelcome.textContent = BOOT_WELCOME[state.lang];
+    document.documentElement.lang = state.lang === "zh" ? "zh-CN" : "en";
+    renderWelcome();
+    if (state.storyId && state.storyNode) renderStoryNode(state.storyNode, false);
+  }
+
+  async function setMuted(next) {
+    state.muted = next;
+    const audio = ensureAudio();
+    audio.muted = state.muted;
+    renderWelcome();
+    if (!state.muted && audio.paused && audio.src) {
+      try {
+        await audio.play();
+        $("#musicStatus").textContent = "播放中";
+      } catch {
+        $("#musicStatus").textContent = "点 NEXT 开声";
+      }
+    } else {
+      $("#musicStatus").textContent = state.muted ? "静音" : audio.paused ? "已暂停" : "播放中";
+    }
+  }
 
   function zh(v) {
     if (!v) return "";
@@ -113,6 +158,7 @@
   function enter() {
     $("#boot").hidden = true;
     $("#app").hidden = false;
+    renderWelcome();
     renderDrinks();
     renderFeature();
     playTrack(state.musicIndex, true);
@@ -475,33 +521,33 @@
       openSheet("work");
     });
 
-    $("#btnMute").addEventListener("click", async () => {
-      state.muted = !state.muted;
-      const audio = ensureAudio();
-      audio.muted = state.muted;
-      $("#btnMute").setAttribute("aria-pressed", String(state.muted));
-      $("#btnMute").textContent = state.muted ? "SOUND" : "MUTE";
-      if (!state.muted && audio.paused && audio.src) {
-        try {
-          await audio.play();
-          $("#musicStatus").textContent = "播放中";
-        } catch {
-          $("#musicStatus").textContent = "点 NEXT 开声";
-        }
-      } else {
-        $("#musicStatus").textContent = state.muted ? "静音" : audio.paused ? "已暂停" : "播放中";
-      }
+    $("#strangerBtn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      const menu = $("#strangerMenu");
+      const open = menu.hidden;
+      menu.hidden = !open;
+      $("#strangerBtn").setAttribute("aria-expanded", open ? "true" : "false");
     });
 
-    $("#btnLang").addEventListener("click", () => {
-      state.lang = state.lang === "zh" ? "en" : "zh";
-      $("#brandEyebrow").textContent = BRAND_EYEBROW[state.lang];
-      const bootEyebrow = $("#bootEyebrow");
-      const bootWelcome = $("#bootWelcome");
-      if (bootEyebrow) bootEyebrow.textContent = BRAND_EYEBROW[state.lang];
-      if (bootWelcome) bootWelcome.textContent = BOOT_WELCOME[state.lang];
-      document.documentElement.lang = state.lang === "zh" ? "zh-CN" : "en";
-      if (state.storyId && state.storyNode) renderStoryNode(state.storyNode, false);
+    $("#menuLang").addEventListener("click", (e) => {
+      e.stopPropagation();
+      setLang(state.lang === "zh" ? "en" : "zh");
+      $("#strangerMenu").hidden = true;
+      $("#strangerBtn").setAttribute("aria-expanded", "false");
+    });
+
+    $("#menuMute").addEventListener("click", async (e) => {
+      e.stopPropagation();
+      await setMuted(!state.muted);
+      $("#strangerMenu").hidden = true;
+      $("#strangerBtn").setAttribute("aria-expanded", "false");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".top__welcome-wrap")) {
+        $("#strangerMenu").hidden = true;
+        $("#strangerBtn").setAttribute("aria-expanded", "false");
+      }
     });
 
     $("#musicNext").addEventListener("click", () => playTrack(state.musicIndex + 1, true));

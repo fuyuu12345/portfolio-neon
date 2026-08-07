@@ -95,31 +95,56 @@ img {
   align-items: center;
 }
 
-/* Boot */
+/* Boot — neon door sign */
 .boot {
   position: fixed;
   inset: 0;
   z-index: 60;
   display: grid;
   place-content: center;
-  gap: 10px;
   text-align: center;
   background: #000;
   padding: 24px;
 }
 
-.boot__brand {
-  margin: 0;
-  font-family: var(--pixel);
-  font-size: 18px;
-  color: var(--pink);
-  line-height: 1.6;
+.boot__sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 420px;
 }
 
-.boot__hint {
-  margin: 0 0 16px;
-  color: var(--mute);
-  font-size: 13px;
+.boot__eyebrow {
+  margin: 0;
+  font-family: var(--pixel);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+  line-height: 1.6;
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.55);
+  animation: neon-breathe 2.8s ease-in-out infinite;
+}
+
+.boot__title {
+  margin: 0;
+  font-family: var(--pixel);
+  font-size: 12px;
+  color: var(--pink);
+  line-height: 1.55;
+  text-shadow:
+    0 0 8px rgba(255, 75, 150, 0.85),
+    0 0 20px rgba(255, 75, 150, 0.4);
+  animation: neon-flicker 4.5s steps(2, end) infinite;
+}
+
+.boot__welcome {
+  margin: 2px 0 8px;
+  font-size: 14px;
+  color: var(--dim);
+  line-height: 1.55;
+  animation: boot-rise 0.9s ease both;
+  animation-delay: 0.2s;
 }
 
 .boot__btn {
@@ -132,6 +157,70 @@ img {
   font-weight: 700;
   letter-spacing: 0.08em;
   box-shadow: 0 0 24px rgba(255, 75, 150, 0.55);
+  animation:
+    boot-rise 0.8s ease both,
+    neon-glow 2.4s ease-in-out infinite;
+  animation-delay: 0.35s, 0.8s;
+}
+
+@keyframes neon-breathe {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.12);
+  }
+}
+
+@keyframes neon-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 18px rgba(255, 75, 150, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 75, 150, 0.85);
+  }
+}
+
+@keyframes neon-flicker {
+  0%,
+  92%,
+  100% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.72;
+  }
+  95% {
+    opacity: 1;
+  }
+  97% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes boot-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot__eyebrow,
+  .boot__title,
+  .boot__welcome,
+  .boot__btn {
+    animation: none !important;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
 }
 
 /* App shell — phone-first column */
@@ -161,9 +250,9 @@ img {
 .top h1 {
   margin: 4px 0 0;
   font-family: var(--pixel);
-  font-size: 15px;
+  font-size: 11px;
   color: var(--pink);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .top__tools {

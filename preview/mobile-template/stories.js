@@ -64,8 +64,8 @@ window.MOBILE_STORIES = {
       },
       b2a: {
         text: {
-          zh: "AFTER HOURS。外面收工了，这里才刚热场。",
-          en: "AFTER HOURS. Outside's closed for the day — in here, the night's just warming up.",
+          zh: "AFTERGLOW——余辉。外面收工了，灯还留着一点。够你坐下来，听完一段。",
+          en: "AFTERGLOW — the afterglow. Outside's closed; a little light stays — enough to sit and finish a story.",
         },
         end: true,
       },

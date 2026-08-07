@@ -72,7 +72,7 @@ window.SITE = {
   },
 
   ui: {
-    barName: { zh: "AFTER HOURS", en: "AFTER HOURS" },
+    barName: { zh: "AFTERGLOW", en: "AFTERGLOW" },
     statusOpen: { zh: "OPEN · 上海", en: "OPEN · Shanghai" },
     muteOn: { zh: "静音", en: "Mute" },
     muteOff: { zh: "声音", en: "Sound" },

@@ -21,6 +21,7 @@
   const state = {
     feat: 0,
     muted: false,
+    lang: "zh",
     workTab: "cases",
     awaitingChoice: false,
     musicIndex: SITE.music?.defaultIndex || 0,
@@ -32,10 +33,16 @@
   };
 
   const STORIES = window.MOBILE_STORIES || {};
+  const BRAND_EYEBROW = { zh: "赛博蜉蝣", en: "CYBER FUYUU" };
+  const BOOT_WELCOME = {
+    zh: "雨还在下。先推门进来。",
+    en: "Rain's still falling. Push the door.",
+  };
 
   function zh(v) {
     if (!v) return "";
-    return typeof v === "string" ? v : v.zh || v.en || "";
+    if (typeof v === "string") return v;
+    return v[state.lang] || v.zh || v.en || "";
   }
 
   function abs(path) {
@@ -440,7 +447,14 @@
     });
 
     $("#btnLang").addEventListener("click", () => {
-      $("#dialogueText").textContent = "Demo stub — language toggle.";
+      state.lang = state.lang === "zh" ? "en" : "zh";
+      $("#brandEyebrow").textContent = BRAND_EYEBROW[state.lang];
+      const bootEyebrow = $("#bootEyebrow");
+      const bootWelcome = $("#bootWelcome");
+      if (bootEyebrow) bootEyebrow.textContent = BRAND_EYEBROW[state.lang];
+      if (bootWelcome) bootWelcome.textContent = BOOT_WELCOME[state.lang];
+      document.documentElement.lang = state.lang === "zh" ? "zh-CN" : "en";
+      if (state.storyId && state.storyNode) renderStoryNode(state.storyNode, false);
     });
 
     $("#musicNext").addEventListener("click", () => playTrack(state.musicIndex + 1, true));

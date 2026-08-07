@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 作品集霓虹 · HUD 预览
  * 导航短文右下 / 经历·作品弹窗 / 特调闲聊 / 点击音效
  */
@@ -42,7 +42,11 @@
 
   const UI = {
     bootEnter: { zh: "推门进入", en: "ENTER" },
-    brandEyebrow: { zh: "赛博酒保", en: "CYBERPUNK BARTENDER" },
+    bootWelcome: {
+      zh: "雨还在下。先推门进来。",
+      en: "Rain's still falling. Push the door.",
+    },
+    brandEyebrow: { zh: "赛博蜉蝣", en: "CYBER FUYUU" },
     plaque: { zh: "只做梦想与特调。", en: "We serve dreams and cocktails." },
     welcomeHi: { zh: "欢迎，", en: "WELCOME," },
     welcomeName: { zh: "陌生人", en: "STRANGER" },
@@ -202,13 +206,13 @@
             { label: { zh: "今晚有什么好喝的？", en: "What's good tonight?" }, next: "b2d" },
           ],
         },
-        b2a: {
-          text: {
-            zh: "AFTER HOURS。外面收工了，这里才刚热场。",
-            en: "AFTER HOURS. Outside's closed for the day — in here, the night's just warming up.",
-          },
-          end: true,
+      b2a: {
+        text: {
+          zh: "AFTERGLOW——余辉。外面收工了，灯还留着一点。够你坐下来，听完一段。",
+          en: "AFTERGLOW — the afterglow. Outside's closed; a little light stays — enough to sit and finish a story.",
         },
+        end: true,
+      },
         b2b: {
           text: {
             zh: "好。雨停之前，位子都是你的。想聊了再挥手。",
@@ -572,6 +576,8 @@
       if (el) el.textContent = value;
     };
     setText("#bootEnter", t(UI.bootEnter));
+    setText("#bootEyebrow", t(UI.brandEyebrow));
+    setText("#bootWelcome", t(UI.bootWelcome));
     setText(".brand__eyebrow", t(UI.brandEyebrow));
     setText(".plaque__text", t(UI.plaque));
     setText(".welcome__hi", t(UI.welcomeHi));

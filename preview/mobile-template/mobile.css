@@ -132,10 +132,17 @@ img {
   font-size: 12px;
   color: var(--pink);
   line-height: 1.55;
-  text-shadow:
-    0 0 8px rgba(255, 75, 150, 0.85),
-    0 0 20px rgba(255, 75, 150, 0.4);
-  animation: neon-flicker 4.5s steps(2, end) infinite;
+  /* 手机端少边缘光，贴近电脑 brand 标题 */
+  text-shadow: 0 0 6px rgba(255, 61, 184, 0.28);
+}
+
+.top h1 {
+  margin: 4px 0 0;
+  font-family: var(--pixel);
+  font-size: 11px;
+  color: var(--pink);
+  line-height: 1.55;
+  text-shadow: 0 0 6px rgba(255, 61, 184, 0.28);
 }
 
 .boot__welcome {
@@ -245,14 +252,6 @@ img {
   font-size: 10px;
   color: var(--cyan);
   letter-spacing: 0.08em;
-}
-
-.top h1 {
-  margin: 4px 0 0;
-  font-family: var(--pixel);
-  font-size: 11px;
-  color: var(--pink);
-  line-height: 1.55;
 }
 
 .top__tools {

@@ -236,7 +236,7 @@ img {
 .talk__main {
   width: 100%;
   min-height: 96px;
-  padding: 14px 14px 22px;
+  padding: 14px 14px 34px;
   text-align: left;
   border: 1px solid var(--pink);
   border-radius: 10px;
@@ -389,6 +389,31 @@ img {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
+}
+
+.talk__box {
+  position: relative;
+}
+
+.talk__back {
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+  z-index: 3;
+  min-height: 36px;
+  padding: 0 4px;
+  color: var(--mute);
+  font-family: var(--pixel);
+  font-size: 10px;
+}
+
+.talk__back:active {
+  color: var(--pink);
+}
+
+.drink.is-on {
+  border-style: solid;
+  background: rgba(0, 240, 255, 0.12);
 }
 
 .drink {

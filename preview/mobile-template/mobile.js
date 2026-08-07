@@ -26,7 +26,12 @@
     awaitingChoice: false,
     musicIndex: SITE.music?.defaultIndex || 0,
     audio: null,
+    storyId: null,
+    storyNode: null,
+    storyHistory: [],
   };
+
+  const STORIES = window.MOBILE_STORIES || {};
 
   const lines = [
     "外面收工了，这里才刚热场。",
@@ -129,7 +134,7 @@
     box.hidden = false;
     box._list = list;
     box.innerHTML = list
-      .map((c, i) => `<button type="button" class="choice" data-choice="${i}">${c.label}</button>`)
+      .map((c, i) => `<button type="button" class="choice" data-choice="${i}">${typeof c.label === "string" ? c.label : zh(c.label)}</button>`)
       .join("");
   }
 
@@ -139,8 +144,115 @@
     $("#choices").innerHTML = "";
   }
 
+  function setStoryBar(on) {
+    const back = $("#storyBack");
+    if (back) back.hidden = !on;
+  }
+
+  function endChoices() {
+    return [
+      { label: "结束对话", action: "exit-story" },
+      { label: "再点一杯", action: "order-again" },
+    ];
+  }
+
+  function resolveNodeChoices(node) {
+    if (!node) return [];
+    if (node.end) return endChoices();
+    return node.choices || [];
+  }
+
+  function runStoryAction(action) {
+    if (action === "open-exp") openSheet("exp");
+    if (action === "open-work") {
+      state.workTab = "cases";
+      openSheet("work");
+    }
+    if (action === "open-work-social") {
+      state.workTab = "social";
+      openSheet("work");
+    }
+  }
+
+  function renderStoryNode(nodeId, pushHistory = true) {
+    const story = STORIES[state.storyId];
+    const node = story?.nodes?.[nodeId];
+    if (!node) return;
+    if (pushHistory && state.storyNode && state.storyNode !== nodeId) {
+      state.storyHistory.push(state.storyNode);
+    }
+    state.storyNode = nodeId;
+    setStoryBar(true);
+    hideChoices();
+    $("#dialogueText").textContent = zh(node.text);
+    $(".talk__cue").classList.toggle("is-off", !!node.end);
+    showChoices(resolveNodeChoices(node));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function startStory(storyId) {
+    if (!STORIES[storyId]) return;
+    state.storyId = storyId;
+    state.storyHistory = [];
+    state.storyNode = null;
+    $$(".drink").forEach((el) => el.classList.toggle("is-on", el.dataset.drink === storyId));
+    renderStoryNode(STORIES[storyId].start, false);
+  }
+
+  function exitStory() {
+    state.storyId = null;
+    state.storyNode = null;
+    state.storyHistory = [];
+    setStoryBar(false);
+    hideChoices();
+    $$(".drink").forEach((el) => el.classList.remove("is-on"));
+    $("#dialogueText").textContent = "想再听故事，就点下面四杯特调。";
+    $(".talk__cue").classList.add("is-off");
+    showChoices([
+      { label: "再点一杯", action: "order-again" },
+      { label: "看看作品", action: "work" },
+    ]);
+  }
+
+  function storyBack() {
+    if (!state.storyId) return;
+    if (state.storyHistory.length) {
+      renderStoryNode(state.storyHistory.pop(), false);
+      return;
+    }
+    exitStory();
+    $("#panelDrinks").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function pickChoice(item) {
+    if (!item) return;
+    if (item.action === "exit-story") {
+      exitStory();
+      return;
+    }
+    if (item.action === "order-again") {
+      exitStory();
+      $("#panelDrinks").scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    if (item.action === "work") {
+      openSheet("work");
+      return;
+    }
+    if (item.action === "contact") {
+      openSheet("contact");
+      return;
+    }
+    if (item.action === "scroll-drinks") {
+      $("#panelDrinks").scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    if (item.action) runStoryAction(item.action);
+    if (item.next) renderStoryNode(item.next, true);
+  }
+
   function advanceDialogue() {
-    if (state.awaitingChoice) return;
+    if (state.storyId || state.awaitingChoice) return;
     if (state.line < lines.length - 1) {
       state.line += 1;
       renderLine();
@@ -270,27 +382,19 @@
       const btn = e.target.closest("[data-choice]");
       if (!btn) return;
       const item = ($("#choices")._list || [])[Number(btn.dataset.choice)];
-      if (!item) return;
       hideChoices();
-      if (item.action === "work") openSheet("work");
-      else if (item.action === "contact") openSheet("contact");
-      else if (item.action === "scroll-drinks") $("#panelDrinks").scrollIntoView({ behavior: "smooth", block: "start" });
+      pickChoice(item);
     });
 
     $("#drinks").addEventListener("click", (e) => {
       const btn = e.target.closest("[data-drink]");
       if (!btn) return;
-      const drink = drinks.find((d) => d.id === btn.dataset.drink);
-      if (!drink) return;
-      hideChoices();
-      $("#dialogueText").textContent = drink.line;
-      $(".talk__cue").classList.add("is-off");
-      showChoices([
-        { label: "再点一杯", action: "scroll-drinks" },
-        { label: "看看作品", action: "work" },
-        { label: "如何联系", action: "contact" },
-      ]);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      startStory(btn.dataset.drink);
+    });
+
+    $("#storyBack").addEventListener("click", (e) => {
+      e.stopPropagation();
+      storyBack();
     });
 
     $$(".dock__btn").forEach((b) => b.addEventListener("click", () => setDock(b.dataset.nav)));

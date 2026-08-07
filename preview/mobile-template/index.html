@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#05050a" />
     <title>AFTER HOURS · 手机模板</title>
-    <link rel="stylesheet" href="mobile.css" />
+    <link rel="stylesheet" href="mobile.css?v=3" />
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
@@ -22,7 +22,6 @@
     </div>
 
     <main class="app" id="app" hidden>
-      <!-- 首屏：品牌 + 酒吧图 + 对话（像一台机） -->
       <header class="top">
         <div class="top__brand">
           <span class="top__eyebrow">CYBERPUNK BARTENDER</span>
@@ -61,6 +60,20 @@
         <button type="button" class="dock__btn" data-nav="exp">经历</button>
         <button type="button" class="dock__btn" data-nav="contact">联系</button>
       </nav>
+
+      <section class="panel" id="panelNow">
+        <div class="panel__head">
+          <h2>NOW PLAYING</h2>
+          <p>进店后自动播 · 可切歌</p>
+        </div>
+        <div class="now">
+          <div>
+            <div class="now__title" id="musicTitle">Neon Pad</div>
+            <div class="now__status" id="musicStatus">等待推门</div>
+          </div>
+          <button type="button" class="hit" id="musicNext" aria-label="下一首">⏭</button>
+        </div>
+      </section>
 
       <section class="panel" id="panelDrinks">
         <div class="panel__head">
@@ -109,6 +122,7 @@
       </div>
     </div>
 
-    <script src="mobile.js"></script>
+    <script src="../../js/content.js?v=3"></script>
+    <script src="mobile.js?v=3"></script>
   </body>
 </html>

@@ -365,6 +365,26 @@ img {
   color: var(--mute);
 }
 
+.now {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.now__title {
+  font-family: var(--pixel);
+  font-size: 11px;
+  color: var(--cyan);
+  line-height: 1.5;
+}
+
+.now__status {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--dim);
+}
+
 .drinks {
   display: grid;
   grid-template-columns: 1fr 1fr;

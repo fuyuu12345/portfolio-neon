@@ -2,14 +2,27 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>AFTERGLOW · LORDE PORTFOLIO</title>
-    <meta http-equiv="refresh" content="0;url=../../index.html" />
     <script>
-      location.replace("../../index.html" + location.search + location.hash);
+      // 桶根入口：手机进手机版，电脑进选择页（与 GitHub 根 index 对齐意图）
+      (function () {
+        var q = location.search || "";
+        var h = location.hash || "";
+        var ua = navigator.userAgent || "";
+        var mobile = /Android|iPhone|iPod|Mobile/i.test(ua) && !/iPad/i.test(ua);
+        var target = mobile ? "preview/mobile/index.html" : "index.html";
+        // 桌面打开根域名时也进选择页；手机直接进手机作品集
+        if (!mobile) target = "index.html";
+        location.replace(target + q + h);
+      })();
     </script>
+    <meta http-equiv="refresh" content="0;url=index.html" />
   </head>
-  <body style="margin:0;background:#05050a;color:#f3e9ff;font-family:sans-serif;display:grid;place-items:center;min-height:100vh">
-    <p><a href="../../index.html" style="color:#00f0ff">选择电脑版 / 手机版</a></p>
+  <body style="margin:0;background:#05050a;color:#f3e9ff;font-family:sans-serif;display:grid;place-items:center;min-height:100vh;padding:24px;text-align:center">
+    <p>
+      <a href="index.html" style="color:#00f0ff">选择电脑版 / 手机版</a><br />
+      <a href="preview/mobile/index.html" style="color:#ff4b96">手机版作品集</a>
+    </p>
   </body>
 </html>

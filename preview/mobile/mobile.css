@@ -82,31 +82,40 @@ img {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Boot — neon door sign */
+/* Boot — neon door sign · iPhone 一屏 */
 .boot {
   position: fixed;
   inset: 0;
   z-index: 60;
-  display: grid;
-  place-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   background: #000;
-  padding: 24px;
+  padding:
+    max(28px, env(safe-area-inset-top, 0px))
+    22px
+    max(28px, env(safe-area-inset-bottom, 0px));
+  width: 100%;
+  min-height: 100dvh;
+  box-sizing: border-box;
 }
 
 .boot__sign {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  max-width: 420px;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
 }
 
 .boot__eyebrow {
   margin: 0;
   font-family: var(--pixel);
-  font-size: 10px;
-  letter-spacing: 0.12em;
+  font-size: 11px;
+  letter-spacing: 0.14em;
   color: var(--cyan);
   line-height: 1.6;
   text-shadow: 0 0 10px rgba(0, 240, 255, 0.55);
@@ -127,7 +136,8 @@ img {
 
 .boot__title {
   margin: 0;
-  font-size: 13px;
+  font-size: clamp(12px, 3.6vw, 15px);
+  text-align: center;
 }
 
 .top h1 {
@@ -145,8 +155,8 @@ img {
 }
 
 .boot__welcome {
-  margin: 2px 0 8px;
-  font-size: 14px;
+  margin: 4px 0 4px;
+  font-size: 15px;
   color: var(--dim);
   line-height: 1.55;
   animation: boot-rise 0.9s ease both;
@@ -154,12 +164,13 @@ img {
 }
 
 .boot__btn {
-  min-height: var(--hit);
+  min-height: 52px;
+  width: 100%;
   padding: 0 28px;
   border-radius: 12px;
   background: var(--pink);
   color: #14010c;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   letter-spacing: 0.08em;
   opacity: 1;

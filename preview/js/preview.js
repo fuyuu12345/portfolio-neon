@@ -709,10 +709,27 @@
     }
   }
 
+  function showChoices(choices) {
+    const box = $("#choices");
+    if (!choices?.length) {
+      hideChoices();
+      return;
+    }
+    box.hidden = false;
+    box._list = choices;
+    box.innerHTML = choices
+      .map(
+        (c, i) =>
+          `<button type="button" class="choice" data-choice="${i}">${t(c.label)}</button>`
+      )
+      .join("");
+  }
+
   function hideChoices() {
     const box = $("#choices");
     box.hidden = true;
     box.innerHTML = "";
+    box._list = [];
   }
 
   function setStoryBar(visible) {
@@ -801,21 +818,6 @@
     hideChoices();
     const line = again ? UI.drinkMenuAgain : UI.drinkMenuPrompt;
     typeLine(t(line), () => showChoices(drinkChoices()));
-  }
-
-  function showChoices(choices) {
-    const box = $("#choices");
-    if (!choices?.length) {
-      hideChoices();
-      return;
-    }
-    box.hidden = false;
-    box.innerHTML = choices
-      .map(
-        (c, i) =>
-          `<button type="button" class="choice" data-choice="${i}">${t(c.label)}</button>`
-      )
-      .join("");
   }
 
   function typeLine(text, onDone) {
@@ -916,9 +918,10 @@
   }
 
   function pickChoice(index) {
+    const listed = $("#choices")?._list?.[index];
     const story = STORIES[state.storyId];
     const node = story?.nodes?.[state.storyNode];
-    const choice = resolveNodeChoices(node)[index];
+    const choice = listed || resolveNodeChoices(node)[index];
     if (!choice) return;
     playClick();
     if (choice.action === "exit-story") {

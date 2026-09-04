@@ -7,7 +7,7 @@
  * 默认密码请尽快改掉（只有你知道即可）。
  */
 window.SITE = {
-  draftVersion: "2026-09-04-echo-patent-flow",
+  draftVersion: "2026-09-04-echo-wearable-tag",
 
   /**
    * 编辑模式密码 — 公开仓库请留空，在 js/content.local.js 写真实密码（已 gitignore）。
@@ -383,7 +383,7 @@ window.SITE = {
             href: "products/echo-yesido/mobile/index.html",
           },
         ],
-        tags: ["具身智能", "Shenicest", "黑客松", "萨福", "软硬件", "专利流程中"],
+        tags: ["具身智能", "可穿戴设备", "Shenicest", "黑客松", "萨福", "软硬件", "专利流程中"],
       },
       {
         cover: "assets/cases/family-light-cover.png",

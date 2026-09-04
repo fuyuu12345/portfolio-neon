@@ -424,13 +424,22 @@
   }
 
   function exitStory() {
+    // Align with desktop: leave the story, go idle — do not show「结束对话」again.
+    // Keep「点一杯 / 再点一杯」so the guest can return to the drink menu.
     state.storyId = null;
     state.storyNode = null;
     state.storyHistory = [];
     setStoryBar(false);
     hideChoices();
     $$(".drink").forEach((el) => el.classList.remove("is-on"));
-    typeLine(t(UI.idleHint), () => showChoices(endChoices()));
+    typeLine(t(UI.idleHint), () => {
+      showChoices([
+        {
+          label: state.hasOrderedDrink ? t(UI.orderAgain) : t(UI.orderOnce),
+          action: "order-again",
+        },
+      ]);
+    });
   }
 
   function storyBack() {

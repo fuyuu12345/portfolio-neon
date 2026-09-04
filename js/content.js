@@ -7,7 +7,7 @@
  * 默认密码请尽快改掉（只有你知道即可）。
  */
 window.SITE = {
-  draftVersion: "2026-08-06-feminist-cover-v6",
+  draftVersion: "2026-09-04-echo-yesido",
 
   /**
    * 编辑模式密码 — 公开仓库请留空，在 js/content.local.js 写真实密码（已 gitignore）。
@@ -366,6 +366,26 @@ window.SITE = {
     ],
     other: [
       {
+        cover: "assets/cases/echo-yesido-cover.png",
+        title: { zh: "ECHO · yes, I DO.", en: "ECHO · yes, I DO." },
+        summary: {
+          zh: "黑客松：女性身体认知 AI × 可穿戴。可选网页版或手机版案例。",
+          en: "Hackathon: AI × wearable for body awareness. Web or mobile case study.",
+        },
+        link: "products/echo-yesido/index.html",
+        links: [
+          {
+            label: { zh: "网页版 →", en: "Web →" },
+            href: "products/echo-yesido/web/index.html",
+          },
+          {
+            label: { zh: "手机版 →", en: "Mobile →" },
+            href: "products/echo-yesido/mobile/index.html",
+          },
+        ],
+        tags: ["黑客松", "可穿戴", "AI", "Demo"],
+      },
+      {
         cover: "assets/cases/family-light-cover.png",
         title: { zh: "家灯 · 家庭轻社交小程序", en: "Family Light · Mini Program" },
         summary: {
@@ -385,7 +405,6 @@ window.SITE = {
         link: "products/feminist-survey/index.html",
         tags: ["调研", "问卷", "Demo"],
       },
-      { cover: "", title: { zh: "其ta 03", en: "Other 03" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
       { cover: "", title: { zh: "其ta 04", en: "Other 04" }, summary: { zh: "待填充", en: "TBD" }, link: "", tags: [] },
     ],
   },

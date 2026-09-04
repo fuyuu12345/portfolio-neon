@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f5f0e8" />
+    <title>ECHO · yes, I DO. | 选择版本</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f5f0e8;
+        --ink: #252728;
+        --muted: #777977;
+        --line: rgba(37, 39, 40, 0.14);
+        --coral: #e77968;
+        --sage: #9dafa7;
+        --white: #fffdf9;
+        --mono: "DM Mono", ui-monospace, monospace;
+        --sans: "Manrope", "Noto Sans SC", "PingFang SC", sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        font-family: var(--sans);
+        color: var(--ink);
+        background:
+          radial-gradient(ellipse 100% 70% at 0% 0%, rgba(232, 185, 184, 0.35), transparent 55%),
+          radial-gradient(ellipse 80% 50% at 100% 100%, rgba(185, 204, 212, 0.4), transparent 50%),
+          var(--paper);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 20px;
+      }
+      .wrap {
+        width: min(860px, 100%);
+      }
+      .eyebrow {
+        margin: 0 0 12px;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(2.4rem, 8vw, 3.6rem);
+        letter-spacing: -0.03em;
+        line-height: 0.95;
+      }
+      h1 span {
+        display: block;
+        margin-top: 6px;
+        font-size: 1.15rem;
+        font-weight: 500;
+        color: var(--coral);
+        letter-spacing: 0.02em;
+      }
+      .lead {
+        margin: 16px 0 28px;
+        max-width: 36em;
+        color: var(--muted);
+        font-size: 0.98rem;
+        line-height: 1.55;
+      }
+      .choices {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      @media (max-width: 640px) {
+        .choices { grid-template-columns: 1fr; }
+      }
+      .choice {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+        background: var(--white);
+        border: 1px solid var(--line);
+        padding: 22px 20px 20px;
+        min-height: 180px;
+        transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      }
+      .choice:hover {
+        border-color: var(--ink);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(37, 39, 40, 0.08);
+      }
+      .choice__tag {
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--coral);
+      }
+      .choice h2 {
+        margin: 10px 0 8px;
+        font-size: 1.45rem;
+      }
+      .choice p {
+        margin: 0;
+        flex: 1;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.45;
+      }
+      .choice__go {
+        margin-top: 18px;
+        font-weight: 700;
+        font-size: 0.92rem;
+      }
+      .choice--web .choice__go { color: var(--ink); }
+      .choice--mobile .choice__go { color: var(--coral); }
+      .hint {
+        margin-top: 22px;
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p class="eyebrow">Shenicest Fission Hackathon · 2026</p>
+      <h1>ECHO <span>yes, I DO.</span></h1>
+      <p class="lead">
+        面向女性身体认知的 AI × 可穿戴互动系统。请选择适合你设备的案例阅读方式。
+      </p>
+      <div class="choices">
+        <a class="choice choice--web" href="web/index.html">
+          <span class="choice__tag">Desktop</span>
+          <h2>网页版</h2>
+          <p>宽屏案例页：适合电脑浏览完整叙事、研究与技术结构。</p>
+          <span class="choice__go">进入网页版 →</span>
+        </a>
+        <a class="choice choice--mobile" href="mobile/index.html">
+          <span class="choice__tag">Phone</span>
+          <h2>手机版</h2>
+          <p>竖屏优化：适合手机滑动阅读，章节导航更轻量。</p>
+          <span class="choice__go">进入手机版 →</span>
+        </a>
+      </div>
+      <p class="hint">ECHO · 部署到你的腾讯云 COS 后即可公网分享</p>
+    </div>
+    <script>
+      (function () {
+        var q = new URLSearchParams(location.search);
+        if (q.get("v") === "web") location.replace("web/index.html");
+        if (q.get("v") === "mobile") location.replace("mobile/index.html");
+        // 可选：小屏默认提示更偏手机，但不自动跳转，尊重选择页
+      })();
+    </script>
+  </body>
+</html>

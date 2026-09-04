@@ -834,6 +834,13 @@ img {
   color: var(--cyan);
 }
 
+.card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
 .cta-row {
   display: flex;
   flex-direction: column;

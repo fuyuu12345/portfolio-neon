@@ -5,17 +5,37 @@
   const root = "../.."; // repo root from preview/mobile/
 
   const drinks = [
-    { id: "bitter", name: "静默苦味", blurb: "雨夜进店。先认识酒保。", price: "$12" },
-    { id: "mosaic", name: "数据马赛克", blurb: "香港与上海的碎片。", price: "$14" },
-    { id: "collins", name: "故障柯林斯", blurb: "赛博蜉蝣是怎么养的。", price: "$11" },
-    { id: "sunset", name: "像素落日", blurb: "找故事，还是找履历？", price: "$13" },
+    {
+      id: "bitter",
+      name: { zh: "静默苦味", en: "SILENT BITTER" },
+      blurb: { zh: "雨夜进店。先认识酒保。", en: "Rainy night. Meet the bartender." },
+      price: "$12",
+    },
+    {
+      id: "mosaic",
+      name: { zh: "数据马赛克", en: "DATA MOSAIC" },
+      blurb: { zh: "香港与上海的碎片。", en: "Fragments of HK & Shanghai." },
+      price: "$14",
+    },
+    {
+      id: "collins",
+      name: { zh: "故障柯林斯", en: "GLITCH COLLINS" },
+      blurb: { zh: "赛博蜉蝣是怎么养的。", en: "How Cyber Ephemera grew." },
+      price: "$11",
+    },
+    {
+      id: "sunset",
+      name: { zh: "像素落日", en: "PIXEL SUNSET" },
+      blurb: { zh: "找故事，还是找履历？", en: "Stories — or resume?" },
+      price: "$13",
+    },
   ];
 
   const tabDefs = [
-    { id: "cases", label: "整合营销案", key: "cases" },
-    { id: "photos", label: "摄影集", key: "photos" },
-    { id: "social", label: "社交媒体作品", key: "content" },
-    { id: "other", label: "其ta", key: "other" },
+    { id: "cases", label: { zh: "整合营销案", en: "IMC Cases" }, key: "cases" },
+    { id: "photos", label: { zh: "摄影集", en: "Photography" }, key: "photos" },
+    { id: "social", label: { zh: "社交媒体作品", en: "Social" }, key: "content" },
+    { id: "other", label: { zh: "其ta", en: "Other" }, key: "other" },
   ];
 
   const state = {
@@ -23,6 +43,7 @@
     muted: false,
     lang: "zh",
     workTab: "cases",
+    sheetKind: null,
     awaitingChoice: false,
     musicIndex: SITE.music?.defaultIndex || 0,
     audio: null,
@@ -36,61 +57,155 @@
   };
 
   const STORIES = window.MOBILE_STORIES || {};
-  const BRAND_EYEBROW = { zh: "赛博蜉蝣", en: "CYBER FUYUU" };
-  const BOOT_WELCOME = {
-    zh: "雨还在下。先推门进来。",
-    en: "Rain's still falling. Push the door.",
+  const UI = {
+    brandEyebrow: { zh: "赛博蜉蝣", en: "CYBER FUYUU" },
+    bootWelcome: { zh: "雨还在下。先推门进来。", en: "Rain's still falling. Push the door." },
+    bootEnter: { zh: "推门进入", en: "ENTER" },
+    welcomeHi: { zh: "欢迎，", en: "WELCOME," },
+    welcomeName: { zh: "陌生人", en: "STRANGER" },
+    langMenu: { zh: "语言 · 中文 / EN", en: "Language · EN / 中文" },
+    mute: { zh: "静音", en: "Mute" },
+    sound: { zh: "声音", en: "Sound" },
+    playing: { zh: "播放中", en: "Playing" },
+    paused: { zh: "已暂停", en: "Paused" },
+    muted: { zh: "静音", en: "Muted" },
+    tapNext: { zh: "点 NEXT 开声", en: "Tap NEXT for sound" },
+    noTrack: { zh: "无曲目", en: "No tracks" },
+    waitEnter: { zh: "等待推门", en: "Waiting to enter" },
+    nowHint: { zh: "进店后自动播 · 可切歌", en: "Autoplay after enter · next track OK" },
+    specials: { zh: "今日特调", en: "TODAY'S SPECIALS" },
+    specialsHint: { zh: "点一杯，和 Lorde 聊两句", en: "Order a drink — talk with Lorde" },
+    featured: { zh: "精选作品", en: "FEATURED" },
+    featuredHint: { zh: "精选作品", en: "Selected works" },
+    openWork: { zh: "查看作品 →", en: "View work →" },
+    storyBack: { zh: "返回", en: "Back" },
+    dockTalk: { zh: "点单", en: "Order" },
+    dockWork: { zh: "作品", en: "Works" },
+    dockExp: { zh: "经历", en: "Exp" },
+    dockContact: { zh: "联系", en: "Contact" },
+    sheetWork: { zh: "作品", en: "Works" },
+    sheetExp: { zh: "经历", en: "Experience" },
+    sheetContact: { zh: "联系", en: "Contact" },
+    empty: { zh: "暂无", en: "Empty" },
+    coming: { zh: "制作中", en: "Coming soon" },
+    view: { zh: "查看 →", en: "Open →" },
+    expFallback: { zh: "经历示意", en: "Experience placeholder" },
+    downloadCv: { zh: "下载简历", en: "Download CV" },
+    copyWx: { zh: "复制微信", en: "Copy WeChat" },
+    copied: { zh: "已复制", en: "Copied" },
+    copyFail: { zh: "复制失败，请手动加", en: "Copy failed — add manually" },
+    email: { zh: "邮箱", en: "Email" },
+    storyEnd: { zh: "结束对话", en: "End chat" },
+    orderAgain: { zh: "再点一杯", en: "Another drink" },
+    orderOnce: { zh: "点一杯", en: "Order a drink" },
+    drinkMenu: {
+      zh: "今晚想喝哪一杯？右边也有，点这里也行。",
+      en: "What'll it be? Menu's on the right — or pick here.",
+    },
+    drinkAgain: { zh: "再来一杯？选吧。", en: "Another round? Pick one." },
+    idleHint: {
+      zh: "想喝了再挥手，或者点下面特调。",
+      en: "Wave when you want a drink — or tap a special below.",
+    },
+    prev: { zh: "上一个", en: "Previous" },
+    next: { zh: "下一个", en: "Next" },
   };
-  const WELCOME_HI = { zh: "欢迎，", en: "WELCOME," };
-  const WELCOME_NAME = { zh: "陌生人", en: "STRANGER" };
-  const LANG_MENU = { zh: "语言 · 中文 / EN", en: "Language · EN / 中文" };
-  const MUTE_LABEL = { zh: "静音", en: "Mute" };
-  const SOUND_LABEL = { zh: "声音", en: "Sound" };
 
-  function renderWelcome() {
-    const hi = $("#welcomeHi");
-    const name = $("#welcomeName");
-    const menuLang = $("#menuLang");
-    const menuMute = $("#menuMute");
-    if (hi) hi.textContent = WELCOME_HI[state.lang];
-    if (name) name.textContent = WELCOME_NAME[state.lang];
-    if (menuLang) menuLang.textContent = LANG_MENU[state.lang];
-    if (menuMute) menuMute.textContent = state.muted ? SOUND_LABEL[state.lang] : MUTE_LABEL[state.lang];
+  function t(v) {
+    if (!v) return "";
+    if (typeof v === "string") return v;
+    return v[state.lang] || v.zh || v.en || "";
+  }
+
+  function refreshChrome() {
+    const set = (sel, text) => {
+      const el = $(sel);
+      if (el) el.textContent = text;
+    };
+    set("#brandEyebrow", t(UI.brandEyebrow));
+    set("#bootEyebrow", t(UI.brandEyebrow));
+    set("#bootWelcome", t(UI.bootWelcome));
+    set("#bootEnter", t(UI.bootEnter));
+    set("#welcomeHi", t(UI.welcomeHi));
+    set("#welcomeName", t(UI.welcomeName));
+    set("#menuLang", t(UI.langMenu));
+    set("#menuMute", state.muted ? t(UI.sound) : t(UI.mute));
+    set("#storyBack", t(UI.storyBack));
+    set("#nowHint", t(UI.nowHint));
+    set("#specialsTitle", t(UI.specials));
+    set("#specialsHint", t(UI.specialsHint));
+    set("#featuredHint", t(UI.featuredHint));
+    set("#featOpen", t(UI.openWork));
+    set('[data-nav="talk"]', t(UI.dockTalk));
+    set('[data-nav="work"]', t(UI.dockWork));
+    set('[data-nav="exp"]', t(UI.dockExp));
+    set('[data-nav="contact"]', t(UI.dockContact));
+    const prev = $("#featPrev");
+    const next = $("#featNext");
+    if (prev) prev.setAttribute("aria-label", t(UI.prev));
+    if (next) next.setAttribute("aria-label", t(UI.next));
+    document.documentElement.lang = state.lang === "zh" ? "zh-CN" : "en";
   }
 
   function setLang(next) {
     state.lang = next;
-    $("#brandEyebrow").textContent = BRAND_EYEBROW[state.lang];
-    const bootEyebrow = $("#bootEyebrow");
-    const bootWelcome = $("#bootWelcome");
-    if (bootEyebrow) bootEyebrow.textContent = BRAND_EYEBROW[state.lang];
-    if (bootWelcome) bootWelcome.textContent = BOOT_WELCOME[state.lang];
-    document.documentElement.lang = state.lang === "zh" ? "zh-CN" : "en";
-    renderWelcome();
-    if (state.storyId && state.storyNode) renderStoryNode(state.storyNode, false);
+    refreshChrome();
+    renderDrinks();
+    renderFeature();
+    refreshMusicStatus();
+    if (state.storyId && state.storyNode) {
+      const choices = $("#choices");
+      const keepList = choices?._list;
+      renderStoryNode(state.storyNode, false);
+      if (keepList && !STORIES[state.storyId]?.nodes?.[state.storyNode]?.choices) {
+        // menu/end choices rebuilt inside renderStoryNode
+      }
+    }
+    if (state.sheetKind) openSheet(state.sheetKind);
+  }
+
+  function refreshMusicStatus() {
+    const audio = state.audio;
+    const el = $("#musicStatus");
+    if (!el) return;
+    if (!tracks().length) {
+      el.textContent = t(UI.noTrack);
+      return;
+    }
+    if (!audio || !audio.src) {
+      el.textContent = t(UI.waitEnter);
+      return;
+    }
+    if (state.muted) {
+      el.textContent = t(UI.muted);
+      return;
+    }
+    if (audio.paused) {
+      el.textContent = t(UI.paused);
+      return;
+    }
+    el.textContent = t(UI.playing);
   }
 
   async function setMuted(next) {
     state.muted = next;
     const audio = ensureAudio();
     audio.muted = state.muted;
-    renderWelcome();
+    refreshChrome();
     if (!state.muted && audio.paused && audio.src) {
       try {
         await audio.play();
-        $("#musicStatus").textContent = "播放中";
+        $("#musicStatus").textContent = t(UI.playing);
       } catch {
-        $("#musicStatus").textContent = "点 NEXT 开声";
+        $("#musicStatus").textContent = t(UI.tapNext);
       }
     } else {
-      $("#musicStatus").textContent = state.muted ? "静音" : audio.paused ? "已暂停" : "播放中";
+      refreshMusicStatus();
     }
   }
 
   function zh(v) {
-    if (!v) return "";
-    if (typeof v === "string") return v;
-    return v[state.lang] || v.zh || v.en || "";
+    return t(v);
   }
 
   function abs(path) {
@@ -134,7 +249,7 @@
     const list = tracks();
     if (!list.length) {
       $("#musicTitle").textContent = "No Signal";
-      $("#musicStatus").textContent = "无曲目";
+      $("#musicStatus").textContent = t(UI.noTrack);
       return;
     }
     state.musicIndex = ((index % list.length) + list.length) % list.length;
@@ -144,21 +259,21 @@
     audio.muted = state.muted;
     $("#musicTitle").textContent = zh(track.title) || track.id;
     if (!autoplay || state.muted) {
-      $("#musicStatus").textContent = state.muted ? "静音" : "已暂停";
+      $("#musicStatus").textContent = state.muted ? t(UI.muted) : t(UI.paused);
       return;
     }
     try {
       await audio.play();
-      $("#musicStatus").textContent = "播放中";
+      $("#musicStatus").textContent = t(UI.playing);
     } catch {
-      $("#musicStatus").textContent = "点 NEXT 开声";
+      $("#musicStatus").textContent = t(UI.tapNext);
     }
   }
 
   function enter() {
     $("#boot").hidden = true;
     $("#app").hidden = false;
-    renderWelcome();
+    refreshChrome();
     renderDrinks();
     renderFeature();
     playTrack(state.musicIndex, true);
@@ -188,7 +303,7 @@
 
   function drinkChoices() {
     return drinks.map((d) => ({
-      label: d.name,
+      label: zh(d.name),
       action: "start-story",
       story: d.id,
     }));
@@ -196,8 +311,11 @@
 
   function endChoices() {
     return [
-      { label: "结束对话", action: "exit-story" },
-      { label: state.hasOrderedDrink ? "再点一杯" : "点一杯", action: "order-again" },
+      { label: t(UI.storyEnd), action: "exit-story" },
+      {
+        label: state.hasOrderedDrink ? t(UI.orderAgain) : t(UI.orderOnce),
+        action: "order-again",
+      },
     ];
   }
 
@@ -274,7 +392,7 @@
     setStoryBar(true);
     hideChoices();
     $$(".drink").forEach((el) => el.classList.remove("is-on"));
-    const line = again ? "再来一杯？选吧。" : "今晚想喝哪一杯？右边也有，点这里也行。";
+    const line = again ? t(UI.drinkAgain) : t(UI.drinkMenu);
     typeLine(line, () => showChoices(drinkChoices()));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -312,7 +430,7 @@
     setStoryBar(false);
     hideChoices();
     $$(".drink").forEach((el) => el.classList.remove("is-on"));
-    typeLine("想喝了再挥手，或者点下面特调。", () => showChoices(endChoices()));
+    typeLine(t(UI.idleHint), () => showChoices(endChoices()));
   }
 
   function storyBack() {
@@ -363,8 +481,8 @@
     $("#drinks").innerHTML = drinks
       .map(
         (d) => `<button type="button" class="drink" data-drink="${d.id}">
-          <strong>${d.name}</strong>
-          <span>${d.blurb}</span>
+          <strong>${zh(d.name)}</strong>
+          <span>${zh(d.blurb)}</span>
           <em class="drink__price">${d.price}</em>
         </button>`
       )
@@ -386,13 +504,25 @@
 
   function workCards(key) {
     const items = portfolioItems(key);
-    if (!items.length) return `<div class="card"><p>暂无</p></div>`;
+    if (!items.length) return `<div class="card"><p>${t(UI.empty)}</p></div>`;
     return items
       .map((it) => {
-        const href = abs(it.link);
-        const link = href
-          ? `<a href="${href}" target="_blank" rel="noopener">查看 →</a>`
-          : `<span style="color:var(--mute)">制作中</span>`;
+        let link = `<span style="color:var(--mute)">${t(UI.coming)}</span>`;
+        if (Array.isArray(it.links) && it.links.length) {
+          link = `<div class="card__links">${it.links
+            .map((l) => {
+              const href = abs(l.href);
+              return href
+                ? `<a href="${href}" target="_blank" rel="noopener">${zh(l.label)}</a>`
+                : "";
+            })
+            .join("")}</div>`;
+        } else {
+          const href = abs(it.link);
+          link = href
+            ? `<a href="${href}" target="_blank" rel="noopener">${t(UI.view)}</a>`
+            : `<span style="color:var(--mute)">${t(UI.coming)}</span>`;
+        }
         return `<div class="card"><h3>${zh(it.title)}</h3><p>${zh(it.summary)}</p>${link}</div>`;
       })
       .join("");
@@ -402,56 +532,58 @@
     const sheet = $("#sheet");
     const tabs = $("#sheetTabs");
     const body = $("#sheetBody");
+    state.sheetKind = kind;
     sheet.hidden = false;
     document.body.style.overflow = "hidden";
     $$(".dock__btn").forEach((b) => b.classList.toggle("is-on", b.dataset.nav === kind));
 
     if (kind === "work") {
-      $("#sheetTitle").textContent = "作品";
+      $("#sheetTitle").textContent = t(UI.sheetWork);
       tabs.hidden = false;
       tabs.innerHTML = tabDefs
         .map(
-          (t) =>
-            `<button type="button" class="sheet__tab${state.workTab === t.id ? " is-on" : ""}" data-wtab="${t.id}">${t.label}</button>`
+          (tab) =>
+            `<button type="button" class="sheet__tab${state.workTab === tab.id ? " is-on" : ""}" data-wtab="${tab.id}">${zh(tab.label)}</button>`
         )
         .join("");
-      const def = tabDefs.find((t) => t.id === state.workTab) || tabDefs[0];
+      const def = tabDefs.find((tab) => tab.id === state.workTab) || tabDefs[0];
       body.innerHTML = workCards(def.key);
       return;
     }
 
     tabs.hidden = true;
     if (kind === "exp") {
-      $("#sheetTitle").textContent = "经历";
+      $("#sheetTitle").textContent = t(UI.sheetExp);
       const jobs = SITE.experience || [];
       body.innerHTML = jobs.length
         ? jobs
-            .map(
-              (j) =>
-                `<div class="card"><h3>${zh(j.company)}</h3><p>${zh(j.role)} · ${j.period || ""}</p><p>${(j.bullets?.zh || []).slice(0, 2).join(" ")}</p></div>`
-            )
+            .map((j) => {
+              const bullets = j.bullets?.[state.lang] || j.bullets?.zh || [];
+              const line = Array.isArray(bullets) ? bullets.slice(0, 2).join(" ") : "";
+              return `<div class="card"><h3>${zh(j.company)}</h3><p>${zh(j.role)} · ${j.period || ""}</p><p>${line}</p></div>`;
+            })
             .join("")
-        : `<div class="card"><p>经历示意</p></div>`;
+        : `<div class="card"><p>${t(UI.expFallback)}</p></div>`;
       return;
     }
 
     if (kind === "contact") {
-      $("#sheetTitle").textContent = "联系";
+      $("#sheetTitle").textContent = t(UI.sheetContact);
       const c = SITE.contact || {};
       const cv = abs(SITE.resumePath || "assets/resume.pdf");
       body.innerHTML = `
         <div class="cta-row">
-          <a class="cta cta--fill" href="${cv}" download>下载简历</a>
-          <button type="button" class="cta cta--ghost" id="copyWx">复制微信 ${c.wechat || ""}</button>
+          <a class="cta cta--fill" href="${cv}" download>${t(UI.downloadCv)}</a>
+          <button type="button" class="cta cta--ghost" id="copyWx">${t(UI.copyWx)} ${c.wechat || ""}</button>
         </div>
-        <div class="card" style="margin-top:12px"><h3>邮箱</h3><p>${c.email || ""}</p></div>`;
+        <div class="card" style="margin-top:12px"><h3>${t(UI.email)}</h3><p>${c.email || ""}</p></div>`;
       $("#copyWx")?.addEventListener("click", async () => {
         const btn = $("#copyWx");
         try {
           await navigator.clipboard.writeText(c.wechat || "");
-          btn.textContent = "已复制";
+          btn.textContent = t(UI.copied);
         } catch {
-          btn.textContent = "复制失败，请手动加";
+          btn.textContent = t(UI.copyFail);
         }
       });
       return;
@@ -460,6 +592,7 @@
   }
 
   function closeSheet() {
+    state.sheetKind = null;
     $("#sheet").hidden = true;
     document.body.style.overflow = "";
     $$(".dock__btn").forEach((b) => b.classList.toggle("is-on", b.dataset.nav === "talk"));
@@ -554,4 +687,5 @@
   }
 
   bind();
+  refreshChrome();
 })();

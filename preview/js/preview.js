@@ -887,9 +887,17 @@
         const cover = item.cover
           ? `<img src="${asset(item.cover)}" alt="" />`
           : `<span>${t(UI.comingSoon)}</span>`;
-        const link = item.link
-          ? `<a class="work-link" href="${asset(item.link)}" target="_blank" rel="noopener">${t(ctaLabel)}</a>`
-          : `<span class="work-link">${t(UI.comingSoon)}</span>`;
+        let link = `<span class="work-link">${t(UI.comingSoon)}</span>`;
+        if (Array.isArray(item.links) && item.links.length) {
+          link = `<div class="work-links">${item.links
+            .map(
+              (l) =>
+                `<a class="work-link" href="${asset(l.href)}" target="_blank" rel="noopener">${t(l.label)}</a>`
+            )
+            .join("")}</div>`;
+        } else if (item.link) {
+          link = `<a class="work-link" href="${asset(item.link)}" target="_blank" rel="noopener">${t(ctaLabel)}</a>`;
+        }
         return `<article class="work-card">
           <div class="work-cover">${cover}</div>
           <div>

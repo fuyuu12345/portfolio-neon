@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f0e8" />
+    <meta
+      name="description"
+      content="ECHO · yes, I DO. — 面向女性身体认知的 AI × 可穿戴互动系统。黑客松项目网页版案例。"
+    />
+    <title>ECHO · yes, I DO. | Web Case Study</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="web.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="side">
+        <div class="side__brand">ECHO <span>yes, I DO.</span></div>
+        <nav aria-label="章节导航" id="sideNav">
+          <a href="#hero" data-section="hero">首页</a>
+          <a href="#overview" data-section="overview">概览</a>
+          <a href="#research" data-section="research">研究</a>
+          <a href="#experience" data-section="experience">体验</a>
+          <a href="#technology" data-section="technology">技术</a>
+          <a href="#development" data-section="development">开发</a>
+          <a href="#business" data-section="business">商业</a>
+          <a href="#about" data-section="about">团队</a>
+        </nav>
+        <div class="side__switch">
+          <a href="../index.html">← 版本选择</a>
+          <a href="../mobile/index.html">手机版 →</a>
+        </div>
+      </aside>
+
+      <div class="main">
+        <header class="hero" id="hero">
+          <div>
+            <p class="hero__eyebrow">Shenicest Fission Hackathon · 2026</p>
+            <h1 class="hero__title">ECHO</h1>
+            <p class="hero__slogan">yes, I DO.</p>
+            <p class="hero__lead">面向女性身体认知的 AI × 可穿戴互动系统。</p>
+            <p class="hero__sub">
+              通过智能戒指、ECHO App 与触觉反馈设备，把身体信号、用户选择和长期记录连接成完整体验。
+            </p>
+          </div>
+          <div class="hero__visual">
+            <img
+              src="../assets/hero/echo-main-visual.png"
+              alt="ECHO 主视觉：App、智能戒指与触觉反馈设备"
+              width="1586"
+              height="992"
+            />
+          </div>
+        </header>
+
+        <section class="chapter" id="overview">
+          <p class="chapter__label"><b>01</b> Project Overview</p>
+          <h2 class="chapter__title">产品概述</h2>
+          <p class="chapter__intro">
+            ECHO 是一套由 Smart Ring、ECHO App 与 Haptic Device 组成的女本位身体感知互动系统。身体变化是互动线索，不是替用户判断感受或意愿。
+          </p>
+          <div class="grid-2">
+            <div>
+              <p class="kicker">Core question</p>
+              <p class="quote">记录身体数据，不等于认识身体。</p>
+              <p class="muted" style="margin-top: 14px">
+                现有可穿戴擅长数值展示。ECHO 关心的是：当身体信号进入互动，它能否帮助用户更细致地察觉当下，并在安全边界内留下自己的长期经验。
+              </p>
+            </div>
+            <div class="promise">
+              <p class="kicker">Slogan</p>
+              <h3>把 YES, I DO 说给自己</h3>
+              <p class="muted" style="margin-bottom: 10px">
+                婚礼上，人们戴上戒指对另一个人说 Yes, I do。这一次，我们想请你把这句话留给自己。
+              </p>
+              <ul>
+                <li>我愿意正视自己的欲望。</li>
+                <li>我愿意开始了解自己的身体。</li>
+                <li>我愿意承认自己的喜欢、不喜欢，以及它们随时可能发生的变化。</li>
+                <li>我愿意把关于身体的最终选择权，留在自己手里。</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter" id="research">
+          <p class="chapter__label"><b>02</b> Research & Insights</p>
+          <h2 class="chapter__title">研究与洞察</h2>
+          <p class="chapter__intro">问卷呈现需求与顾虑，文献解释信号与体验的差异，三次深访检查硬件和交互假设。</p>
+          <div class="stats">
+            <div class="stat"><span class="stat__num">84.8%</span><span class="stat__label">认为身体认知重要</span></div>
+            <div class="stat"><span class="stat__num">59.5%</span><span class="stat__label">认为自己比较／非常了解</span></div>
+            <div class="stat"><span class="stat__num">46.8%</span><span class="stat__label">希望低打扰回应</span></div>
+            <div class="stat"><span class="stat__num">51.9%</span><span class="stat__label">担心操作或提示打断体验</span></div>
+          </div>
+          <div class="findings">
+            <article class="finding">
+              <p class="finding__n">01 / Finding</p>
+              <h3>信号可以测量，感受不能被代言</h3>
+              <p>身体反应与主观体验并不总是一一对应。感知，但不定义。</p>
+            </article>
+            <article class="finding">
+              <p class="finding__n">02 / Finding</p>
+              <h3>需要的不只是更多数据</h3>
+              <p>把身体信号、主动反馈与主观记录连接起来，才形成个人身体经验。</p>
+            </article>
+            <article class="finding">
+              <p class="finding__n">03 / Finding</p>
+              <h3>技术要出现，但不能抢走注意力</h3>
+              <p>降低注意力成本，而不是增加操作。</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="chapter" id="experience">
+          <p class="chapter__label"><b>03</b> Product Experience</p>
+          <h2 class="chapter__title">一个系统，三个触点</h2>
+          <p class="chapter__intro">从感知身体变化，到形成回应，ECHO 将一次体验连接成完整互动闭环。</p>
+          <div class="touchpoints">
+            <article class="touch">
+              <div class="touch__media">
+                <img src="../assets/product/smart-ring.png" alt="ECHO 智能戒指" width="724" height="543" />
+              </div>
+              <div class="touch__body">
+                <p class="touch__role">01 · Sense</p>
+                <h3>智能戒指</h3>
+                <p>感知体验过程中的心率和血氧变化，并保留全系统暂停入口。</p>
+              </div>
+            </article>
+            <article class="touch">
+              <div class="touch__media">
+                <img src="../assets/product/app-overview.png" alt="ECHO App" width="768" height="512" />
+              </div>
+              <div class="touch__body">
+                <p class="touch__role">02 · Adapt</p>
+                <h3>ECHO App</h3>
+                <p>接收身体信号，通过 AI 互动、主动询问与用户选择，持续调整体验内容。</p>
+              </div>
+            </article>
+            <article class="touch">
+              <div class="touch__media">
+                <img src="../assets/product/haptic-device.png" alt="ECHO 触觉反馈设备" width="724" height="543" />
+              </div>
+              <div class="touch__body">
+                <p class="touch__role">03 · Respond</p>
+                <h3>触觉反馈设备</h3>
+                <p>提供压力与实体按键输入，并接收经安全策略确认后的振动反馈。</p>
+              </div>
+            </article>
+          </div>
+          <p class="flow">SENSE → ADAPT → RESPOND</p>
+
+          <p class="kicker" style="margin-top: 36px">One experience</p>
+          <h3 style="margin: 0 0 16px; font-size: 1.25rem">一次完整体验</h3>
+          <ol class="steps">
+            <li><h4>选择体验</h4><p>选择当下想进入的叙事与互动方式。</p></li>
+            <li><h4>设定边界</h4><p>开始之前，确认自己的体验范围与边界。</p></li>
+            <li><h4>建立基线</h4><p>读取此刻的心率与血氧，为观察相对变化建立参照。</p></li>
+            <li><h4>互动与记录</h4><p>体验中作出选择；结束后，用户决定是否保存本次身体变化与主观感受。</p></li>
+          </ol>
+          <div class="ui-rail" aria-label="App 界面预览">
+            <figure>
+              <img src="../assets/ui/app-ui-02.png" alt="选择体验" width="339" height="732" loading="lazy" />
+              <figcaption>选择体验</figcaption>
+            </figure>
+            <figure>
+              <img src="../assets/ui/app-ui-03.png" alt="设定边界" width="339" height="732" loading="lazy" />
+              <figcaption>设定边界</figcaption>
+            </figure>
+            <figure>
+              <img src="../assets/ui/app-ui-06.png" alt="建立基线" width="339" height="732" loading="lazy" />
+              <figcaption>建立基线</figcaption>
+            </figure>
+            <figure>
+              <img src="../assets/ui/app-ui-11.png" alt="互动与记录" width="338" height="732" loading="lazy" />
+              <figcaption>互动与记录</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="chapter" id="technology">
+          <p class="chapter__label"><b>04</b> Technology</p>
+          <h2 class="chapter__title">从信号到回应</h2>
+          <p class="chapter__intro">ECHO 不让 AI 直接控制硬件。信号进入 App，经过状态判断、AI 互动与本地安全策略，才形成可执行的回应。</p>
+          <ol class="pipeline">
+            <li><span class="pipeline__n">01</span><strong>Sense</strong><span>Smart Ring 心率／血氧 · Haptic 压力／按键 · BLE</span></li>
+            <li><span class="pipeline__n">02</span><strong>Interpret</strong><span>Android App · State Engine（状态 + 置信度）</span></li>
+            <li><span class="pipeline__n">03</span><strong>Decide</strong><span>AI Gateway → Content Validator → Safe Action Mapper</span></li>
+            <li><span class="pipeline__n">04</span><strong>Act</strong><span>Whitelist Action → Haptic · App 始终可 STOP／PAUSE</span></li>
+          </ol>
+          <div class="safety">
+            <h3>AI CAN SUGGEST. IT CANNOT OVERRIDE.</h3>
+            <p>AI 可以提出回应，但不能越过用户和安全边界；不直接输出底层电机控制参数。</p>
+            <ul>
+              <li>设备关机键可本地关闭马达</li>
+              <li>戒指长按触发全系统暂停</li>
+              <li>App 始终提供 STOP</li>
+              <li>BLE 断开进入 OFF / paused</li>
+            </ul>
+          </div>
+          <div class="stack">
+            <span>React Native</span><span>Expo</span><span>TypeScript</span><span>BLE / GATT</span>
+            <span>Node.js 22</span><span>Gemini Flash</span><span>Fish Audio TTS</span><span>State Machine</span>
+          </div>
+        </section>
+
+        <section class="chapter" id="development">
+          <p class="chapter__label"><b>05</b> Development</p>
+          <h2 class="chapter__title">可运行闭环（4天）</h2>
+          <p class="chapter__intro">Four days. One working loop.</p>
+          <ol class="days">
+            <li><span class="days__day">DAY 01</span><h4>Make it run</h4><p>环境、真机、Replay UI、传感器与马达分测。假数据可走完整管线。</p></li>
+            <li><span class="days__day">DAY 02</span><h4>Make it connect</h4><p>双 BLE、Packet Codec、暂停链路。两设备可独立收发，STOP 可关闭动作。</p></li>
+            <li><span class="days__day">DAY 03</span><h4>Make it respond</h4><p>State Engine、结构化 AI、TTS、安全动作映射。一条真实端到端剧情连续运行。</p></li>
+            <li><span class="days__day">DAY 04</span><h4>Make it survive</h4><p>异常处理、Replay 兜底、装配与彩排。完整演示，异常时可切换 Replay。</p></li>
+          </ol>
+        </section>
+
+        <section class="chapter" id="business">
+          <p class="chapter__label"><b>06</b> Business</p>
+          <h2 class="chapter__title">硬件入口 · 个体化价值</h2>
+          <p class="chapter__intro">从一次体验，到长期的身体认知。</p>
+          <div class="biz-grid">
+            <article class="biz"><p class="biz__tag">Hardware</p><h4>设备入口</h4><p>Smart Ring + Haptic Device</p></article>
+            <article class="biz"><p class="biz__tag">Subscription</p><h4>持续服务</h4><p>长期记录 + 个体化 AI</p></article>
+            <article class="biz"><p class="biz__tag">Content</p><h4>体验内容</h4><p>角色 + 剧情 + 声音</p></article>
+            <article class="biz"><p class="biz__tag">Early adopters</p><h4>20–40 岁女性</h4><p>关注身体认知、可穿戴与 AI 的早期用户</p></article>
+          </div>
+          <ol class="phases">
+            <li><p class="phases__phase">Phase 01 · Now</p><h4>Prove</h4><p>黑客松原型 + 小规模测试，验证完整体验闭环。</p></li>
+            <li><p class="phases__phase">Phase 02 · Next</p><h4>Grow</h4><p>Beta 社群与真实反馈循环，优化佩戴、AI 与内容。</p></li>
+            <li><p class="phases__phase">Phase 03 · Future</p><h4>Scale</h4><p>探索硬件、订阅与体验内容共同组成的产品生态。</p></li>
+          </ol>
+        </section>
+
+        <section class="chapter" id="about">
+          <p class="chapter__label"><b>07</b> About</p>
+          <h2 class="chapter__title">团队分工</h2>
+          <p class="chapter__intro">从洞察、设计到软硬件实现。</p>
+          <ul class="team">
+            <li class="member">
+              <img src="../assets/team/team-fuyou.jpg" alt="蜉蝣" width="400" height="400" loading="lazy" />
+              <div class="member__body"><p class="member__role">Product · Business</p><h3>蜉蝣</h3><p>产品策略 / 商业化路径</p></div>
+            </li>
+            <li class="member">
+              <img src="../assets/team/team-xiaohong.jpg" alt="小洪" width="400" height="400" loading="lazy" />
+              <div class="member__body"><p class="member__role">Product · Research</p><h3>小洪</h3><p>用户研究 / 产品体验</p></div>
+            </li>
+            <li class="member">
+              <img src="../assets/team/team-ivy.jpg" alt="IVY" width="400" height="400" loading="lazy" />
+              <div class="member__body"><p class="member__role">UI · UX</p><h3>IVY</h3><p>视觉系统 / 交互设计</p></div>
+            </li>
+            <li class="member">
+              <img src="../assets/team/team-fenix.jpg" alt="Fenix" width="400" height="400" loading="lazy" />
+              <div class="member__body"><p class="member__role">Full-stack</p><h3>Fenix</h3><p>软件开发 / AI × BLE</p></div>
+            </li>
+            <li class="member">
+              <img src="../assets/team/team-grace.jpg" alt="Grace" width="400" height="400" loading="lazy" />
+              <div class="member__body"><p class="member__role">Hardware</p><h3>Grace</h3><p>硬件开发 / 原型实现</p></div>
+            </li>
+          </ul>
+        </section>
+
+        <footer class="footer">
+          <div class="footer__inner">
+            <div>
+              <h2>ECHO · yes, I DO.</h2>
+              <p>从身体信号到安全回应——现场演示覆盖连接、基线、状态判断、AI 互动与随时暂停。</p>
+            </div>
+            <a href="../mobile/index.html">打开手机版</a>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="web.js"></script>
+  </body>
+</html>

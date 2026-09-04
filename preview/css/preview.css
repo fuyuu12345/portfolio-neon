@@ -967,6 +967,17 @@ body.is-paused .now__eq i {
   font-size: 12px;
 }
 
+.modal__body .work-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 8px;
+}
+
+.modal__body .work-links .work-link {
+  margin-top: 0;
+}
+
 .modal__body .contact-modal__cta {
   display: flex;
   gap: 8px;

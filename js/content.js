@@ -7,7 +7,7 @@
  * 默认密码请尽快改掉（只有你知道即可）。
  */
 window.SITE = {
-  draftVersion: "2026-09-04-echo-shenicest",
+  draftVersion: "2026-09-04-echo-patent-flow",
 
   /**
    * 编辑模式密码 — 公开仓库请留空，在 js/content.local.js 写真实密码（已 gitignore）。
@@ -369,8 +369,8 @@ window.SITE = {
         cover: "assets/cases/echo-yesido-cover.png",
         title: { zh: "ECHO · yes, I DO.", en: "ECHO · yes, I DO." },
         summary: {
-          zh: "2026 北京 Shenicest 黑客松 · 萨福命题赛道作品。软件 + 硬件（专利申请中）。期待合作 / 建联。",
-          en: "2026 Beijing Shenicest Hackathon · Sappho track. Software + hardware (patent pending). Open to collab.",
+          zh: "2026 北京 Shenicest 黑客松 · 萨福命题赛道作品。软件 + 硬件（已进入专利申请流程）。期待合作 / 建联。",
+          en: "2026 Beijing Shenicest Hackathon · Sappho track. Software + hardware (patent filing in progress). Open to collab.",
         },
         link: "products/echo-yesido/index.html",
         links: [
@@ -383,7 +383,7 @@ window.SITE = {
             href: "products/echo-yesido/mobile/index.html",
           },
         ],
-        tags: ["Shenicest", "黑客松", "萨福", "软硬件", "专利中"],
+        tags: ["具身智能", "Shenicest", "黑客松", "萨福", "软硬件", "专利流程中"],
       },
       {
         cover: "assets/cases/family-light-cover.png",

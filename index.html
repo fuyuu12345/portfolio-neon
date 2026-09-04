@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#07060a" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
     <title>AFTERGLOW · 选择阅读方式</title>
     <link rel="preload" href="preview/assets/fonts/PressStart2P-Regular.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="preload" href="preview/assets/fonts/Cubic_11.ttf" as="font" type="font/ttf" crossorigin />
@@ -44,167 +45,148 @@
           radial-gradient(ellipse 70% 40% at 10% 0%, rgba(255, 75, 150, 0.12), transparent 55%),
           var(--bg);
         min-height: 100dvh;
+        max-height: 100dvh;
+        overflow: hidden;
         display: flex;
-        align-items: stretch;
+        align-items: center;
         justify-content: center;
         padding:
-          max(10px, env(safe-area-inset-top))
-          14px
-          max(10px, env(safe-area-inset-bottom));
+          max(8px, env(safe-area-inset-top))
+          12px
+          max(8px, env(safe-area-inset-bottom));
         -webkit-font-smoothing: none;
         font-smooth: never;
       }
 
       .wrap {
-        width: min(520px, 100%);
-        min-height: 0;
-        max-height: 100dvh;
+        width: min(420px, 100%);
+        max-height: calc(100dvh - 16px);
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 8px;
-        padding: 4px 0;
+        gap: 6px;
       }
 
       .eyebrow {
         margin: 0;
-        font-size: 13px;
-        letter-spacing: 0.12em;
+        font-size: 12px;
+        letter-spacing: 0.1em;
         color: var(--cyan);
-        line-height: 1.3;
+        line-height: 1.2;
       }
 
       .eyebrow .en {
         font-family: var(--pixel);
-        font-size: 0.5rem;
+        font-size: 0.45rem;
         letter-spacing: 0.04em;
-        vertical-align: 0.08em;
+        vertical-align: 0.1em;
       }
 
       .brand {
         margin: 0;
         font-family: var(--pixel);
-        font-size: clamp(0.92rem, 4.2vw, 1.2rem);
-        line-height: 1.35;
-        letter-spacing: 0.02em;
+        font-size: clamp(0.85rem, 3.8vw, 1.05rem);
+        line-height: 1.3;
       }
 
       .brand .w { color: var(--ink); }
       .brand .p { color: var(--pink); }
 
       .lead {
-        margin: 0 0 2px;
-        font-size: 12px;
-        line-height: 1.45;
-        letter-spacing: 0.03em;
+        margin: 0;
+        font-size: 11px;
+        line-height: 1.35;
         color: var(--mute);
       }
 
       .choices {
         display: grid;
-        gap: 8px;
-        flex: 0 0 auto;
+        gap: 6px;
       }
 
       .choice {
         display: grid;
         grid-template-columns: 1fr auto;
-        grid-template-rows: auto auto;
-        column-gap: 10px;
-        row-gap: 2px;
         align-items: center;
+        column-gap: 8px;
         text-decoration: none;
         color: inherit;
         background: var(--panel);
         border: 1px solid var(--line);
-        padding: 10px 12px;
-        transition: border-color 0.18s ease, background 0.18s ease;
+        padding: 8px 10px;
       }
 
-      .choice:active { transform: scale(0.99); }
-      .choice:hover {
-        border-color: var(--pink);
-        background: #14101c;
-      }
+      .choice:active { opacity: 0.92; }
+
+      .choice__meta { min-width: 0; }
 
       .choice__kicker {
-        margin: 0;
-        grid-column: 1;
+        margin: 0 0 2px;
         font-family: var(--pixel);
-        font-size: 0.48rem;
-        line-height: 1.3;
-        letter-spacing: 0.06em;
+        font-size: 0.42rem;
+        line-height: 1.2;
+        letter-spacing: 0.05em;
         color: var(--cyan);
       }
 
       .choice h2 {
         margin: 0;
-        grid-column: 1;
-        font-family: var(--cn);
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 400;
-        letter-spacing: 0.06em;
-        color: var(--ink);
-        line-height: 1.3;
+        letter-spacing: 0.05em;
+        line-height: 1.25;
       }
 
       .choice p { display: none; }
 
       .choice__go {
-        grid-column: 2;
-        grid-row: 1 / span 2;
-        font-size: 12px;
-        letter-spacing: 0.06em;
+        font-size: 11px;
+        letter-spacing: 0.05em;
         color: var(--pink);
         white-space: nowrap;
       }
 
       .echo {
-        margin: 2px 0 0;
-        padding-top: 8px;
+        margin: 0;
+        padding-top: 6px;
         border-top: 1px solid rgba(244, 238, 248, 0.12);
-        flex: 0 1 auto;
-        min-height: 0;
       }
 
       .echo__top {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        gap: 6px 8px;
-        margin: 0 0 6px;
+        gap: 4px 6px;
+        margin: 0 0 4px;
       }
 
       .echo__title {
         margin: 0;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 400;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.05em;
       }
 
       .echo__tags {
         display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
+        gap: 4px;
       }
 
       .echo__tags span {
         border: 1px solid rgba(122, 240, 247, 0.4);
-        padding: 2px 6px;
-        font-size: 11px;
-        letter-spacing: 0.04em;
+        padding: 1px 5px;
+        font-size: 10px;
         color: var(--cyan);
       }
 
       .echo__copy {
-        margin: 0 0 6px;
-        font-size: 11px;
-        line-height: 1.45;
-        letter-spacing: 0.02em;
+        margin: 0 0 4px;
+        font-size: 10px;
+        line-height: 1.4;
         color: var(--mute);
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 2;
         overflow: hidden;
       }
 
@@ -212,44 +194,38 @@
         display: flex;
         flex-wrap: wrap;
         align-items: baseline;
-        gap: 8px 14px;
+        gap: 6px 12px;
       }
 
       .echo__cta {
         margin: 0;
-        font-size: 12px;
-        letter-spacing: 0.08em;
+        font-size: 11px;
+        letter-spacing: 0.06em;
         color: var(--pink);
       }
 
       .echo a {
         color: var(--cyan);
         text-decoration: none;
-        font-size: 12px;
-        letter-spacing: 0.04em;
+        font-size: 11px;
       }
 
-      .echo a:hover { color: var(--pink); }
-
-      @media (min-height: 740px) {
-        .wrap { gap: 10px; }
+      /* 仅宽屏桌面略松一点；手机永远紧凑一屏 */
+      @media (min-width: 720px) {
+        .wrap { width: min(480px, 100%); gap: 10px; }
         .lead { font-size: 13px; }
         .choice { padding: 12px 14px; }
         .choice h2 { font-size: 16px; }
         .choice p {
           display: block;
-          margin: 0;
-          grid-column: 1 / -1;
+          margin: 3px 0 0;
           font-size: 12px;
-          line-height: 1.4;
+          line-height: 1.35;
           color: var(--mute);
-        }
-        .choice__go {
-          grid-row: 1 / span 2;
         }
         .echo__copy {
           font-size: 12px;
-          -webkit-line-clamp: 4;
+          -webkit-line-clamp: 3;
         }
       }
     </style>
@@ -262,15 +238,19 @@
 
       <div class="choices">
         <a class="choice" href="preview/index.html?desktop=1">
-          <p class="choice__kicker">DESKTOP</p>
-          <h2>电脑版 · 横屏</h2>
-          <p>对话、作品墙与宽屏叙事。</p>
+          <div class="choice__meta">
+            <p class="choice__kicker">DESKTOP</p>
+            <h2>电脑版 · 横屏</h2>
+            <p>对话、作品墙与宽屏叙事。</p>
+          </div>
           <span class="choice__go">打开 →</span>
         </a>
         <a class="choice" href="preview/mobile/index.html">
-          <p class="choice__kicker">PHONE</p>
-          <h2>手机版 · 竖屏</h2>
-          <p>触控优先，方便滑动查看。</p>
+          <div class="choice__meta">
+            <p class="choice__kicker">PHONE</p>
+            <h2>手机版 · 竖屏</h2>
+            <p>触控优先，方便滑动查看。</p>
+          </div>
           <span class="choice__go">打开 →</span>
         </a>
       </div>
@@ -284,7 +264,7 @@
           </div>
         </div>
         <p class="echo__copy">
-          2026 北京 Shenicest · 萨福命题。4 天软硬件可演示闭环（已进入专利申请流程）。萨福社媒多次发布；已与品牌产品侧建联。
+          2026 Shenicest · 萨福命题。4 天软硬件闭环（已进入专利申请流程）；萨福社媒多次发布；已与品牌产品侧建联。
         </p>
         <div class="echo__row">
           <p class="echo__cta">开放合作 / 建联</p>

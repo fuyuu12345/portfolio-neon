@@ -3,187 +3,222 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#05050a" />
-    <title>AFTERGLOW · 选择版本</title>
+    <meta name="theme-color" content="#07060a" />
+    <title>AFTERGLOW · 选择阅读方式</title>
+    <link rel="preload" href="preview/assets/fonts/PressStart2P-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="preview/assets/fonts/Cubic_11.ttf" as="font" type="font/ttf" crossorigin />
     <style>
       @font-face {
         font-family: "Press Start 2P";
         src: url("preview/assets/fonts/PressStart2P-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
         font-display: swap;
       }
       @font-face {
         font-family: "Cubic 11";
         src: url("preview/assets/fonts/Cubic_11.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
         font-display: swap;
       }
+
       :root {
-        --bg: #08070c;
-        --ink: #efe8f6;
-        --mute: #a59bb5;
+        --bg: #07060a;
+        --panel: #121018;
+        --ink: #f4eef8;
+        --mute: #9b92a8;
         --pink: #ff4b96;
-        --cyan: #5ee7f0;
-        --line: rgba(255, 255, 255, 0.12);
-        --pixel: "Press Start 2P", "Cubic 11", monospace;
-        --sans: "Cubic 11", "PingFang SC", "Microsoft YaHei", sans-serif;
+        --cyan: #7af0f7;
+        --line: rgba(244, 238, 248, 0.14);
+        --pixel: "Press Start 2P", cursive;
+        --cn: "Cubic 11", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       }
+
       * { box-sizing: border-box; }
+      html, body { margin: 0; min-height: 100%; }
       body {
-        margin: 0;
-        min-height: 100dvh;
-        font-family: var(--sans);
+        font-family: var(--cn);
         color: var(--ink);
-        background:
-          linear-gradient(180deg, #120e18 0%, var(--bg) 42%, #0a0910 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 32px 20px;
+        background: var(--bg);
+        display: grid;
+        place-items: center;
+        padding: 28px 18px 40px;
       }
-      .wrap { width: min(720px, 100%); }
+
+      .wrap {
+        width: min(560px, 100%);
+      }
+
       .eyebrow {
-        margin: 0 0 18px;
-        font-size: 15px;
-        letter-spacing: 0.08em;
+        margin: 0 0 14px;
+        font-size: 16px;
+        letter-spacing: 0.12em;
         color: var(--cyan);
       }
-      h1 {
+
+      .brand {
         margin: 0;
         font-family: var(--pixel);
-        font-size: clamp(1.05rem, 3.6vw, 1.35rem);
-        line-height: 1.7;
-        font-weight: 400;
+        font-size: clamp(1.05rem, 4.8vw, 1.35rem);
+        line-height: 1.55;
         color: var(--pink);
+        text-shadow: none;
       }
+
       .lead {
-        margin: 18px 0 28px;
-        max-width: 34em;
-        color: var(--mute);
+        margin: 16px 0 26px;
         font-size: 15px;
-        line-height: 1.7;
+        line-height: 1.75;
+        color: var(--mute);
       }
+
       .choices {
         display: grid;
-        grid-template-columns: 1fr 1fr;
         gap: 12px;
       }
-      @media (max-width: 640px) {
-        .choices { grid-template-columns: 1fr; }
-      }
+
       .choice {
-        display: flex;
-        flex-direction: column;
+        display: block;
         text-decoration: none;
         color: inherit;
-        min-height: 156px;
-        padding: 20px 18px;
+        background: var(--panel);
         border: 1px solid var(--line);
-        background: rgba(255, 255, 255, 0.03);
-        transition: border-color 0.2s, background 0.2s;
+        padding: 18px 16px 16px;
+        transition: border-color 0.18s ease, transform 0.18s ease;
       }
-      .choice:hover {
-        border-color: rgba(255, 75, 150, 0.55);
-        background: rgba(255, 75, 150, 0.06);
-      }
-      .choice__tag {
-        font-size: 12px;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
+
+      .choice:active { transform: scale(0.99); }
+      .choice:hover { border-color: rgba(255, 75, 150, 0.7); }
+
+      .choice__kicker {
+        margin: 0 0 8px;
+        font-family: var(--pixel);
+        font-size: 0.58rem;
+        line-height: 1.4;
+        letter-spacing: 0.04em;
         color: var(--mute);
       }
+
       .choice h2 {
-        margin: 12px 0 8px;
-        font-size: 1.2rem;
+        margin: 0 0 8px;
+        font-size: 1.35rem;
         font-weight: 400;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.06em;
+        color: var(--ink);
       }
+
       .choice p {
         margin: 0;
-        flex: 1;
+        font-size: 14px;
+        line-height: 1.6;
         color: var(--mute);
-        font-size: 14px;
-        line-height: 1.55;
       }
+
       .choice__go {
-        margin-top: 16px;
+        display: inline-block;
+        margin-top: 14px;
         font-size: 14px;
+        letter-spacing: 0.08em;
         color: var(--pink);
-        letter-spacing: 0.04em;
       }
-      .more {
+
+      .echo {
         margin-top: 28px;
-        padding-top: 20px;
+        padding-top: 22px;
         border-top: 1px solid var(--line);
       }
-      .more h3 {
-        margin: 0 0 12px;
-        font-size: 1rem;
+
+      .echo__title {
+        margin: 0 0 10px;
+        font-size: 1.05rem;
         font-weight: 400;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.05em;
       }
-      .more .tag {
-        display: inline-block;
-        margin-left: 8px;
-        padding: 3px 8px;
-        border: 1px solid var(--line);
-        font-size: 12px;
-        letter-spacing: 0.04em;
-        color: var(--cyan);
-        vertical-align: middle;
-      }
-      .more__copy {
-        margin: 0 0 8px;
-        color: var(--mute);
-        font-size: 14px;
-        line-height: 1.65;
-      }
-      .more__cta {
+
+      .echo__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
         margin: 0 0 12px;
-        color: var(--pink);
-        font-size: 14px;
-        letter-spacing: 0.04em;
       }
-      .more a {
+
+      .echo__tags span {
+        border: 1px solid var(--line);
+        padding: 4px 8px;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        color: var(--cyan);
+      }
+
+      .echo__copy {
+        margin: 0 0 8px;
+        font-size: 14px;
+        line-height: 1.7;
+        color: var(--mute);
+      }
+
+      .echo__cta {
+        margin: 0 0 14px;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        color: var(--pink);
+      }
+
+      .echo a {
         color: var(--cyan);
         text-decoration: none;
         font-size: 14px;
+        letter-spacing: 0.04em;
       }
-      .more a:hover { color: var(--pink); }
-      .hint {
-        margin-top: 22px;
-        font-size: 12px;
-        letter-spacing: 0.06em;
-        color: rgba(165, 155, 181, 0.7);
+
+      .echo a:hover { color: var(--pink); }
+
+      .foot {
+        margin-top: 24px;
+        font-family: var(--pixel);
+        font-size: 0.48rem;
+        line-height: 1.6;
+        letter-spacing: 0.03em;
+        color: rgba(155, 146, 168, 0.75);
       }
     </style>
   </head>
   <body>
-    <div class="wrap">
-      <p class="eyebrow">赛博蜉蝣 · AFTERGLOW</p>
-      <h1>AFTERGLOW · LORDE PORTFOLIO</h1>
-      <p class="lead">请选择适合你设备的作品集阅读方式。电脑版适合宽屏浏览；手机版为竖屏优化。</p>
+    <main class="wrap">
+      <p class="eyebrow">赛博蜉蝣</p>
+      <h1 class="brand">AFTERGLOW</h1>
+      <p class="lead">LORDE 作品集。先选一种阅读方式——电脑宽屏，或手机竖屏。</p>
+
       <div class="choices">
         <a class="choice" href="preview/index.html?desktop=1">
-          <span class="choice__tag">Desktop</span>
+          <p class="choice__kicker">DESKTOP</p>
           <h2>电脑版作品集</h2>
-          <p>AFTERGLOW 酒吧 HUD：对话、作品墙与宽屏叙事。</p>
+          <p>酒吧 HUD、对话与作品墙，适合宽屏慢慢看。</p>
           <span class="choice__go">打开电脑版 →</span>
         </a>
         <a class="choice" href="preview/mobile/index.html">
-          <span class="choice__tag">Phone</span>
+          <p class="choice__kicker">PHONE</p>
           <h2>手机版作品集</h2>
-          <p>竖屏 AFTERGLOW：触控优先，方便手机滑动查看作品。</p>
+          <p>竖屏触控优化，方便手机滑动查看。</p>
           <span class="choice__go">打开手机版 →</span>
         </a>
       </div>
-      <div class="more">
-        <h3>产品案 · ECHO <span class="tag">具身智能</span><span class="tag">可穿戴设备</span></h3>
-        <p class="more__copy">
+
+      <section class="echo" aria-label="产品案 ECHO">
+        <h2 class="echo__title">产品案 · ECHO</h2>
+        <div class="echo__tags">
+          <span>具身智能</span>
+          <span>可穿戴设备</span>
+        </div>
+        <p class="echo__copy">
           2026 北京 Shenicest 黑客松 · 萨福命题赛道。4 天完成软件 + 硬件可演示闭环（已进入专利申请流程）。萨福社媒发布产品内容多次；已与品牌产品侧建联。
         </p>
-        <p class="more__cta">开放合作 / 建联</p>
+        <p class="echo__cta">开放合作 / 建联</p>
         <a href="products/echo-yesido/">进入 ECHO（可选网页版 / 手机版）→</a>
-      </div>
-      <p class="hint">fuyuu12345.github.io/portfolio-neon</p>
-    </div>
+      </section>
+
+      <p class="foot">fuyuu12345.github.io/portfolio-neon</p>
+    </main>
   </body>
 </html>

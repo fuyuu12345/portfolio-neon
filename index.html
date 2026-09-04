@@ -5,22 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#05050a" />
     <title>AFTERGLOW · 选择版本</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
     <style>
+      @font-face {
+        font-family: "Press Start 2P";
+        src: url("preview/assets/fonts/PressStart2P-Regular.ttf") format("truetype");
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Cubic 11";
+        src: url("preview/assets/fonts/Cubic_11.ttf") format("truetype");
+        font-display: swap;
+      }
       :root {
-        --bg: #05050a;
-        --ink: #f3e9ff;
-        --mute: #9a8fb0;
+        --bg: #08070c;
+        --ink: #efe8f6;
+        --mute: #a59bb5;
         --pink: #ff4b96;
-        --cyan: #00f0ff;
-        --line: rgba(255, 75, 150, 0.28);
-        --mono: "IBM Plex Mono", ui-monospace, monospace;
-        --sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+        --cyan: #5ee7f0;
+        --line: rgba(255, 255, 255, 0.12);
+        --pixel: "Press Start 2P", "Cubic 11", monospace;
+        --sans: "Cubic 11", "PingFang SC", "Microsoft YaHei", sans-serif;
       }
       * { box-sizing: border-box; }
       body {
@@ -29,41 +33,38 @@
         font-family: var(--sans);
         color: var(--ink);
         background:
-          radial-gradient(ellipse 90% 60% at 10% 0%, rgba(255, 75, 150, 0.18), transparent 55%),
-          radial-gradient(ellipse 70% 50% at 100% 100%, rgba(0, 240, 255, 0.12), transparent 50%),
-          var(--bg);
+          linear-gradient(180deg, #120e18 0%, var(--bg) 42%, #0a0910 100%);
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 32px 20px;
       }
-      .wrap { width: min(860px, 100%); }
+      .wrap { width: min(720px, 100%); }
       .eyebrow {
-        margin: 0 0 12px;
-        font-family: var(--mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
+        margin: 0 0 18px;
+        font-size: 15px;
+        letter-spacing: 0.08em;
         color: var(--cyan);
       }
       h1 {
         margin: 0;
-        font-size: clamp(2rem, 7vw, 3.2rem);
-        letter-spacing: 0.02em;
-        line-height: 1.15;
+        font-family: var(--pixel);
+        font-size: clamp(1.05rem, 3.6vw, 1.35rem);
+        line-height: 1.7;
+        font-weight: 400;
+        color: var(--pink);
       }
-      h1 span { color: var(--pink); }
       .lead {
-        margin: 14px 0 28px;
-        max-width: 36em;
+        margin: 18px 0 28px;
+        max-width: 34em;
         color: var(--mute);
-        font-size: 0.98rem;
-        line-height: 1.55;
+        font-size: 15px;
+        line-height: 1.7;
       }
       .choices {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 14px;
+        gap: 12px;
       }
       @media (max-width: 640px) {
         .choices { grid-template-columns: 1fr; }
@@ -73,81 +74,92 @@
         flex-direction: column;
         text-decoration: none;
         color: inherit;
-        min-height: 168px;
-        padding: 22px 20px;
+        min-height: 156px;
+        padding: 20px 18px;
         border: 1px solid var(--line);
-        background: rgba(12, 8, 20, 0.85);
-        transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        background: rgba(255, 255, 255, 0.03);
+        transition: border-color 0.2s, background 0.2s;
       }
       .choice:hover {
-        border-color: var(--pink);
-        transform: translateY(-2px);
-        box-shadow: 0 0 28px rgba(255, 75, 150, 0.18);
+        border-color: rgba(255, 75, 150, 0.55);
+        background: rgba(255, 75, 150, 0.06);
       }
       .choice__tag {
-        font-family: var(--mono);
-        font-size: 0.65rem;
+        font-size: 12px;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--cyan);
+        color: var(--mute);
       }
       .choice h2 {
-        margin: 10px 0 8px;
-        font-size: 1.4rem;
+        margin: 12px 0 8px;
+        font-size: 1.2rem;
+        font-weight: 400;
+        letter-spacing: 0.04em;
       }
       .choice p {
         margin: 0;
         flex: 1;
         color: var(--mute);
-        font-size: 0.9rem;
-        line-height: 1.45;
+        font-size: 14px;
+        line-height: 1.55;
       }
       .choice__go {
-        margin-top: 18px;
-        font-family: var(--mono);
-        font-size: 0.78rem;
+        margin-top: 16px;
+        font-size: 14px;
         color: var(--pink);
+        letter-spacing: 0.04em;
       }
       .more {
         margin-top: 28px;
-        padding-top: 18px;
-        border-top: 1px dashed var(--line);
+        padding-top: 20px;
+        border-top: 1px solid var(--line);
       }
       .more h3 {
-        margin: 0 0 10px;
-        font-size: 0.95rem;
+        margin: 0 0 12px;
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: 0.04em;
       }
       .more .tag {
         display: inline-block;
         margin-left: 8px;
-        padding: 2px 8px;
+        padding: 3px 8px;
         border: 1px solid var(--line);
-        font-family: var(--mono);
-        font-size: 0.62rem;
-        font-weight: 500;
-        letter-spacing: 0.06em;
+        font-size: 12px;
+        letter-spacing: 0.04em;
         color: var(--cyan);
         vertical-align: middle;
+      }
+      .more__copy {
+        margin: 0 0 8px;
+        color: var(--mute);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+      .more__cta {
+        margin: 0 0 12px;
+        color: var(--pink);
+        font-size: 14px;
+        letter-spacing: 0.04em;
       }
       .more a {
         color: var(--cyan);
         text-decoration: none;
-        font-size: 0.9rem;
+        font-size: 14px;
       }
       .more a:hover { color: var(--pink); }
       .hint {
-        margin-top: 18px;
-        font-family: var(--mono);
-        font-size: 0.62rem;
+        margin-top: 22px;
+        font-size: 12px;
         letter-spacing: 0.06em;
-        color: var(--mute);
+        color: rgba(165, 155, 181, 0.7);
       }
     </style>
   </head>
   <body>
     <div class="wrap">
       <p class="eyebrow">赛博蜉蝣 · AFTERGLOW</p>
-      <h1>LORDE <span>PORTFOLIO</span></h1>
+      <h1>AFTERGLOW · LORDE PORTFOLIO</h1>
       <p class="lead">请选择适合你设备的作品集阅读方式。电脑版适合宽屏浏览；手机版为竖屏优化。</p>
       <div class="choices">
         <a class="choice" href="preview/index.html?desktop=1">
@@ -165,13 +177,13 @@
       </div>
       <div class="more">
         <h3>产品案 · ECHO <span class="tag">具身智能</span><span class="tag">可穿戴设备</span></h3>
-        <p style="margin:0 0 8px;color:var(--mute);font-size:0.9rem;line-height:1.5">
-          2026 北京 Shenicest 黑客松 · 萨福命题赛道。4 天完成软件 + 硬件可演示闭环（已进入专利申请流程）。萨福社媒发布产品内容多次；已与品牌产品经理建联。
+        <p class="more__copy">
+          2026 北京 Shenicest 黑客松 · 萨福命题赛道。4 天完成软件 + 硬件可演示闭环（已进入专利申请流程）。萨福社媒发布产品内容多次；已与品牌产品侧建联。
         </p>
-        <p style="margin:0 0 10px;color:var(--pink);font-size:0.9rem;font-weight:650">开放合作 / 建联</p>
+        <p class="more__cta">开放合作 / 建联</p>
         <a href="products/echo-yesido/">进入 ECHO（可选网页版 / 手机版）→</a>
       </div>
-      <p class="hint">share · github.io/portfolio-neon/</p>
+      <p class="hint">fuyuu12345.github.io/portfolio-neon</p>
     </div>
   </body>
 </html>

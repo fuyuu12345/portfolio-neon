@@ -722,6 +722,35 @@ body.is-paused .now__eq i {
   width: 100%;
 }
 
+.dialogue-fold {
+  align-self: flex-start;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px dashed var(--cyan);
+  border-radius: 8px;
+  background: rgba(8, 4, 14, 0.88);
+  color: var(--cyan);
+  font-family: var(--pixel);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.dialogue-fold:hover {
+  border-style: solid;
+  background: rgba(0, 240, 255, 0.1);
+}
+
+.dialogue-fold[hidden] {
+  display: none !important;
+}
+
+.dialogue-stack.is-folded #dialogueBox,
+.dialogue-stack.is-folded #choices {
+  display: none !important;
+}
+
 .dialogue {
   position: relative;
   display: block;

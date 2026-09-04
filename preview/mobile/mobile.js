@@ -54,6 +54,8 @@
     typingTimer: null,
     typingFull: "",
     typingDone: null,
+    chatIdle: false,
+    chatFolded: false,
   };
 
   const STORIES = window.MOBILE_STORIES || {};
@@ -98,6 +100,8 @@
     storyEnd: { zh: "结束对话", en: "End chat" },
     orderAgain: { zh: "再点一杯", en: "Another drink" },
     orderOnce: { zh: "点一杯", en: "Order a drink" },
+    foldHide: { zh: "收起对话", en: "Hide chat" },
+    foldShow: { zh: "打开对话", en: "Open chat" },
     drinkMenu: {
       zh: "今晚想喝哪一杯？右边也有，点这里也行。",
       en: "What'll it be? Menu's on the right — or pick here.",
@@ -140,6 +144,7 @@
     set('[data-nav="work"]', t(UI.dockWork));
     set('[data-nav="exp"]', t(UI.dockExp));
     set('[data-nav="contact"]', t(UI.dockContact));
+    refreshFoldBtn();
     const prev = $("#featPrev");
     const next = $("#featNext");
     if (prev) prev.setAttribute("aria-label", t(UI.prev));
@@ -160,6 +165,8 @@
       if (keepList && !STORIES[state.storyId]?.nodes?.[state.storyNode]?.choices) {
         // menu/end choices rebuilt inside renderStoryNode
       }
+    } else if (state.chatIdle && !state.chatFolded) {
+      typeLine(t(UI.idleHint), () => showChoices(idleOrderChoices()));
     }
     if (state.sheetKind) openSheet(state.sheetKind);
   }
@@ -301,6 +308,36 @@
     if (back) back.hidden = !on;
   }
 
+  function refreshFoldBtn() {
+    const btn = $("#talkFold");
+    const talk = $("#talk");
+    if (!btn || !talk) return;
+    btn.hidden = !state.chatIdle;
+    btn.textContent = t(state.chatFolded ? UI.foldShow : UI.foldHide);
+    talk.classList.toggle("is-folded", state.chatIdle && state.chatFolded);
+  }
+
+  function setChatIdle(on) {
+    state.chatIdle = !!on;
+    if (!on) state.chatFolded = false;
+    refreshFoldBtn();
+  }
+
+  function setChatFolded(on) {
+    if (!state.chatIdle) return;
+    state.chatFolded = !!on;
+    refreshFoldBtn();
+  }
+
+  function idleOrderChoices() {
+    return [
+      {
+        label: state.hasOrderedDrink ? t(UI.orderAgain) : t(UI.orderOnce),
+        action: "order-again",
+      },
+    ];
+  }
+
   function drinkChoices() {
     return drinks.map((d) => ({
       label: zh(d.name),
@@ -389,6 +426,7 @@
     state.storyId = "welcome";
     state.storyNode = "w_menu";
     state.storyHistory = [];
+    setChatIdle(false);
     setStoryBar(true);
     hideChoices();
     $$(".drink").forEach((el) => el.classList.remove("is-on"));
@@ -419,27 +457,22 @@
     state.storyId = storyId;
     state.storyHistory = [];
     state.storyNode = null;
+    setChatIdle(false);
     $$(".drink").forEach((el) => el.classList.toggle("is-on", el.dataset.drink === storyId));
     renderStoryNode(STORIES[storyId].start, false);
   }
 
   function exitStory() {
-    // Align with desktop: leave the story, go idle — do not show「结束对话」again.
-    // Keep「点一杯 / 再点一杯」so the guest can return to the drink menu.
+    // Idle after end: keep「点一杯」, offer fold/open chat (same idea as desktop).
     state.storyId = null;
     state.storyNode = null;
     state.storyHistory = [];
     setStoryBar(false);
     hideChoices();
     $$(".drink").forEach((el) => el.classList.remove("is-on"));
-    typeLine(t(UI.idleHint), () => {
-      showChoices([
-        {
-          label: state.hasOrderedDrink ? t(UI.orderAgain) : t(UI.orderOnce),
-          action: "order-again",
-        },
-      ]);
-    });
+    setChatIdle(true);
+    setChatFolded(false);
+    typeLine(t(UI.idleHint), () => showChoices(idleOrderChoices()));
   }
 
   function storyBack() {
@@ -640,6 +673,11 @@
     $("#storyBack").addEventListener("click", (e) => {
       e.stopPropagation();
       storyBack();
+    });
+
+    $("#talkFold")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      setChatFolded(!state.chatFolded);
     });
 
     $$(".dock__btn").forEach((b) => b.addEventListener("click", () => setDock(b.dataset.nav)));

@@ -97,6 +97,8 @@
     storyOrder: { zh: "点一杯", en: "Order a drink" },
     storyOrderAgain: { zh: "再点一杯", en: "Another drink" },
     storySit: { zh: "我先坐会", en: "I'll sit for a bit" },
+    foldHide: { zh: "收起对话", en: "Hide chat" },
+    foldShow: { zh: "打开对话", en: "Open chat" },
     drinkMenuPrompt: {
       zh: "今晚想喝哪一杯？右边也有，点这里也行。",
       en: "What'll it be? Menu's on the right — or pick here.",
@@ -104,6 +106,10 @@
     drinkMenuAgain: {
       zh: "再来一杯？选吧。",
       en: "Another round? Pick one.",
+    },
+    idleAfterEnd: {
+      zh: "好。位子给你。想喝了再挥手，或者点右边特调。",
+      en: "Alright. Seat's yours — wave for a drink, or tap a special.",
     },
   };
 
@@ -434,6 +440,8 @@
     activeSpecial: null,
     hasOrderedDrink: false,
     workTab: "cases",
+    chatIdle: false,
+    chatFolded: false,
   };
 
   function t(obj) {
@@ -682,6 +690,36 @@
     if (btn) btn.hidden = !visible;
   }
 
+  function refreshFoldBtn() {
+    const btn = $("#dialogueFold");
+    const stack = $("#dialogueStack");
+    if (!btn || !stack) return;
+    btn.hidden = !state.chatIdle;
+    btn.textContent = t(state.chatFolded ? UI.foldShow : UI.foldHide);
+    stack.classList.toggle("is-folded", state.chatIdle && state.chatFolded);
+  }
+
+  function setChatIdle(on) {
+    state.chatIdle = !!on;
+    if (!on) state.chatFolded = false;
+    refreshFoldBtn();
+  }
+
+  function setChatFolded(on) {
+    if (!state.chatIdle) return;
+    state.chatFolded = !!on;
+    refreshFoldBtn();
+  }
+
+  function idleOrderChoices() {
+    return [
+      {
+        label: state.hasOrderedDrink ? UI.storyOrderAgain : UI.storyOrder,
+        action: "order-again",
+      },
+    ];
+  }
+
   function exitStory() {
     state.storyId = null;
     state.storyNode = null;
@@ -690,7 +728,10 @@
     hideChoices();
     setStoryBar(false);
     buildSpecials();
-    playDialogue(SITE.narration?.drinks?.[state.section] || SITE.narration?.boot);
+    setChatIdle(true);
+    setChatFolded(false);
+    hideChoices();
+    typeLine(t(UI.idleAfterEnd), () => showChoices(idleOrderChoices()));
   }
 
   function drinkChoices() {
@@ -724,6 +765,7 @@
     state.storyNode = "w_menu";
     state.storyHistory = again ? [] : state.storyHistory;
     state.activeSpecial = null;
+    setChatIdle(false);
     buildSpecials();
     setStoryBar(true);
     hideChoices();
@@ -821,6 +863,7 @@
     state.storyId = storyId;
     state.storyHistory = [];
     state.storyNode = null;
+    setChatIdle(false);
     buildSpecials();
     const story = STORIES[storyId];
     if (!story) return;
@@ -1032,6 +1075,7 @@
     state.storyId = null;
     state.storyNode = null;
     state.storyHistory = [];
+    setChatIdle(false);
     buildNav();
     buildSpecials();
 
@@ -1114,6 +1158,12 @@
       storyBack();
     });
 
+    $("#dialogueFold")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      playClick();
+      setChatFolded(!state.chatFolded);
+    });
+
     $("#strangerBtn").addEventListener("click", (e) => {
       e.stopPropagation();
       playClick();
@@ -1130,8 +1180,11 @@
       renderFeature();
       buildNav();
       buildSpecials();
+      refreshFoldBtn();
       if (state.storyId && state.storyNode) renderStoryNode(state.storyNode, false);
-      else setSection(state.section);
+      else if (state.chatIdle && !state.chatFolded) {
+        typeLine(t(UI.idleAfterEnd), () => showChoices(idleOrderChoices()));
+      } else setSection(state.section);
       if (!$("#modal").hidden) {
         reopenCurrentModal();
       }

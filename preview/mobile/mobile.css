@@ -405,6 +405,33 @@ img {
   gap: 8px;
 }
 
+.talk-fold {
+  align-self: flex-start;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px dashed var(--cyan);
+  border-radius: 10px;
+  background: rgba(8, 4, 14, 0.92);
+  color: var(--cyan);
+  font-family: var(--pixel);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+
+.talk-fold:active {
+  background: rgba(0, 240, 255, 0.12);
+}
+
+.talk-fold[hidden] {
+  display: none !important;
+}
+
+.talk.is-folded .talk__box,
+.talk.is-folded #choices {
+  display: none !important;
+}
+
 .talk__main {
   width: 100%;
   min-height: 96px;

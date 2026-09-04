@@ -7,7 +7,7 @@
  * 默认密码请尽快改掉（只有你知道即可）。
  */
 window.SITE = {
-  draftVersion: "2026-09-04-echo-sappho-social",
+  draftVersion: "2026-09-04-about-skills-dialogue",
 
   /**
    * 编辑模式密码 — 公开仓库请留空，在 js/content.local.js 写真实密码（已 gitignore）。
@@ -108,16 +108,16 @@ window.SITE = {
     },
     drinks: {
       about: {
-        zh: ["一杯 Neon Intro。她把目标拆成路径，再把路径做成结果。"],
-        en: ["A Neon Intro. She turns targets into paths — then paths into results."],
+        zh: ["关于我——点一下对话框，可以翻下一段。"],
+        en: ["About me — tap the dialogue to flip lines."],
       },
       experience: {
         zh: ["ROI Sour，偏烈。投放、复盘、跨端策略，都在这几段里。"],
         en: ["ROI Sour — sharp. Delivery, reviews, cross-platform strategy."],
       },
       skills: {
-        zh: ["Funnel Fizz。标签不多，但都对增长有用。"],
-        en: ["Funnel Fizz. Few tags — all growth-relevant."],
+        zh: ["技能清单如下——点对话框翻看。"],
+        en: ["Skills below — tap dialogue to continue."],
       },
       work: {
         zh: ["Growth Highball。桌上是案例和 Demo，点开就能看。"],
@@ -145,14 +145,14 @@ window.SITE = {
 
   about: {
     zh: [
-      "做过品牌商业化、信息流投放优化、内容生态与 KOL 协同，以及数据复盘。",
-      "擅长拆解目标指标，优化转化路径，并用 A/B 测试迭代人群、出价与素材。",
-      "长期运营小红书时尚账号，关注增长与转化闭环。",
+      "INTJ · 巨蟹座。",
+      "思路清晰，表达能力可，效率高，富有创意。",
+      "适应性强——期望遇到挑战性或创意性的岗位 / 项目。",
     ],
     en: [
-      "Experience across brand commercialization, performance ads, content ecosystems & KOL collabs, and data reviews.",
-      "Strong at decomposing targets, optimizing conversion paths, and iterating audience, bidding, and creatives via A/B tests.",
-      "Long-term Xiaohongshu fashion account ops focused on growth and conversion.",
+      "INTJ · Cancer.",
+      "Clear thinking, solid communication, high efficiency, creative.",
+      "Adaptable — looking for challenging or creative roles / projects.",
     ],
   },
 
@@ -234,41 +234,23 @@ window.SITE = {
   skills: {
     zh: [
       "目标拆解",
-      "用户分层",
-      "转化漏斗",
-      "A/B 测试",
-      "信息流优化",
-      "再营销 / RTA",
-      "素材迭代",
-      "KOL / 社群",
-      "海外社媒",
-      "数据复盘",
-      "归因思维",
-      "PRD / SOP",
-      "小红书增长",
-      "TikTok",
-      "Discord",
-      "Excel",
-      "Cursor / AI 工作流",
+      "用户研究",
+      "内容增长",
+      "社群运营",
+      "海外社媒（TikTok / Discord / Reddit）",
+      "产品思维",
+      "vibe coding",
+      "整合营销",
     ],
     en: [
       "Goal Breakdown",
-      "Segmentation",
-      "Conversion Funnels",
-      "A/B Testing",
-      "Performance Ads",
-      "Retargeting / RTA",
-      "Creative Iteration",
-      "KOL / Community",
-      "Overseas Social",
-      "Data Reviews",
-      "Attribution",
-      "PRD / SOP",
-      "Xiaohongshu Growth",
-      "TikTok",
-      "Discord",
-      "Excel",
-      "Cursor / AI Workflows",
+      "User Research",
+      "Content Growth",
+      "Community Ops",
+      "Overseas Social (TikTok / Discord / Reddit)",
+      "Product Thinking",
+      "Vibe Coding",
+      "Integrated Marketing",
     ],
   },
 

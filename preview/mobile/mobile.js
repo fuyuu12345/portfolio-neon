@@ -56,6 +56,9 @@
     typingDone: null,
     chatIdle: false,
     chatFolded: false,
+    panelLines: [],
+    panelIdx: 0,
+    panelKind: null,
   };
 
   const STORIES = window.MOBILE_STORIES || {};
@@ -82,12 +85,16 @@
     openWork: { zh: "查看作品 →", en: "View work →" },
     storyBack: { zh: "返回", en: "Back" },
     dockTalk: { zh: "点单", en: "Order" },
+    dockAbout: { zh: "关于", en: "About" },
+    dockSkills: { zh: "技能", en: "Skills" },
     dockWork: { zh: "作品", en: "Works" },
     dockExp: { zh: "经历", en: "Exp" },
     dockContact: { zh: "联系", en: "Contact" },
     sheetWork: { zh: "作品", en: "Works" },
     sheetExp: { zh: "经历", en: "Experience" },
     sheetContact: { zh: "联系", en: "Contact" },
+    aboutIntro: { zh: "关于我——点对话框翻下一段。", en: "About me — tap to flip." },
+    skillsIntro: { zh: "技能清单——点对话框翻看。", en: "Skills — tap to flip." },
     empty: { zh: "暂无", en: "Empty" },
     coming: { zh: "制作中", en: "Coming soon" },
     view: { zh: "查看 →", en: "Open →" },
@@ -140,7 +147,8 @@
     set("#specialsHint", t(UI.specialsHint));
     set("#featuredHint", t(UI.featuredHint));
     set("#featOpen", t(UI.openWork));
-    set('[data-nav="talk"]', t(UI.dockTalk));
+    set('[data-nav="about"]', t(UI.dockAbout));
+    set('[data-nav="skills"]', t(UI.dockSkills));
     set('[data-nav="work"]', t(UI.dockWork));
     set('[data-nav="exp"]', t(UI.dockExp));
     set('[data-nav="contact"]', t(UI.dockContact));
@@ -165,6 +173,8 @@
       if (keepList && !STORIES[state.storyId]?.nodes?.[state.storyNode]?.choices) {
         // menu/end choices rebuilt inside renderStoryNode
       }
+    } else if (state.panelKind) {
+      playPanelLines(state.panelKind);
     } else if (state.chatIdle && !state.chatFolded) {
       typeLine(t(UI.idleHint), () => showChoices(idleOrderChoices()));
     }
@@ -426,6 +436,7 @@
     state.storyId = "welcome";
     state.storyNode = "w_menu";
     state.storyHistory = [];
+    clearPanelLines();
     setChatIdle(false);
     setStoryBar(true);
     hideChoices();
@@ -457,8 +468,10 @@
     state.storyId = storyId;
     state.storyHistory = [];
     state.storyNode = null;
+    clearPanelLines();
     setChatIdle(false);
     $$(".drink").forEach((el) => el.classList.toggle("is-on", el.dataset.drink === storyId));
+    $$(".dock__btn").forEach((b) => b.classList.remove("is-on"));
     renderStoryNode(STORIES[storyId].start, false);
   }
 
@@ -467,6 +480,7 @@
     state.storyId = null;
     state.storyNode = null;
     state.storyHistory = [];
+    clearPanelLines();
     setStoryBar(false);
     hideChoices();
     $$(".drink").forEach((el) => el.classList.remove("is-on"));
@@ -516,7 +530,48 @@
   }
 
   function advanceDialogue() {
-    skipTyping();
+    if (skipTyping()) return;
+    if (state.panelLines?.length && state.panelIdx < state.panelLines.length - 1) {
+      state.panelIdx += 1;
+      typeLine(state.panelLines[state.panelIdx]);
+    }
+  }
+
+  function clearPanelLines() {
+    state.panelLines = [];
+    state.panelIdx = 0;
+    state.panelKind = null;
+  }
+
+  function sectionDialogueLines(id) {
+    if (id === "about") {
+      const body = SITE.about?.[state.lang] || SITE.about?.zh || [];
+      return [t(UI.aboutIntro), ...body];
+    }
+    if (id === "skills") {
+      const tags = SITE.skills?.[state.lang] || SITE.skills?.zh || [];
+      return [t(UI.skillsIntro), ...tags];
+    }
+    return [];
+  }
+
+  function playPanelLines(id) {
+    closeSheet();
+    clearPanelLines();
+    setChatIdle(false);
+    setStoryBar(false);
+    hideChoices();
+    state.storyId = null;
+    state.storyNode = null;
+    state.storyHistory = [];
+    state.panelKind = id;
+    $$(".drink").forEach((el) => el.classList.remove("is-on"));
+    $$(".dock__btn").forEach((b) => b.classList.toggle("is-on", b.dataset.nav === id));
+    const lines = sectionDialogueLines(id);
+    state.panelLines = lines;
+    state.panelIdx = 0;
+    typeLine(lines[0] || "");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function renderDrinks() {
@@ -640,13 +695,11 @@
     state.sheetKind = null;
     $("#sheet").hidden = true;
     document.body.style.overflow = "";
-    $$(".dock__btn").forEach((b) => b.classList.toggle("is-on", b.dataset.nav === "talk"));
   }
 
   function setDock(nav) {
-    if (nav === "talk") {
-      closeSheet();
-      $("#panelDrinks").scrollIntoView({ behavior: "smooth", block: "start" });
+    if (nav === "about" || nav === "skills") {
+      playPanelLines(nav);
       return;
     }
     openSheet(nav);

@@ -1065,6 +1065,21 @@
     $("#modal").hidden = true;
   }
 
+  function sectionDialogue(id) {
+    if (id === "about") {
+      const intro = SITE.narration?.drinks?.about?.[state.lang] || SITE.narration?.drinks?.about?.zh || [];
+      const body = SITE.about?.[state.lang] || SITE.about?.zh || [];
+      return [...intro, ...body];
+    }
+    if (id === "skills") {
+      const intro = SITE.narration?.drinks?.skills?.[state.lang] || SITE.narration?.drinks?.skills?.zh || [];
+      const tags = SITE.skills?.[state.lang] || SITE.skills?.zh || [];
+      // One skill per tap so the dialogue feels readable
+      return [...intro, ...tags];
+    }
+    return SITE.narration?.drinks?.[id] || SITE.narration?.boot;
+  }
+
   function setSection(id, opts = {}) {
     const navItem = NAV.find((n) => n.id === id);
     if (!navItem) return;
@@ -1093,7 +1108,7 @@
     $("#contentTitle").textContent = t(navItem.label);
     $("#contentBody").innerHTML = sectionHtml(id);
     if (!opts.silent) {
-      playDialogue(SITE.narration?.drinks?.[id] || SITE.narration?.boot);
+      playDialogue(sectionDialogue(id));
     }
   }
 

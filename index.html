@@ -13,26 +13,26 @@
         src: url("preview/assets/fonts/PressStart2P-Regular.ttf") format("truetype");
         font-weight: 400;
         font-style: normal;
-        font-display: swap;
+        font-display: block;
       }
       @font-face {
         font-family: "Cubic 11";
         src: url("preview/assets/fonts/Cubic_11.ttf") format("truetype");
         font-weight: 400;
         font-style: normal;
-        font-display: swap;
+        font-display: block;
       }
 
       :root {
         --bg: #07060a;
-        --panel: #121018;
+        --panel: #100e16;
         --ink: #f4eef8;
         --mute: #9b92a8;
         --pink: #ff4b96;
         --cyan: #7af0f7;
-        --line: rgba(244, 238, 248, 0.14);
-        --pixel: "Press Start 2P", cursive;
-        --cn: "Cubic 11", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        --line: rgba(255, 75, 150, 0.55);
+        --pixel: "Press Start 2P", "Cubic 11", monospace;
+        --cn: "Cubic 11", "PingFang SC", "Microsoft YaHei", sans-serif;
       }
 
       * { box-sizing: border-box; }
@@ -40,10 +40,14 @@
       body {
         font-family: var(--cn);
         color: var(--ink);
-        background: var(--bg);
+        background:
+          radial-gradient(ellipse 80% 50% at 12% 0%, rgba(255, 75, 150, 0.14), transparent 55%),
+          var(--bg);
         display: grid;
         place-items: center;
         padding: 28px 18px 40px;
+        -webkit-font-smoothing: none;
+        font-smooth: never;
       }
 
       .wrap {
@@ -51,31 +55,42 @@
       }
 
       .eyebrow {
-        margin: 0 0 14px;
+        margin: 0 0 18px;
+        font-family: var(--cn);
         font-size: 16px;
-        letter-spacing: 0.12em;
+        letter-spacing: 0.14em;
         color: var(--cyan);
+      }
+
+      .eyebrow .en {
+        font-family: var(--pixel);
+        font-size: 0.62rem;
+        letter-spacing: 0.06em;
+        vertical-align: 0.05em;
       }
 
       .brand {
         margin: 0;
         font-family: var(--pixel);
-        font-size: clamp(1.05rem, 4.8vw, 1.35rem);
-        line-height: 1.55;
-        color: var(--pink);
-        text-shadow: none;
+        font-size: clamp(1.15rem, 5.2vw, 1.55rem);
+        line-height: 1.45;
+        letter-spacing: 0.02em;
       }
+
+      .brand .w { color: var(--ink); }
+      .brand .p { color: var(--pink); }
 
       .lead {
         margin: 16px 0 26px;
-        font-size: 15px;
+        font-size: 16px;
         line-height: 1.75;
+        letter-spacing: 0.04em;
         color: var(--mute);
       }
 
       .choices {
         display: grid;
-        gap: 12px;
+        gap: 14px;
       }
 
       .choice {
@@ -85,55 +100,62 @@
         background: var(--panel);
         border: 1px solid var(--line);
         padding: 18px 16px 16px;
-        transition: border-color 0.18s ease, transform 0.18s ease;
+        transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
       }
 
       .choice:active { transform: scale(0.99); }
-      .choice:hover { border-color: rgba(255, 75, 150, 0.7); }
+      .choice:hover {
+        border-color: var(--pink);
+        background: #14101c;
+      }
 
       .choice__kicker {
-        margin: 0 0 8px;
+        margin: 0 0 10px;
         font-family: var(--pixel);
-        font-size: 0.58rem;
+        font-size: 0.62rem;
         line-height: 1.4;
-        letter-spacing: 0.04em;
-        color: var(--mute);
+        letter-spacing: 0.08em;
+        color: var(--cyan);
       }
 
       .choice h2 {
-        margin: 0 0 8px;
-        font-size: 1.35rem;
+        margin: 0 0 10px;
+        font-family: var(--cn);
+        font-size: 22px;
         font-weight: 400;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.08em;
         color: var(--ink);
       }
 
       .choice p {
         margin: 0;
-        font-size: 14px;
-        line-height: 1.6;
+        font-size: 15px;
+        line-height: 1.65;
+        letter-spacing: 0.03em;
         color: var(--mute);
       }
 
       .choice__go {
         display: inline-block;
         margin-top: 14px;
-        font-size: 14px;
-        letter-spacing: 0.08em;
+        font-family: var(--cn);
+        font-size: 15px;
+        letter-spacing: 0.1em;
         color: var(--pink);
       }
 
       .echo {
         margin-top: 28px;
         padding-top: 22px;
-        border-top: 1px solid var(--line);
+        border-top: 1px solid rgba(244, 238, 248, 0.14);
       }
 
       .echo__title {
         margin: 0 0 10px;
-        font-size: 1.05rem;
+        font-family: var(--cn);
+        font-size: 18px;
         font-weight: 400;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
       }
 
       .echo__tags {
@@ -144,32 +166,33 @@
       }
 
       .echo__tags span {
-        border: 1px solid var(--line);
-        padding: 4px 8px;
-        font-size: 12px;
-        letter-spacing: 0.06em;
+        border: 1px solid rgba(122, 240, 247, 0.45);
+        padding: 5px 9px;
+        font-size: 13px;
+        letter-spacing: 0.08em;
         color: var(--cyan);
       }
 
       .echo__copy {
-        margin: 0 0 8px;
-        font-size: 14px;
-        line-height: 1.7;
+        margin: 0 0 10px;
+        font-size: 15px;
+        line-height: 1.75;
+        letter-spacing: 0.03em;
         color: var(--mute);
       }
 
       .echo__cta {
         margin: 0 0 14px;
-        font-size: 14px;
-        letter-spacing: 0.08em;
+        font-size: 15px;
+        letter-spacing: 0.1em;
         color: var(--pink);
       }
 
       .echo a {
         color: var(--cyan);
         text-decoration: none;
-        font-size: 14px;
-        letter-spacing: 0.04em;
+        font-size: 15px;
+        letter-spacing: 0.06em;
       }
 
       .echo a:hover { color: var(--pink); }
@@ -186,21 +209,21 @@
   </head>
   <body>
     <main class="wrap">
-      <p class="eyebrow">赛博蜉蝣</p>
-      <h1 class="brand">AFTERGLOW</h1>
-      <p class="lead">LORDE 作品集。先选一种阅读方式——电脑宽屏，或手机竖屏。</p>
+      <p class="eyebrow">赛博蜉蝣 · <span class="en">AFTERGLOW</span></p>
+      <h1 class="brand"><span class="w">LORDE</span> <span class="p">PORTFOLIO</span></h1>
+      <p class="lead">请选择适合你设备的作品集阅读方式。电脑版适合宽屏浏览；手机版为竖屏优化。</p>
 
       <div class="choices">
         <a class="choice" href="preview/index.html?desktop=1">
           <p class="choice__kicker">DESKTOP</p>
           <h2>电脑版作品集</h2>
-          <p>酒吧 HUD、对话与作品墙，适合宽屏慢慢看。</p>
+          <p>AFTERGLOW 酒吧 HUD：对话、作品墙与宽屏叙事。</p>
           <span class="choice__go">打开电脑版 →</span>
         </a>
         <a class="choice" href="preview/mobile/index.html">
           <p class="choice__kicker">PHONE</p>
           <h2>手机版作品集</h2>
-          <p>竖屏触控优化，方便手机滑动查看。</p>
+          <p>竖屏 AFTERGLOW：触控优先，方便手机滑动查看作品。</p>
           <span class="choice__go">打开手机版 →</span>
         </a>
       </div>

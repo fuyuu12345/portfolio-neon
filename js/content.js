@@ -7,7 +7,7 @@
  * 默认密码请尽快改掉（只有你知道即可）。
  */
 window.SITE = {
-  draftVersion: "2026-09-04-echo-yesido",
+  draftVersion: "2026-09-04-echo-shenicest",
 
   /**
    * 编辑模式密码 — 公开仓库请留空，在 js/content.local.js 写真实密码（已 gitignore）。
@@ -369,8 +369,8 @@ window.SITE = {
         cover: "assets/cases/echo-yesido-cover.png",
         title: { zh: "ECHO · yes, I DO.", en: "ECHO · yes, I DO." },
         summary: {
-          zh: "黑客松：女性身体认知 AI × 可穿戴。可选网页版或手机版案例。",
-          en: "Hackathon: AI × wearable for body awareness. Web or mobile case study.",
+          zh: "2026 北京 Shenicest 黑客松 · 萨福命题赛道作品。软件 + 硬件（专利申请中）。期待合作 / 建联。",
+          en: "2026 Beijing Shenicest Hackathon · Sappho track. Software + hardware (patent pending). Open to collab.",
         },
         link: "products/echo-yesido/index.html",
         links: [
@@ -383,7 +383,7 @@ window.SITE = {
             href: "products/echo-yesido/mobile/index.html",
           },
         ],
-        tags: ["黑客松", "可穿戴", "AI", "Demo"],
+        tags: ["Shenicest", "黑客松", "萨福", "软硬件", "专利中"],
       },
       {
         cover: "assets/cases/family-light-cover.png",

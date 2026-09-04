@@ -2,105 +2,163 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="刘骅慧 / Lorde — 海外增长 · 用户增长 · 产品运营 · 内容运营 · 整合营销"
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#05050a" />
+    <title>AFTERGLOW · 选择版本</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
     />
-    <title>AFTER HOURS · 刘骅慧 / Lorde</title>
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="css/editor.css" />
+    <style>
+      :root {
+        --bg: #05050a;
+        --ink: #f3e9ff;
+        --mute: #9a8fb0;
+        --pink: #ff4b96;
+        --cyan: #00f0ff;
+        --line: rgba(255, 75, 150, 0.28);
+        --mono: "IBM Plex Mono", ui-monospace, monospace;
+        --sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        font-family: var(--sans);
+        color: var(--ink);
+        background:
+          radial-gradient(ellipse 90% 60% at 10% 0%, rgba(255, 75, 150, 0.18), transparent 55%),
+          radial-gradient(ellipse 70% 50% at 100% 100%, rgba(0, 240, 255, 0.12), transparent 50%),
+          var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 20px;
+      }
+      .wrap { width: min(860px, 100%); }
+      .eyebrow {
+        margin: 0 0 12px;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--cyan);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 7vw, 3.2rem);
+        letter-spacing: 0.02em;
+        line-height: 1.15;
+      }
+      h1 span { color: var(--pink); }
+      .lead {
+        margin: 14px 0 28px;
+        max-width: 36em;
+        color: var(--mute);
+        font-size: 0.98rem;
+        line-height: 1.55;
+      }
+      .choices {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      @media (max-width: 640px) {
+        .choices { grid-template-columns: 1fr; }
+      }
+      .choice {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+        min-height: 168px;
+        padding: 22px 20px;
+        border: 1px solid var(--line);
+        background: rgba(12, 8, 20, 0.85);
+        transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      }
+      .choice:hover {
+        border-color: var(--pink);
+        transform: translateY(-2px);
+        box-shadow: 0 0 28px rgba(255, 75, 150, 0.18);
+      }
+      .choice__tag {
+        font-family: var(--mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--cyan);
+      }
+      .choice h2 {
+        margin: 10px 0 8px;
+        font-size: 1.4rem;
+      }
+      .choice p {
+        margin: 0;
+        flex: 1;
+        color: var(--mute);
+        font-size: 0.9rem;
+        line-height: 1.45;
+      }
+      .choice__go {
+        margin-top: 18px;
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--pink);
+      }
+      .more {
+        margin-top: 28px;
+        padding-top: 18px;
+        border-top: 1px dashed var(--line);
+      }
+      .more h3 {
+        margin: 0 0 10px;
+        font-size: 0.95rem;
+      }
+      .more a {
+        color: var(--cyan);
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+      .more a:hover { color: var(--pink); }
+      .hint {
+        margin-top: 18px;
+        font-family: var(--mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.06em;
+        color: var(--mute);
+      }
+    </style>
   </head>
   <body>
-    <div class="noise" aria-hidden="true"></div>
-    <div class="crt-vignette" aria-hidden="true"></div>
-    <div class="crt-overlay" aria-hidden="true"></div>
-
-    <div class="boot-screen" id="bootScreen">
-      <div class="boot-inner">
-        <div class="boot-title" id="bootTitle">AFTER HOURS</div>
-        <p class="boot-sub" id="bootSub">点击进入酒吧 · 氛围音将开启（可随时静音）</p>
-        <button type="button" class="boot-enter" id="bootEnter">推门进入</button>
+    <div class="wrap">
+      <p class="eyebrow">赛博蜉蝣 · AFTERGLOW</p>
+      <h1>LORDE <span>PORTFOLIO</span></h1>
+      <p class="lead">请选择适合你设备的作品集阅读方式。电脑版适合宽屏浏览；手机版为竖屏优化。</p>
+      <div class="choices">
+        <a class="choice" href="preview/index.html?desktop=1">
+          <span class="choice__tag">Desktop</span>
+          <h2>电脑版作品集</h2>
+          <p>AFTERGLOW 酒吧 HUD：对话、作品墙与宽屏叙事。</p>
+          <span class="choice__go">打开电脑版 →</span>
+        </a>
+        <a class="choice" href="preview/mobile/index.html">
+          <span class="choice__tag">Phone</span>
+          <h2>手机版作品集</h2>
+          <p>竖屏 AFTERGLOW：触控优先，方便手机滑动查看作品。</p>
+          <span class="choice__go">打开手机版 →</span>
+        </a>
       </div>
+      <div class="more">
+        <h3>产品案 · ECHO</h3>
+        <p style="margin:0 0 8px;color:var(--mute);font-size:0.9rem;line-height:1.5">
+          2026 北京 Shenicest 黑客松 · 萨福命题赛道 · 软件 + 硬件（专利申请中）
+        </p>
+        <a href="products/echo-yesido/">进入 ECHO（可选网页版 / 手机版）→</a>
+      </div>
+      <p class="hint">share · github.io/portfolio-neon/</p>
     </div>
-
-    <div class="app">
-      <header class="topbar">
-        <div class="brand">
-          <span class="brand-mark" aria-hidden="true"></span>
-          <span class="brand-text" id="brandText">AFTER HOURS</span>
-          <span class="status-pill" id="statusPill">OPEN · 上海</span>
-        </div>
-        <div class="top-actions">
-          <button type="button" class="chip-btn chip-music" id="musicBtn" title="切换 BGM">♪ BGM</button>
-          <button type="button" class="chip-btn" id="muteBtn" aria-pressed="false">静音</button>
-          <button type="button" class="chip-btn" id="langBtn">EN</button>
-        </div>
-      </header>
-
-      <main class="stage">
-        <section class="panel scene" aria-label="Character">
-          <div class="panel-header">
-            <span class="panel-title">NPC · LORDE</span>
-          </div>
-          <div class="scene-body">
-            <!-- VA-11 style portrait viewport: character + bar BG -->
-            <!-- 原立绘 + 同构图眨眼/张嘴帧 + 发丝裁切层 -->
-            <div class="portrait-stage" id="portraitStage">
-              <div class="portrait-stack" id="portraitStack">
-                <img class="portrait-art is-active" data-frame="idle" src="assets/art/lorde-va11-bust.png?v=mvp5" alt="" width="640" height="640" decoding="async" />
-                <img class="portrait-art" data-frame="blink" src="assets/art/lorde-eye-closed.png?v=mvp33" alt="" width="640" height="640" decoding="async" aria-hidden="true" />
-                <img class="portrait-art" data-frame="speak" src="assets/art/lorde-mouth-open.png?v=mvp5" alt="" width="640" height="640" decoding="async" aria-hidden="true" />
-                <img class="portrait-art" data-frame="both" src="assets/art/lorde-blink-speak.png?v=mvp33" alt="" width="640" height="640" decoding="async" aria-hidden="true" />
-              </div>
-              <div class="portrait-neon portrait-neon-a" aria-hidden="true"></div>
-              <div class="portrait-neon portrait-neon-b" aria-hidden="true"></div>
-              <div class="portrait-neon portrait-neon-c" aria-hidden="true"></div>
-              <div class="portrait-scan" aria-hidden="true"></div>
-            </div>
-
-            <div class="hero-identity">
-              <h1 class="hero-name" id="heroName">刘骅慧 / Lorde</h1>
-              <p class="hero-intent" id="heroIntent">海外增长 · 用户增长 · 产品运营 · 内容运营 · 整合营销</p>
-              <p class="hero-tagline" id="heroTagline">把增长目标拆解成可执行路径的候选人</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="workspace">
-          <div class="panel menu-panel">
-            <div class="panel-header">
-              <span class="panel-title" id="menuTitle">MENU · 点单</span>
-            </div>
-            <div class="panel-body">
-              <div class="drink-grid" id="drinkGrid"></div>
-            </div>
-          </div>
-
-          <div class="panel content-panel">
-            <div class="panel-header">
-              <span class="panel-title" id="contentTitle">DISPLAY · 展示</span>
-            </div>
-            <div class="content-scroll" id="contentBody">
-              <div class="panel-empty">从菜单点一杯，听听她的故事。</div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <aside class="dialogue" id="dialogue" aria-live="polite">
-        <div class="dialogue-name" id="dialogueName">刘骅慧</div>
-        <div class="dialogue-text">
-          <span id="dialogueText"></span><span class="dialogue-cursor" id="dialogueCursor" hidden></span>
-        </div>
-        <div class="dialogue-hint" id="dialogueHint">点击「推门进入」开始</div>
-      </aside>
-    </div>
-
-    <!-- BGM 由 js/app.js 动态加载，曲目见 js/content.js → music.tracks -->
-    <script src="js/content.js"></script>
-    <script src="js/content.local.js" onerror="void 0"></script>
-    <script src="js/editor.js"></script>
-    <script src="js/app.js"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -12,7 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="mobile.css?v=18" />
+    <link rel="stylesheet" href="mobile.css?v=20" />
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
@@ -89,7 +89,7 @@
       <section class="panel" id="panelNow">
         <div class="panel__head">
           <h2>NOW PLAYING</h2>
-          <p>进店后自动播 · 可切歌</p>
+          <p id="nowHint">进店后自动播 · 可切歌</p>
         </div>
         <div class="now">
           <div>
@@ -102,8 +102,8 @@
 
       <section class="panel" id="panelDrinks">
         <div class="panel__head">
-          <h2>今日特调</h2>
-          <p>点一杯，和 Lorde 聊两句</p>
+          <h2 id="specialsTitle">今日特调</h2>
+          <p id="specialsHint">点一杯，和 Lorde 聊两句</p>
         </div>
         <div class="drinks" id="drinks"></div>
       </section>
@@ -111,7 +111,7 @@
       <section class="panel panel--cyan">
         <div class="panel__head">
           <h2>FEATURED</h2>
-          <p>精选作品</p>
+          <p id="featuredHint">精选作品</p>
         </div>
         <article class="feat">
           <div class="feat__cover" id="featCover"></div>
@@ -146,8 +146,8 @@
       </div>
     </div>
 
-    <script src="../../js/content.js?v=18"></script>
-    <script src="stories.js?v=18"></script>
-    <script src="mobile.js?v=18"></script>
+    <script src="../../js/content.js?v=20"></script>
+    <script src="stories.js?v=19"></script>
+    <script src="mobile.js?v=20"></script>
   </body>
 </html>

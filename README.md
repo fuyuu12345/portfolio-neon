@@ -6,8 +6,10 @@
 
 | 入口 | 路径 |
 |------|------|
-| 作品集预览站（推荐） | [`preview/index.html`](preview/index.html) |
-| 主站 | [`index.html`](index.html) |
+| **版本选择（推荐分享）** | [`index.html`](index.html) |
+| 电脑版作品集 | [`preview/index.html`](preview/index.html) |
+| 手机版作品集 | [`preview/mobile/index.html`](preview/mobile/index.html) |
+| ECHO 选择页 | [`products/echo-yesido/`](products/echo-yesido/) |
 | Oura 营销案 | [`cases/oura-ring/index.html`](cases/oura-ring/index.html) |
 | 家灯小程序 Demo | [`products/family-light-social/miniprogram/preview.html`](products/family-light-social/miniprogram/preview.html) |
 | 女性主义问卷 Demo | [`products/feminist-survey/index.html`](products/feminist-survey/index.html) |

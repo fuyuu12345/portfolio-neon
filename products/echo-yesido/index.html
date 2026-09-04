@@ -39,9 +39,7 @@
         justify-content: center;
         padding: 32px 20px;
       }
-      .wrap {
-        width: min(860px, 100%);
-      }
+      .wrap { width: min(860px, 100%); }
       .eyebrow {
         margin: 0 0 12px;
         font-family: var(--mono);
@@ -64,11 +62,30 @@
         color: var(--coral);
         letter-spacing: 0.02em;
       }
-      .lead {
-        margin: 16px 0 28px;
-        max-width: 36em;
+      .badge {
+        display: inline-block;
+        margin: 14px 0 0;
+        padding: 6px 10px;
+        border: 1px solid var(--line);
+        background: var(--white);
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.04em;
         color: var(--muted);
-        font-size: 0.98rem;
+      }
+      .lead {
+        margin: 16px 0 10px;
+        max-width: 40em;
+        color: var(--ink);
+        font-size: 1.02rem;
+        font-weight: 650;
+        line-height: 1.5;
+      }
+      .sub {
+        margin: 0 0 28px;
+        max-width: 40em;
+        color: var(--muted);
+        font-size: 0.95rem;
         line-height: 1.55;
       }
       .choices {
@@ -87,7 +104,7 @@
         background: var(--white);
         border: 1px solid var(--line);
         padding: 22px 20px 20px;
-        min-height: 180px;
+        min-height: 168px;
         transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
       }
       .choice:hover {
@@ -120,22 +137,33 @@
       }
       .choice--web .choice__go { color: var(--ink); }
       .choice--mobile .choice__go { color: var(--coral); }
-      .hint {
+      .cta {
         margin-top: 22px;
-        font-family: var(--mono);
-        font-size: 0.62rem;
-        letter-spacing: 0.06em;
-        color: var(--muted);
+        padding: 16px 18px;
+        background: var(--ink);
+        color: var(--white);
       }
+      .cta strong { display: block; margin-bottom: 4px; }
+      .cta span { color: rgba(255, 253, 249, 0.72); font-size: 0.9rem; }
+      .back {
+        display: inline-block;
+        margin-top: 20px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        text-decoration: none;
+      }
+      .back:hover { color: var(--coral); }
     </style>
   </head>
   <body>
     <div class="wrap">
-      <p class="eyebrow">Shenicest Fission Hackathon · 2026</p>
+      <p class="eyebrow">Shenicest Fission Hackathon · Beijing 2026</p>
       <h1>ECHO <span>yes, I DO.</span></h1>
+      <p class="badge">萨福命题赛道 · 软件 + 硬件 · 专利申请中</p>
       <p class="lead">
-        面向女性身体认知的 AI × 可穿戴互动系统。请选择适合你设备的案例阅读方式。
+        2026 北京 Shenicest 黑客松 · 萨福命题赛道作品。面向女性身体认知的 AI × 可穿戴互动系统。
       </p>
+      <p class="sub">请选择案例阅读方式。期待合作 / 建联。</p>
       <div class="choices">
         <a class="choice choice--web" href="web/index.html">
           <span class="choice__tag">Desktop</span>
@@ -150,15 +178,11 @@
           <span class="choice__go">进入手机版 →</span>
         </a>
       </div>
-      <p class="hint">ECHO · 部署到你的腾讯云 COS 后即可公网分享</p>
+      <div class="cta">
+        <strong>期待合作 / 建联</strong>
+        <span>软件 + 硬件闭环已可演示 · 专利申请中</span>
+      </div>
+      <a class="back" href="../../index.html">← 返回作品集入口</a>
     </div>
-    <script>
-      (function () {
-        var q = new URLSearchParams(location.search);
-        if (q.get("v") === "web") location.replace("web/index.html");
-        if (q.get("v") === "mobile") location.replace("mobile/index.html");
-        // 可选：小屏默认提示更偏手机，但不自动跳转，尊重选择页
-      })();
-    </script>
   </body>
 </html>

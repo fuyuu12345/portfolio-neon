@@ -898,11 +898,15 @@
         } else if (item.link) {
           link = `<a class="work-link" href="${asset(item.link)}" target="_blank" rel="noopener">${t(ctaLabel)}</a>`;
         }
+        const tags = Array.isArray(item.tags) && item.tags.length
+          ? `<div class="work-tags">${item.tags.map((x) => `<span>${x}</span>`).join("")}</div>`
+          : "";
         return `<article class="work-card">
           <div class="work-cover">${cover}</div>
           <div>
             <div class="work-title">${t(item.title)}</div>
             <p class="work-sum">${t(item.summary)}</p>
+            ${tags}
             ${link}
           </div>
         </article>`;

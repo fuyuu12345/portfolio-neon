@@ -841,6 +841,22 @@ img {
   margin-top: 4px;
 }
 
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 4px;
+}
+
+.card__tags span {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--cyan);
+  border: 1px dashed rgba(0, 240, 255, 0.35);
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
 .cta-row {
   display: flex;
   flex-direction: column;

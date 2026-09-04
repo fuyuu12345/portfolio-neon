@@ -523,7 +523,10 @@
             ? `<a href="${href}" target="_blank" rel="noopener">${t(UI.view)}</a>`
             : `<span style="color:var(--mute)">${t(UI.coming)}</span>`;
         }
-        return `<div class="card"><h3>${zh(it.title)}</h3><p>${zh(it.summary)}</p>${link}</div>`;
+        const tags = Array.isArray(it.tags) && it.tags.length
+          ? `<div class="card__tags">${it.tags.map((x) => `<span>${x}</span>`).join("")}</div>`
+          : "";
+        return `<div class="card"><h3>${zh(it.title)}</h3><p>${zh(it.summary)}</p>${tags}${link}</div>`;
       })
       .join("");
   }

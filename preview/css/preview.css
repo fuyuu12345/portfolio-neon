@@ -978,6 +978,23 @@ body.is-paused .now__eq i {
   margin-top: 0;
 }
 
+.modal__body .work-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.modal__body .work-tags span {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--cyan);
+  border: 1px dashed rgba(0, 240, 255, 0.35);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
 .modal__body .contact-modal__cta {
   display: flex;
   gap: 8px;

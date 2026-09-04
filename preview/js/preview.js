@@ -61,7 +61,7 @@
     specials: { zh: "今日特调", en: "TODAY'S SPECIALS" },
     specialsHint: { zh: "点一杯，和 Lorde 聊两句", en: "Order a drink — talk with Lorde" },
     featured: { zh: "精选作品", en: "FEATURED WORK" },
-    findMe: { zh: "找到我", en: "FIND ME ELSEWHERE" },
+    findMe: { zh: "找到我", en: "FIND ME" },
     navLabel: { zh: "导航", en: "NAV" },
     next: { zh: "下一首", en: "NEXT" },
     mute: { zh: "静音", en: "MUTE" },
@@ -595,7 +595,7 @@
     setText("#specialsTitle", t(UI.specials));
     setText("#specialsHint", t(UI.specialsHint));
     setText(".feature .pane__h", t(UI.featured));
-    setText(".foot__h", t(UI.findMe));
+    setText("#findMeTitle", t(UI.findMe));
     setText("#navLabel", t(UI.navLabel));
     setText("#featureOpen", t(UI.openWork));
     setText("#storyBack", t(UI.storyBack));
@@ -1080,8 +1080,6 @@
       state.section = "work";
     }
     buildNav();
-    $("#contentTitle").textContent = t(NAV.find((n) => n.id === state.section)?.label) || "";
-    $("#contentBody").innerHTML = sectionHtml(state.section);
     const reopen = $("#reopenModal");
     if (reopen) {
       reopen.addEventListener("click", () => {
@@ -1120,16 +1118,12 @@
     }
 
     closeModal();
-    // 关于 / 技能：合并一次展示，结束后保留「点一杯」
+    // 关于：对话里一次展示关于+技能，侧栏改为「找到我」不再写文案面板
     if (id === "about" || id === "skills") {
-      $("#contentTitle").textContent = state.lang === "en" ? "ABOUT · SKILLS" : "关于我 · 技能";
-      $("#contentBody").innerHTML = aboutSkillsHtml();
       if (!opts.silent) showAboutSkillsDialogue();
       return;
     }
 
-    $("#contentTitle").textContent = t(navItem.label);
-    $("#contentBody").innerHTML = sectionHtml(id);
     if (!opts.silent) {
       playDialogue(SITE.narration?.drinks?.[id] || SITE.narration?.boot);
     }

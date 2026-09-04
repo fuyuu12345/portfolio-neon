@@ -1313,12 +1313,20 @@ body.is-paused .now__eq i {
   color: var(--cyan);
 }
 
+.find-me {
+  padding: 12px 10px 14px;
+}
+
+.find-me .foot__links {
+  margin: 0;
+}
+
 /* FOOT */
 .row-foot {
   grid-area: foot;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 10px;
   align-items: end;
   padding-top: 2px;

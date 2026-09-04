@@ -35,7 +35,6 @@
   const NAV = [
     { id: "about", mode: "panel", label: { zh: "关于我", en: "ABOUT" }, short: { zh: "关于", en: "ABOUT" }, svg: ICO.about },
     { id: "work", mode: "modal", label: { zh: "作品", en: "WORK" }, short: { zh: "作品", en: "WORK" }, svg: ICO.work },
-    { id: "skills", mode: "panel", label: { zh: "技能", en: "SKILLS" }, short: { zh: "技能", en: "SKILLS" }, svg: ICO.skills },
     { id: "experience", mode: "modal", label: { zh: "经历", en: "PROCESS" }, short: { zh: "经历", en: "PROCESS" }, svg: ICO.experience },
     { id: "contact", mode: "modal", label: { zh: "联系", en: "CONTACT" }, short: { zh: "联系", en: "CONTACT" }, svg: ICO.contact },
   ];
@@ -649,13 +648,44 @@
       .join("");
   }
 
-  function sectionHtml(id) {
-    if (id === "about") {
-      return (SITE.about?.[state.lang] || []).map((p) => `<p>${p}</p>`).join("");
+  function aboutSkillsText() {
+    const about = SITE.about?.[state.lang] || SITE.about?.zh || [];
+    const skills = SITE.skills?.[state.lang] || SITE.skills?.zh || [];
+    if (state.lang === "en") {
+      return `About me\n${about.join(" ")}\n\nSkills\n${skills.join(" · ")}`;
     }
-    if (id === "skills") {
-      const tags = SITE.skills?.[state.lang] || SITE.skills?.zh || [];
-      return `<div class="tags">${tags.map((x) => `<span class="tag-pill">${x}</span>`).join("")}</div>`;
+    return `关于我\n${about.join("")}\n\n技能\n${skills.join(" · ")}`;
+  }
+
+  function aboutSkillsHtml() {
+    const about = SITE.about?.[state.lang] || SITE.about?.zh || [];
+    const skills = SITE.skills?.[state.lang] || SITE.skills?.zh || [];
+    const aboutBlock = about.map((p) => `<p>${p}</p>`).join("");
+    const skillBlock = `<div class="tags">${skills.map((x) => `<span class="tag-pill">${x}</span>`).join("")}</div>`;
+    const hAbout = state.lang === "en" ? "About" : "关于我";
+    const hSkills = state.lang === "en" ? "Skills" : "技能";
+    return `<p><strong>${hAbout}</strong></p>${aboutBlock}<p><strong>${hSkills}</strong></p>${skillBlock}`;
+  }
+
+  function showAboutSkillsDialogue() {
+    hideChoices();
+    setStoryBar(false);
+    state.storyId = null;
+    state.storyNode = null;
+    state.storyHistory = [];
+    setChatIdle(false);
+    clearTyping();
+    state.dialogueLines = [aboutSkillsText()];
+    state.dialogueIdx = 0;
+    typeLine(aboutSkillsText(), () => {
+      setChatIdle(true);
+      showChoices(idleOrderChoices());
+    });
+  }
+
+  function sectionHtml(id) {
+    if (id === "about" || id === "skills") {
+      return aboutSkillsHtml();
     }
     if (id === "contact") {
       return `<p>${t(UI.panelHintLong)}</p>
@@ -1065,21 +1095,6 @@
     $("#modal").hidden = true;
   }
 
-  function sectionDialogue(id) {
-    if (id === "about") {
-      const intro = SITE.narration?.drinks?.about?.[state.lang] || SITE.narration?.drinks?.about?.zh || [];
-      const body = SITE.about?.[state.lang] || SITE.about?.zh || [];
-      return [...intro, ...body];
-    }
-    if (id === "skills") {
-      const intro = SITE.narration?.drinks?.skills?.[state.lang] || SITE.narration?.drinks?.skills?.zh || [];
-      const tags = SITE.skills?.[state.lang] || SITE.skills?.zh || [];
-      // One skill per tap so the dialogue feels readable
-      return [...intro, ...tags];
-    }
-    return SITE.narration?.drinks?.[id] || SITE.narration?.boot;
-  }
-
   function setSection(id, opts = {}) {
     const navItem = NAV.find((n) => n.id === id);
     if (!navItem) return;
@@ -1105,10 +1120,18 @@
     }
 
     closeModal();
+    // 关于 / 技能：合并一次展示，结束后保留「点一杯」
+    if (id === "about" || id === "skills") {
+      $("#contentTitle").textContent = state.lang === "en" ? "ABOUT · SKILLS" : "关于我 · 技能";
+      $("#contentBody").innerHTML = aboutSkillsHtml();
+      if (!opts.silent) showAboutSkillsDialogue();
+      return;
+    }
+
     $("#contentTitle").textContent = t(navItem.label);
     $("#contentBody").innerHTML = sectionHtml(id);
     if (!opts.silent) {
-      playDialogue(sectionDialogue(id));
+      playDialogue(SITE.narration?.drinks?.[id] || SITE.narration?.boot);
     }
   }
 

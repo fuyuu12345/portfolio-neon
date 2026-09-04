@@ -1063,6 +1063,7 @@ body.is-paused .now__eq i {
   padding-right: 18px;
   font-size: 13px;
   color: var(--text);
+  white-space: pre-line;
 }
 
 .dialogue__arrow.is-done {

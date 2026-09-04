@@ -468,6 +468,7 @@ img {
   font-size: 14px;
   color: var(--text);
   line-height: 1.55;
+  white-space: pre-line;
 }
 
 .talk__cue {
@@ -513,8 +514,8 @@ img {
 /* Bottom nav — always tappable */
 .dock {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 4px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
   position: sticky;
   bottom: calc(8px + var(--safe-b));
   z-index: 30;
@@ -529,11 +530,10 @@ img {
   min-height: var(--hit);
   border-radius: 8px;
   font-family: var(--pixel);
-  font-size: 9px;
+  font-size: 10px;
   color: var(--pink);
-  letter-spacing: 0.01em;
-  line-height: 1.3;
-  padding: 0 2px;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
 }
 
 .dock__btn.is-on {

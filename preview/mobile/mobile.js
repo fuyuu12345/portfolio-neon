@@ -86,15 +86,13 @@
     storyBack: { zh: "返回", en: "Back" },
     dockTalk: { zh: "点单", en: "Order" },
     dockAbout: { zh: "关于", en: "About" },
-    dockSkills: { zh: "技能", en: "Skills" },
     dockWork: { zh: "作品", en: "Works" },
     dockExp: { zh: "经历", en: "Exp" },
     dockContact: { zh: "联系", en: "Contact" },
     sheetWork: { zh: "作品", en: "Works" },
     sheetExp: { zh: "经历", en: "Experience" },
     sheetContact: { zh: "联系", en: "Contact" },
-    aboutIntro: { zh: "关于我——点对话框翻下一段。", en: "About me — tap to flip." },
-    skillsIntro: { zh: "技能清单——点对话框翻看。", en: "Skills — tap to flip." },
+    aboutSkillsLabel: { zh: "关于我 · 技能", en: "About · Skills" },
     empty: { zh: "暂无", en: "Empty" },
     coming: { zh: "制作中", en: "Coming soon" },
     view: { zh: "查看 →", en: "Open →" },
@@ -148,7 +146,6 @@
     set("#featuredHint", t(UI.featuredHint));
     set("#featOpen", t(UI.openWork));
     set('[data-nav="about"]', t(UI.dockAbout));
-    set('[data-nav="skills"]', t(UI.dockSkills));
     set('[data-nav="work"]', t(UI.dockWork));
     set('[data-nav="exp"]', t(UI.dockExp));
     set('[data-nav="contact"]', t(UI.dockContact));
@@ -173,8 +170,8 @@
       if (keepList && !STORIES[state.storyId]?.nodes?.[state.storyNode]?.choices) {
         // menu/end choices rebuilt inside renderStoryNode
       }
-    } else if (state.panelKind) {
-      playPanelLines(state.panelKind);
+    } else if (state.panelKind === "about") {
+      playAboutSkills();
     } else if (state.chatIdle && !state.chatFolded) {
       typeLine(t(UI.idleHint), () => showChoices(idleOrderChoices()));
     }
@@ -531,10 +528,6 @@
 
   function advanceDialogue() {
     if (skipTyping()) return;
-    if (state.panelLines?.length && state.panelIdx < state.panelLines.length - 1) {
-      state.panelIdx += 1;
-      typeLine(state.panelLines[state.panelIdx]);
-    }
   }
 
   function clearPanelLines() {
@@ -543,34 +536,31 @@
     state.panelKind = null;
   }
 
-  function sectionDialogueLines(id) {
-    if (id === "about") {
-      const body = SITE.about?.[state.lang] || SITE.about?.zh || [];
-      return [t(UI.aboutIntro), ...body];
+  function aboutSkillsText() {
+    const about = SITE.about?.[state.lang] || SITE.about?.zh || [];
+    const skills = SITE.skills?.[state.lang] || SITE.skills?.zh || [];
+    if (state.lang === "en") {
+      return `About me\n${about.join(" ")}\n\nSkills\n${skills.join(" · ")}`;
     }
-    if (id === "skills") {
-      const tags = SITE.skills?.[state.lang] || SITE.skills?.zh || [];
-      return [t(UI.skillsIntro), ...tags];
-    }
-    return [];
+    return `关于我\n${about.join("")}\n\n技能\n${skills.join(" · ")}`;
   }
 
-  function playPanelLines(id) {
+  function playAboutSkills() {
     closeSheet();
     clearPanelLines();
-    setChatIdle(false);
     setStoryBar(false);
     hideChoices();
     state.storyId = null;
     state.storyNode = null;
     state.storyHistory = [];
-    state.panelKind = id;
+    state.panelKind = "about";
+    setChatIdle(false);
     $$(".drink").forEach((el) => el.classList.remove("is-on"));
-    $$(".dock__btn").forEach((b) => b.classList.toggle("is-on", b.dataset.nav === id));
-    const lines = sectionDialogueLines(id);
-    state.panelLines = lines;
-    state.panelIdx = 0;
-    typeLine(lines[0] || "");
+    $$(".dock__btn").forEach((b) => b.classList.toggle("is-on", b.dataset.nav === "about"));
+    typeLine(aboutSkillsText(), () => {
+      setChatIdle(true);
+      showChoices(idleOrderChoices());
+    });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -698,8 +688,8 @@
   }
 
   function setDock(nav) {
-    if (nav === "about" || nav === "skills") {
-      playPanelLines(nav);
+    if (nav === "about") {
+      playAboutSkills();
       return;
     }
     openSheet(nav);

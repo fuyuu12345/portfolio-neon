@@ -7,7 +7,7 @@
  * 默认密码请尽快改掉（只有你知道即可）。
  */
 window.SITE = {
-  draftVersion: "2026-09-04-echo-wearable-tag",
+  draftVersion: "2026-09-04-echo-sappho-social",
 
   /**
    * 编辑模式密码 — 公开仓库请留空，在 js/content.local.js 写真实密码（已 gitignore）。
@@ -369,8 +369,8 @@ window.SITE = {
         cover: "assets/cases/echo-yesido-cover.png",
         title: { zh: "ECHO · yes, I DO.", en: "ECHO · yes, I DO." },
         summary: {
-          zh: "2026 北京 Shenicest 黑客松 · 萨福命题赛道作品。软件 + 硬件（已进入专利申请流程）。期待合作 / 建联。",
-          en: "2026 Beijing Shenicest Hackathon · Sappho track. Software + hardware (patent filing in progress). Open to collab.",
+          zh: "2026 北京 Shenicest · 萨福命题赛道。软硬件可演示闭环（已进入专利申请流程）。萨福社媒发布产品内容多次；已与品牌产品侧建联。开放合作 / 建联。",
+          en: "2026 Beijing Shenicest · Sappho track. Working software + hardware loop (patent filing in progress). Sappho social featured the product multiple times; engaged with brand PM. Open to collab.",
         },
         link: "products/echo-yesido/index.html",
         links: [

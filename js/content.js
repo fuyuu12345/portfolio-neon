@@ -7,7 +7,7 @@
  * 默认密码请尽快改掉（只有你知道即可）。
  */
 window.SITE = {
-  draftVersion: "2026-09-04-about-skills-dialogue",
+  draftVersion: "2026-09-08-dual-resume",
 
   /**
    * 编辑模式密码 — 公开仓库请留空，在 js/content.local.js 写真实密码（已 gitignore）。
@@ -32,7 +32,9 @@ window.SITE = {
     xhs: "https://xhslink.com/m/2imyOQhJjm4",
     xhsName: { zh: "赛博蜉蝣", en: "Cyber Ephemera" },
   },
-  resumePath: "assets/resume.pdf",
+  resumePath: "assets/resume-zh.pdf",
+  resumePathZh: "assets/resume-zh.pdf",
+  resumePathEn: "assets/resume-en.pdf",
 
   /** 布局微调（也可在编辑台用滑条改） */
   layout: {
@@ -81,6 +83,8 @@ window.SITE = {
     musicNext: { zh: "下一首", en: "Next track" },
     langSwitch: { zh: "EN", en: "中文" },
     downloadCv: { zh: "下载简历", en: "Download CV" },
+    downloadCvZh: { zh: "中文简历", en: "CV (中文)" },
+    downloadCvEn: { zh: "英文简历", en: "CV (EN)" },
     addWechat: { zh: "加微信", en: "WeChat" },
     viewCase: { zh: "查看策划案 →", en: "Open case →" },
     viewWork: { zh: "查看作品 →", en: "View work →" },

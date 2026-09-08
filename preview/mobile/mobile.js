@@ -98,6 +98,8 @@
     view: { zh: "查看 →", en: "Open →" },
     expFallback: { zh: "经历示意", en: "Experience placeholder" },
     downloadCv: { zh: "下载简历", en: "Download CV" },
+    downloadCvZh: { zh: "中文简历", en: "CV (中文)" },
+    downloadCvEn: { zh: "英文简历", en: "CV (EN)" },
     copyWx: { zh: "复制微信", en: "Copy WeChat" },
     copied: { zh: "已复制", en: "Copied" },
     copyFail: { zh: "复制失败，请手动加", en: "Copy failed — add manually" },
@@ -660,10 +662,14 @@
     if (kind === "contact") {
       $("#sheetTitle").textContent = t(UI.sheetContact);
       const c = SITE.contact || {};
-      const cv = abs(SITE.resumePath || "assets/resume.pdf");
+      const zhCv = abs(SITE.resumePathZh || SITE.resumePath || "assets/resume-zh.pdf");
+      const enCv = abs(SITE.resumePathEn || "assets/resume-en.pdf");
       body.innerHTML = `
         <div class="cta-row">
-          <a class="cta cta--fill" href="${cv}" download>${t(UI.downloadCv)}</a>
+          <a class="cta cta--fill" href="${zhCv}" download="刘骅慧-简历.pdf">${t(UI.downloadCvZh)}</a>
+          <a class="cta cta--fill" href="${enCv}" download="Lorde-Resume.pdf">${t(UI.downloadCvEn)}</a>
+        </div>
+        <div class="cta-row" style="margin-top:8px">
           <button type="button" class="cta cta--ghost" id="copyWx">${t(UI.copyWx)} ${c.wechat || ""}</button>
         </div>
         <div class="card" style="margin-top:12px"><h3>${t(UI.email)}</h3><p>${c.email || ""}</p></div>`;

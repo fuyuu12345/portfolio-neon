@@ -608,6 +608,15 @@
     if (muteLabel) muteLabel.textContent = t(UI.mute);
     if (langLabel) langLabel.textContent = t(UI.lang);
     if (cvLabel) cvLabel.textContent = t(UI.cv);
+    syncCvLink();
+  }
+
+  function syncCvLink() {
+    const el = $("#funcCv");
+    if (!el) return;
+    el.href = asset(activeResumePath());
+    el.setAttribute("download", activeResumeFilename());
+    el.title = state.lang === "en" ? t(SITE.ui?.downloadCvEn) || "CV (EN)" : t(SITE.ui?.downloadCvZh) || "中文简历";
   }
 
   function renderIdentity() {
@@ -992,9 +1001,12 @@
 
   function contactModalHtml() {
     const c = SITE.contact || {};
+    const zhCv = asset(SITE.resumePathZh || SITE.resumePath || "assets/resume-zh.pdf");
+    const enCv = asset(SITE.resumePathEn || "assets/resume-en.pdf");
     return `<div class="contact-modal">
       <div class="contact-modal__cta">
-        <a class="btn btn--fill" id="downloadCvBtn" href="${asset(SITE.resumePath || "assets/resume.pdf")}" download>${t(SITE.ui?.downloadCv) || "下载简历"}</a>
+        <a class="btn btn--fill" id="downloadCvZh" href="${zhCv}" download="刘骅慧-简历.pdf">${t(SITE.ui?.downloadCvZh) || "中文简历"}</a>
+        <a class="btn btn--fill" id="downloadCvEn" href="${enCv}" download="Lorde-Resume.pdf">${t(SITE.ui?.downloadCvEn) || "英文简历"}</a>
         <button type="button" class="btn btn--ghost" id="copyWechatBtn">${t(SITE.ui?.addWechat) || "加微信"}</button>
       </div>
       <p>${t(UI.email)}：${c.email || ""}</p>
@@ -1005,18 +1017,19 @@
   }
 
   function bindContactActions() {
-    const dl = $("#downloadCvBtn");
     const wx = $("#copyWechatBtn");
-    if (dl) {
-      const label = () => t(SITE.ui?.downloadCv) || "下载简历";
+    ["#downloadCvZh", "#downloadCvEn"].forEach((sel) => {
+      const dl = $(sel);
+      if (!dl) return;
+      const label = dl.textContent;
       dl.addEventListener("click", () => {
         playClick();
         dl.textContent = t(UI.downloading);
         setTimeout(() => {
-          dl.textContent = label();
+          dl.textContent = label;
         }, 1600);
       });
-    }
+    });
     if (wx) {
       const label = () => t(SITE.ui?.addWechat) || "加微信";
       wx.addEventListener("click", async () => {
@@ -1027,13 +1040,23 @@
           toast(t(UI.copied));
         } catch {
           wx.textContent = t(UI.copiedBtn);
-          toast(SITE.contact?.wechat || "");
+          toast(t(UI.copyFail));
         }
         setTimeout(() => {
           wx.textContent = label();
         }, 1600);
       });
     }
+  }
+
+  function activeResumePath() {
+    return state.lang === "en"
+      ? SITE.resumePathEn || "assets/resume-en.pdf"
+      : SITE.resumePathZh || SITE.resumePath || "assets/resume-zh.pdf";
+  }
+
+  function activeResumeFilename() {
+    return state.lang === "en" ? "Lorde-Resume.pdf" : "刘骅慧-简历.pdf";
   }
 
   function reopenCurrentModal() {
@@ -1145,7 +1168,7 @@
     startStory("welcome");
     $("#footMail").href = `mailto:${SITE.contact?.email || ""}`;
     $("#footXhs").href = SITE.contact?.xhs || "#";
-    if ($("#funcCv")) $("#funcCv").href = asset(SITE.resumePath || "assets/resume.pdf");
+    if ($("#funcCv")) syncCvLink();
     await playTrack(state.musicIndex, true);
     renderChrome();
   }

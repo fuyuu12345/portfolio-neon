@@ -1026,12 +1026,14 @@ body.is-paused .now__eq i {
 
 .modal__body .contact-modal__cta {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin: 0 0 14px;
 }
 
 .modal__body .contact-modal__cta .btn {
-  flex: 1;
+  flex: 1 1 calc(50% - 4px);
+  min-width: 120px;
   text-align: center;
   text-decoration: none;
   border-radius: 8px;

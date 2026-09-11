@@ -1,0 +1,5 @@
+ECHO Share standalone
+base: products/echo-yesido (portfolio case)
+purpose: external share + future business-plan fork
+created: 2026-09-11
+no-portfolio-backlink: true

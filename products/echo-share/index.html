@@ -88,17 +88,19 @@
         font-size: 0.95rem;
         line-height: 1.55;
       }
+      /* 与产品案 web .hero__visual 一致：5/4 裁切 + cover */
       .hero-shot {
         margin: 0 0 22px;
-        border: 1px solid var(--line);
-        background: var(--white);
         overflow: hidden;
+        background: #1a1816;
+        aspect-ratio: 5 / 4;
       }
       .hero-shot img {
         display: block;
         width: 100%;
-        height: auto;
-        vertical-align: middle;
+        height: 100%;
+        object-fit: cover;
+        object-position: 52% 42%;
       }
       .choices {
         display: grid;
